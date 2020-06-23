@@ -1,7 +1,14 @@
 <template>
   <div>
     <ul>
-      <li v-for="item in navsArr" :key="item.id"></li>
+      <template v-for="item in navsArr" >
+        <li v-if="!item.isHref" :key="item.id">
+          <router-link :to="{name:item.to}" tag="a"  >{{item.name}}</router-link>
+        </li>
+        <li v-else :key="item.id">
+          <a :href="item.to">{{item.name}}</a>
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -43,7 +50,7 @@ export default {
         {
           id: 6,
           to: "https://github.com/qiheizhiya/",
-          name: "相册",
+          name: "github",
           isHref: true
         },
       ]
@@ -72,7 +79,7 @@ ul {
       position: relative;
       display: block;
       padding: 5px;
-      font-size: 1vw;
+      font-size: .6rem;
       color: #ffffff;
       text-decoration: none;
       text-transform: uppercase;
