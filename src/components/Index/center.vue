@@ -24,13 +24,13 @@
       <span class="status idle"></span>
       <span class="status offline"></span>
     </div>
-    <div class="navgation">
+    <div class="navgation flex align-center justify-center flex-wrap">
         <i v-for="(item, index) in navgation" @click="triggerPage(item.path)" :key="index" :class="item.icon">
             {{item.name}}
         </i>
     </div>
     <div class="talk-method flex align-center">
-      <i class="iconfont icon-weixin" style="font-size:1.4rem" ></i><span>：qwer880620</span> 
+      <i class="iconfont icon-weixin flex align-center" style="font-size:1.4rem" ><span >：qwer880620</span> </i>
       <i class="iconfont icon-QQ">：953136447
       </i>
     </div>
@@ -542,23 +542,24 @@ body {
   height: 100%; 
   .navgation {
     i {
-      margin: .3rem;
+      margin: .5rem;
     }
   }
   .navgation,
   .talk-method {
     margin: 2rem 0;
     white-space: nowrap;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: white;
     i {
       color: white;
-      font-size: 0.9rem;
+      font-size: 1rem;
       transition: all 0.6s;
       cursor: pointer;
     }
     span {
       margin-right: 10px;
+      font-size: 1rem;
     }
     i:hover {
       color: rgb(66, 245, 135);
