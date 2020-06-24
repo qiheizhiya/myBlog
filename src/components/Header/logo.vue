@@ -32,7 +32,7 @@ export default {
 }
 .text {
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 1.6rem;
   font-family: "montserrat";
   font-weight: 900;
   cursor: pointer;

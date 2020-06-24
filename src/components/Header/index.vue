@@ -25,8 +25,11 @@ export default {
   .header {
     width: 100%;
     height: 5vh;
-    background: linear-gradient(#333,#456);
+    background: linear-gradient(#575781,#414458);
     animation: change .6s ;
+    position: sticky;
+    top: 0;
+    z-index: 999;
   }
   @keyframes change {
     0% {

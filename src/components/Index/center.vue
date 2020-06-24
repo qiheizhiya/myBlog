@@ -30,7 +30,7 @@
         </i>
     </div>
     <div class="talk-method flex align-center">
-      <i class="iconfont icon-weixin flex align-center" style="font-size:1.4rem" ><span >：qwer880620</span> </i>
+      <i class="iconfont icon-weixin1 flex align-center"  ><span >：qwer880620</span> </i>
       <i class="iconfont icon-QQ">：953136447
       </i>
     </div>
@@ -110,14 +110,15 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
-  transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+  -webkit-transform: translate(-50%, -50%) rotate(60deg) scaleY(0);
+  transform: translate(-50%, -50%) rotate(60deg) scaleY(0);
   -webkit-transform-origin: center center;
   transform-origin: center center;
   width: 0.15rem;
   height: 145%;
   background: #fff;
   z-index: 4;
+  box-shadow: 0 0 10px #27ae60;
   -webkit-animation: slash 6s ease-in infinite;
   animation: slash 6s ease-in infinite;
 }
@@ -165,6 +166,7 @@ body {
   transform: translateX(-101%);
   -webkit-animation: side-top ease 6s infinite;
   animation: side-top ease 6s infinite;
+  box-shadow: 0 0 10px #ffd700;
 }
 .sides .side:nth-child(2) {
   top: 0;
@@ -175,6 +177,7 @@ body {
   transform: translateY(-101%);
   -webkit-animation: side-right ease 6s infinite;
   animation: side-right ease 6s infinite;
+  // linear-gradient(125deg,#2980b9,#633bd3,#8e44ad,#192f44,#27ae60);
 }
 .sides .side:nth-child(3) {
   left: 0;
@@ -232,46 +235,46 @@ body {
 }
 @-webkit-keyframes slash {
   0% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
   }
   6% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
   }
   13% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
   }
   16.6% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
   }
   100% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
   }
 }
 @keyframes slash {
   0% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
   }
   6% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
   }
   13% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(1);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(1);
   }
   16.6% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
   }
   100% {
-    -webkit-transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
-    transform: translate(-50%, -50%) rotate(-24deg) scaleY(0);
+    -webkit-transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
+    transform: translate(-50%, -50%) rotate(24deg) scaleY(0);
   }
 }
 @-webkit-keyframes text-left {
