@@ -124,8 +124,8 @@ export default {
 }
 .FlipClock em {
     display: inline-block;
-    line-height: 102px;
-    font-size: 66px;
+    line-height: 50px;
+    font-size: 33px;
     font-style: normal;
     vertical-align: top;
 }

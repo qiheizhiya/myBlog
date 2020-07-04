@@ -7,7 +7,7 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
- html, body, span, applet, object, iframe,
+ html, body, applet, object, iframe,
  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
  a, abbr, acronym, address, big, cite, code,
  del, dfn, em, img, ins, kbd, q, s, samp,
@@ -19,19 +19,20 @@
  article, aside, canvas, details, embed, 
  figure, figcaption, footer, header, hgroup, 
  menu, nav, output, ruby, section, summary,
- time, mark, audio, video {
+ time, mark, audio, video, div {
    margin: 0;
    padding: 0;
    border: 0;
    font-size: 100%;
-   font: inherit;
    vertical-align: baseline;
+   box-sizing: border-box;
  }
  /* HTML5 display-role reset for older browsers */
  article, aside, details, figcaption, figure, 
  footer, header, hgroup, menu, nav, section {
    display: block;
  }
+ html { font-size: calc(1em + 1vw); }
  html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
@@ -47,7 +48,7 @@
   body {
     margin: 0;
     font-size: 15px;
-    font-family: 'Microsoft YaHei';
+    color: #303133;
   }
   
   /**
@@ -373,7 +374,7 @@
 
   ul, li { list-style: none; }
   .content-wrap {
-    width: 80vw;
+    width: 1180px;
     margin: 0 auto;
   }
   .flex { display:flex};
@@ -384,3 +385,10 @@
   .flex-wrap{flex-wrap: wrap;}
   .flex-column{flex-direction: column;}
   .bold{font-weight: bold;}
+
+  .text-overflow(@row: 3) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: @row;
+    -webkit-box-orient: vertical;
+  } 

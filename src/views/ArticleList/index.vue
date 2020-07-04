@@ -1,20 +1,37 @@
 <template>
-  <div class="flex content-wrap align-center space-between">
-    <div class="left">1</div>
-    <div class="right">2</div>
+  <div>
+    <GiantScreen />
+    <div class="content-wrap">
+      <Article />
+    </div>
   </div>
 </template>
 <script>
+import GiantScreen from '@c/GiantScreen/index'
+import Article from '@c/Article/index'
 export default {
-  
+  components: { GiantScreen, Article },
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
-
 <style lang="less" scoped>
-  .left {
-    flex-grow: 70%;
-  }
-  .right {
-    flex-grow: 30%;
+  .content-wrap {
+    position: relative;
+    padding-top: 100px;
+    &::after {
+      content: '';
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      position: absolute;
+      background: #eaeaea;
+      z-index: 0;
+      width: 1px;
+      height: 100%;
+    }
   }
 </style>

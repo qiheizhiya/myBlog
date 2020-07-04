@@ -62,5 +62,11 @@ module.exports = {
   /**
    * 第三方插件配置
    */
-  pluginOptions: {},
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      // 需要通过less-loader自动引入的资源，集合类型
+      patterns: [path.resolve(__dirname, 'src/style/normalize.less')]
+    }
+  }
 }

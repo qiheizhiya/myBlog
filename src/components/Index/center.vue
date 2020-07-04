@@ -98,13 +98,13 @@ body {
 .wrapper {
   position: relative;
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.25rem;
-  padding-top: 0.65rem;
-  padding-left: 0.5rem;
-  padding-right: 0.36rem;
-  padding-bottom: 0.2rem;
+  letter-spacing: 0.12rem;
+  padding-top: 0.33rem;
+  padding-left: 0.25rem;
+  padding-right: 0.18rem;
+  padding-bottom: 0.1rem;
 }
 .slash {
   position: absolute;
@@ -114,7 +114,7 @@ body {
   transform: translate(-50%, -50%) rotate(60deg) scaleY(0);
   -webkit-transform-origin: center center;
   transform-origin: center center;
-  width: 0.15rem;
+  width: 0.075rem;
   height: 145%;
   background: #fff;
   z-index: 4;
@@ -130,7 +130,7 @@ body {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 0.75rem;
+  width: 0.37rem;
   height: 120%;
   background: #232323;
   z-index: -1;
@@ -161,7 +161,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 0.15rem;
+  height: 0.07rem;
   -webkit-transform: translateX(-101%);
   transform: translateX(-101%);
   -webkit-animation: side-top ease 6s infinite;
@@ -171,7 +171,7 @@ body {
 .sides .side:nth-child(2) {
   top: 0;
   right: 0;
-  width: 0.15rem;
+  width: 0.07rem;
   height: 100%;
   -webkit-transform: translateY(-101%);
   transform: translateY(-101%);
@@ -183,7 +183,7 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 0.15rem;
+  height: 0.07rem;
   -webkit-transform: translateX(101%);
   transform: translateX(101%);
   -webkit-animation: side-bottom ease 6s infinite;
@@ -192,7 +192,7 @@ body {
 .sides .side:nth-child(4) {
   top: 0;
   left: 0;
-  width: 0.15rem;
+  width: 0.07rem;
   height: 100%;
   -webkit-transform: translateY(101%);
   transform: translateY(101%);
@@ -545,24 +545,24 @@ body {
   height: 100%; 
   .navgation {
     i {
-      margin: .5rem;
+      margin: .2rem;
     }
   }
   .navgation,
   .talk-method {
-    margin: 2rem 0;
+    margin: .4rem 0;
     white-space: nowrap;
-    font-size: 1.2rem;
+    font-size: .6rem;
     color: white;
     i {
       color: white;
-      font-size: 1rem;
+      font-size: .5rem;
       transition: all 0.6s;
       cursor: pointer;
     }
     span {
       margin-right: 10px;
-      font-size: 1rem;
+      font-size: .5rem;
     }
     i:hover {
       color: rgb(66, 245, 135);
@@ -573,7 +573,7 @@ body {
     margin: 0;
   }
   .loading {
-    margin: 2rem 0 2rem 0;
+    margin: 1rem 0 1rem 0;
     .status {
       position: relative;
       display: inline-block;

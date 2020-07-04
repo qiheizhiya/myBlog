@@ -90,13 +90,12 @@ export default {
 .M-Flipper {
   display: inline-block;
   position: relative;
-  width: 60px;
-  height: 100px;
-  line-height: 100px;
-  border: solid 1px #000;
+  width: 30px;
+  height: 50px;
+  line-height: 50px;
   border-radius: 10px;
   background: #fff;
-  font-size: 66px;
+  font-size: 33px;
   color: #fff;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
   text-align: center;
