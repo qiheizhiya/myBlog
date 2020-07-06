@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex align-center justify-center">
     <button class="btn btn-gradient" @click="click" :style="styles">{{text}}</button>
   </div>
 </template>
@@ -33,13 +33,13 @@ export default {
   user-select: none;
   white-space: nowrap;
   animation: glow 8s linear infinite;
-
+  z-index: 5;
   &-gradient {
-    color: white;
-    background: linear-gradient(90deg, #00dbde, #fc00ff, #00dbde);
+    color: #fff;
+    background: linear-gradient(90deg, #00dbde, rgb(0, 132, 255), #00dbde);
     background-size: 300%;
     border-radius: 2em;
-
+    opacity: .5;
     &::before {
       position: absolute;
       content: "";

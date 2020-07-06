@@ -14,16 +14,41 @@
             终于，在千呼万唤中，微信终于可以修改微信号啦！
             微信官宣了这一消息，几亿用户奔走相告沸腾不已，众人瞩目的微信每次出一...
           </div>
-          <div class="handle">
-            123123 243113 12331
+          <div class="handle flex align-center ">
+            <div class="handle-thunk flex align-center">
+              <i class="iconfont icon-view"></i>
+              <span>1234</span>
+            </div>
+            <div class="handle-thunk flex align-center">
+              <i class="iconfont icon-dianzan"></i>
+              <span>1234</span>
+            </div>
+            <div class="handle-thunk flex align-center">
+              <i class="iconfont icon-pinglun"></i>
+              <span>1234</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <Button text="查看更多" :styles="buttonStyle" />
   </div>
 </template>
 <script>
-export default {};
+import Button from '@c/Button'
+export default {
+  components: { Button },
+  data () {
+    return {
+      buttonStyle: {
+        padding: '8px 26px',
+        fontSize: '14px',
+        marginTop: '60px',
+        borderRadius: '2px'
+      }
+    }
+  }
+};
 </script>
 <style lang="less" scoped>
 .article {
@@ -85,7 +110,78 @@ export default {};
         margin-top: 60px;
         font-size: 12px;
         color: #999;
-        display: flex;
+        .handle-thunk {
+          position: relative;
+          &::after, &::before {
+            opacity: 0;
+            visibility: visible;
+          }
+          &::after {
+            content: "浏览数";
+            transform: translate(-50%,-5px);
+            background: #ef6d57;
+            white-space: nowrap;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 10px;
+            padding: 5px 14px;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transition: all .3s;
+          }
+          &::before {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transition: all .3s;
+            border: 5px solid transparent;
+            border-top-color: #ef6d57;
+            transform: translate(-50%,5px);
+          }
+          &:hover {
+            &::after, &::before {
+              opacity: 1;
+              visibility: visible;
+            }
+          }
+          &:nth-of-type(1):hover {
+            color: #ef6d57;
+          }
+          &:nth-of-type(2) {
+            &::after {
+              content: '点个赞吧';
+            }
+          }
+          &:nth-of-type(3) {
+            &::after {
+              content: '来评论吧';
+            }
+          }
+          &:nth-of-type(2):hover {
+            color: #50bcb6;
+            &::after {
+              background-color: #50bcb6;
+            }
+            &::before {
+              border-top-color: #50bcb6;
+            }
+          }
+          &:nth-of-type(3):hover {
+            color: #ffa800;
+            &::after {
+              background-color: #ffa800;
+            }
+            &::before {
+              border-top-color: #ffa800;
+            }
+          }
+          margin-right: 20px;
+          i {
+            font-size: 19px;
+          }
+        }
       }
     }
   }

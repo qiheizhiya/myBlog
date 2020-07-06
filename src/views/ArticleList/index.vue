@@ -21,7 +21,7 @@ export default {
 <style lang="less" scoped>
   .content-wrap {
     position: relative;
-    padding-top: 100px;
+    padding: 100px 0;
     &::after {
       content: '';
       left: 50%;
