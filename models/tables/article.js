@@ -1,0 +1,51 @@
+const sequelize = require('./db')
+const { DataTypes } = require("sequelize")
+const moment = require("moment")
+const Article = sequelize.define('Article', {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  imgUrl: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  imgMusic: {
+    type: DataTypes.STRING
+  },
+  content: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  description: {
+    type: DataTypes.STRING
+  },
+  visitsNum: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
+  likeNum: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    get(){
+      return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
+    }
+  },
+  updateAt: {
+    type: DataTypes.DATE,
+    get(){
+      return moment(this.getDataValue('updateAt')).format('YYYY-MM-DD HH:mm:ss')
+    }
+  }
+},
+{
+  freezeTableName: true // 固定表名字
+})
+module.exports = Article
