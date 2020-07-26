@@ -1,41 +1,92 @@
 <template>
-  <div>
-    <el-input  placeholder="请输入账号" v-model="account" clearable></el-input>
-    <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
-    <el-button type="success" @click="addUser">提交</el-button>
+  <div class="max flex align-center justify-center">
+    <div class="icon flex align-center" @click="toIndex">
+      <img src="@img/whitelogo.png" alt="">
+    </div>
+    <LoginBg />
+    <div class="form">
+      <LoginRegistration padding="100px 40px" @click="submit" :captchaErr="captchaErr" :updateType="updateType" />
+    </div>
   </div>
 </template>
 <script>
-import { login, register, whoami} from '../../api/user'
+import { login, addUser, whoami, registry } from '../../api/user'
+import LoginBg from '@c/loginRegistration/loginBg'
+import LoginRegistration from '@c/loginRegistration'
 export default {
+  components: { LoginBg, LoginRegistration },
   data () {
-    return {
-      account: '',
-      password: ''
-    }
+   return {
+      captchaErr: 0,
+      updateType: 0
+    } 
   },
   methods: {
-    submit () {
-      login(this.account, this.password).then(res => {
-        console.log(res)
+
+    toIndex () {
+      this.$router.replace("/")
+    },
+
+    submit ({type, data}) {
+      type === 0 ? this.landing(data) : this.enroll(data)
+    },
+
+    // 登陆
+    landing ({account, password}) {
+      login(account, password).then(res => {
+        localStorage.setItem('token', res.data.data)
+        this.$store.commit("setIsToken", true)
+        this.$message.success('登陆成功, 1秒后即将返回首页')
+        setTimeout(() => {
+          this.$router.push({ path: '/' })
+        }, 1000)
       }).catch(err => {
-        console.log(err)
       })
     },
-    addUser () {
-      // const data = {
-      //   account: this.account,
-      //   password: this.password
-      // }
-      // register(data).then(res => {
-      //   console.log(res)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
-      whoami().then(res => {
-        console.log(res)
-      }).catch(e => {})
+    // 注册
+    enroll ({account, password, captcha}) {
+      const data = {
+        account: account,
+        password: password,
+        captcha: captcha
+      }
+      registry(data).then(res => {
+        this.$message.success('注册成功')
+        this.updateType += 1
+      }).catch(err => {
+        if (err.code === 401) {
+          this.captchaErr += 1
+        }
+      })
     }
   }
 }
 </script>
+
+<style lang="less" scoped>
+  .max {
+    width: 100vw;
+    height: 100vh;
+    .icon {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      img {
+        width: 100px;
+        height: auto;
+        cursor: pointer;
+      }
+    }
+  }
+  .form {
+    width: 600px;
+  }
+
+  @media screen and (max-width: 700px){
+    .form {
+      width: 90%;
+    }
+  }
+</style>

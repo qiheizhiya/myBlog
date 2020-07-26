@@ -18,6 +18,20 @@ user.post('/login', async ctx => {
   })
 })
 
+user.post('/registry', async ctx => {
+  const bodyData = ctx.request.body
+  console.log(bodyData.captcha, ctx.session.captcha)
+  if (bodyData.captcha !== ctx.session.captcha) {
+    apiHandle(ctx, '', '验证码错误')
+    return
+  }
+  const token = jwt.verify(ctx)
+  if (token){
+    const result = await User.registry(token.id, bodyData)
+    apiHandle(ctx, result, '该账号已被使用,请换个账号')
+  } 
+})
+
 user.get("/whoami", async ctx => {
   ctx.body = ctx.request.userId
   const result = await User.getSelf(ctx.request.userId)

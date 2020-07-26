@@ -1,7 +1,7 @@
 <template>
   <div >
     <router-view /> 
-    <Footer />
+    <!-- <Footer /> -->
     <BackTop />
   </div>
 </template>

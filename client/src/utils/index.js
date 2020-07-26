@@ -1,3 +1,4 @@
+import { Message } from 'element-ui'
 export function debounce(fn, delay) {
   var delay = delay || 200;
   var timer;
@@ -32,4 +33,15 @@ export function throttle(fn, delay) {
       fn.apply(th, args);
     }
   }
+}
+export async function valiFunc (arr) {
+  let res = true
+  for (let item of arr) {
+    if (!item.data || item.data.length === 0) {
+      res = false
+      Message.error(item.msg)
+      break
+    }
+  }
+  return res
 }

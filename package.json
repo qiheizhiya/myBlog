@@ -22,14 +22,17 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.1.0",
+    "koa-session": "^6.0.0",
     "koa-static": "^5.0.0",
     "moment": "^2.27.0",
     "mysql2": "^2.1.0",
     "path-to-regexp": "^6.1.0",
-    "sequelize": "^6.3.3"
+    "sequelize": "^6.3.3",
+    "svg-captcha": "^1.4.0"
   }
 }

@@ -20,7 +20,7 @@ exports.login = async function (account, password) {
       password
     },
     attributes: {
-      exclude: ['deletedAt', ]
+      exclude: ['deletedAt']
     }
   })
   if (result && result.account === account && result.password === password) {
@@ -30,6 +30,20 @@ exports.login = async function (account, password) {
   }
   return null
 }
+// 注册用户(按我的博客逻辑是 修改用户信息)
+exports.registry = async function (id, data) {
+  const result = await User.findByPk(id)
+  if (!result) return // 没有这个ID
+  if (result.account === data.account) return  // 账号已存在
+  for (let key in data) {
+    if (data[key]) {
+      result[key] = data[key]
+    }
+  }
+  await result.save()
+  return '成功'
+}
+
 // 获取自己
 exports.getSelf = async function (id) {
   const result = await User.findByPk(id)

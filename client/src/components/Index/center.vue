@@ -28,6 +28,12 @@
         <i v-for="(item, index) in navgation" @click="triggerPage(item.path)" :key="index" :class="item.icon">
             {{item.name}}
         </i>
+        <i @click="triggerPage('/login')" class="iconfont icon-yonghu" v-if="!isToken">
+            登陆
+        </i>
+        <i @click="triggerPage('logoff')" class="iconfont icon-yonghu" v-else>
+            注销
+        </i>
     </div>
     <div class="talk-method flex align-center">
       <i class="iconfont icon-weixin1 flex align-center"  ><span >：qwer880620</span> </i>
@@ -37,18 +43,19 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: "center",
+  computed: mapState(['isToken']),
   data() {
     return {
        navgation: [
-            { name:' exhibit',icon:'iconfont icon-wenzhangguanli', path:'/exhibit' },
-            { name:' Article-List',icon:'iconfont icon-wenzhangguanli', path:'/articleList' },
-            { name:' Rainy',icon:'iconfont icon-xiangce', path:'/Rainy' },
+            { name:' 主页',icon:'iconfont icon-wenzhangguanli', path:'/exhibit' },
+            { name:' 文章列表',icon:'iconfont icon-wenzhangguanli', path:'/articleList' },
+            { name:' 听雨',icon:'iconfont icon-xiangce', path:'/Rainy' },
             { name:' Demo',icon:'iconfont icon-ziyuan', path:'/demo' },
-            { name:' Self-info',icon:'iconfont icon-liuyanban', path:'/self' },
-            { name:' Leave-message',icon:'iconfont icon-liuyanban', path:'/message' },
-            { name:' Login',icon:'iconfont icon-yonghu', path:'/login' },
+            { name:' 关于我',icon:'iconfont icon-liuyanban', path:'/self' },
+            { name:' 留言版',icon:'iconfont icon-liuyanban', path:'/message' },
             { name:' Github',icon:'iconfont icon-GitHub', path:'https://github.com/qiheizhiya/' },
         ]
     };
@@ -57,6 +64,9 @@ export default {
     triggerPage(path) {
       if (path === "https://github.com/qiheizhiya/") {
         window.open(path);
+      } else if (path === 'logoff') {
+        this.$store.dispatch('clearToken')
+        this.$message.success('注销成功')
       } else {
         this.$router.push(path);
       }

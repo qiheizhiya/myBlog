@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div  class="left flex align-center">
+    <div class="left flex align-center">
       <img @click="toIndex" src="@img/textlogo.png" alt />
       <i class="iconfont" @click="changeMusic" :class="isPlay ? 'icon-zanting' : 'icon-bofang'"></i>
     </div>
