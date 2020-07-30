@@ -2,14 +2,14 @@
   <div class="nav flex flex-column align-center" >
     <div class="info flex flex-column align-center">
       <div class="imgouter flex align-center justify-center">
-        <img src="https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1009600391,1287960116&fm=26&gp=0.jpg" alt="">
+        <img :src="userInfo.avatar" alt="">
       </div>
-      <span>杰杰</span>
+      <span>{{userInfo.userName}}</span>
     </div>
     <div class="navitem">
-      <el-menu default-active="0" active-text-color="#0d80ff" :router="true" class="el-menu-vertical-demo">
+      <el-menu :default-active="defaultPath" active-text-color="#0d80ff" :router="true" class="el-menu-vertical-demo">
         <template v-for="(router) in routes" >
-          <el-menu-item :index="router.meta.index" :key="router.path" v-if="!router.hidden" class="flex align-center thunk">
+          <el-menu-item :index="router.path" :key="router.path" v-if="!router.hidden" class="flex align-center thunk">
             <i class="el-icon-menu" :class="router.meta.icon"></i>
             <span slot="title">{{router.meta.name}}</span>
           </el-menu-item>
@@ -21,15 +21,18 @@
 
 <script>
 import { whoami } from '@/api/user'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 export default {
   data () {
     return {
-      routes: []
+      routes: [],
+      defaultPath: ''
     }
   },
+  computed: mapState(['userInfo']),
   created () {
     this.routes = this.$router.options.routes
+    this.defaultPath = this.$route.matched[0].path
     this.getUserInfo()
   },
   methods: {
@@ -48,12 +51,13 @@ export default {
 
 <style lang="scss" scoped>
   .nav {
-    background-color: #0d80ff;
+    background-color: rgba(59, 140, 247, 1);
     width: 20vw;
     height: 100vh;
     color: #ffffff;
     overflow: hidden;
     border-radius: 30px;
+    box-shadow: 0px 10px 20px #0d80ff;
     .info {
       margin-top: 100px;
       .imgouter {
@@ -104,6 +108,6 @@ export default {
     border-radius: 23px 0 0 23px;
     color: #0d80ff;
     padding-left: 30px;
-    background-color: #0d80ff !important;
+    background-color: rgba(0,0,0,0) !important;
   }
 </style>

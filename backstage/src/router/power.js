@@ -12,3 +12,5 @@ router.beforeEach((to, from, next) => {
     whiteRouter.includes(to.path) ? next() : next('/login') 
   }
 })
+
+export default router

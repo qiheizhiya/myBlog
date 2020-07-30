@@ -51,7 +51,9 @@ export default {
         login(this.ruleForm.account, this.ruleForm.password).then(res => {
           this.$message.success('登陆成功')
           localStorage.setItem('token', res.data.data)
-          this.$router.push("/work")
+          setTimeout(() => {
+            this.$router.push("/home")
+          }, 1000)
         })
       });
     }

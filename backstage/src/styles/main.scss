@@ -382,3 +382,18 @@
   .flex-column{flex-direction: column;}
   .bold{font-weight: bold;}
   .overflowx{overflow-x: hidden;}
+
+  .title {
+    color: #2c80f7;
+    font-size: 18px;
+    height: 26px;
+    div {
+      height: 100%;
+      span {
+        width: 2px;
+        height: 100%;
+        background: #3c8af7;
+        margin-right: 20px;
+      }
+    }
+  }

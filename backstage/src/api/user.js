@@ -7,3 +7,7 @@ export async function login (account, password) {
 export async function whoami () {
   return await axios.get('/api/user/whoami')
 }
+
+export async function updateUserInfo (data) {
+  return await axios.post('/api/user/registry', data)
+}

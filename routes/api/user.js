@@ -33,8 +33,8 @@ user.post('/registry', async ctx => {
 })
 
 user.get("/whoami", async ctx => {
-  ctx.body = ctx.request.userId
   const result = await User.getSelf(ctx.request.userId)
+  console.log(result)
   apiHandle(ctx, result, '')
 })
 

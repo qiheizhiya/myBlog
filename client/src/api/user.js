@@ -1,16 +1,14 @@
 import axios from '../utils/request'
 
-export async function login (account, password) {
-  return await axios.post('/api/user/login',{account, password})
-}
+// 登陆
+export const login = (account, password) => axios.post('/api/user/login',{account, password})
 
-export async function addUser (data) {
-  return await axios.post('/api/user/addUser', data)
-}
-export async function registry (data) {
-  return await axios.post('/api/user/registry', data)
-}
+// 增加用户
+export const addUser = (data) => axios.post('/api/user/addUser', data)
 
-export async function whoami () {
-  return await axios.get('/api/user/whoami')
-}
+// 注册
+export const registry = (data) => axios.post('/api/user/registry', data)
+
+// 获取个人信息
+export const whoami = () => axios.get('/api/user/whoami')
+

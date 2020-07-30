@@ -24,31 +24,79 @@ const routes = [
     component: () => import("../views/Login/index.vue")
   },
   {
-    path: "/work",
-    name: "Work",
+    path: "/home",
+    name: "Home",
     redirect: 'index',
     meta: {
       name: '主页',
-      icon: 'icon-tiyu',
-      index: '0'
+      icon: 'icon-tiyu'
     },
     component: Layout,
     children: [
       {
         path: "/index",
-        name: "Index",
-        meta: {
-          name: '首页'
-        },
+        name: "index",
         component: () => import("../views/Work")
       }
     ]
-  }
+  },
+  {
+    path: "/article",
+    name: "Article",
+    redirect: 'addArt',
+    meta: {
+      name: '发布文章',
+      icon: 'icon-tiyu'
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/addArt",
+        name: "AddArt",
+        component: () => import("../views/AddArt")
+      }
+    ]
+  },
+  {
+    path: "/comment",
+    name: "Comment",
+    redirect: 'commentList',
+    meta: {
+      name: '评论列表',
+      icon: 'icon-tiyu'
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/commentList",
+        name: "CommentList",
+        component: () => import("../views/Comment")
+      }
+    ]
+  },
+  {
+    path: "/set",
+    name: "Set",
+    redirect: 'setting',
+    meta: {
+      name: '设置',
+      icon: 'icon-tiyu'
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/setting",
+        name: "Setting",
+        component: () => import("../views/Setting")
+      }
+    ]
+  },
 ];
 
 const router = new VueRouter({
   mode: 'history',
   routes
 });
+
 
 export default router;

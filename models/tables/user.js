@@ -20,6 +20,9 @@ const User = sequelize.define('User', {
   avatar: {
     type: DataTypes.STRING
   },
+  motto: {
+    type: DataTypes.STRING
+  },
   createdAt: {
     type: DataTypes.DATE,
     get(){

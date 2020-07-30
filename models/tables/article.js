@@ -14,7 +14,7 @@ const Article = sequelize.define('Article', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  imgMusic: {
+  musicUrl: {
     type: DataTypes.STRING
   },
   content: {

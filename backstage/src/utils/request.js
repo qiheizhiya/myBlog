@@ -26,6 +26,7 @@ ins.interceptors.response.use(resp => {
   // }
   const data = resp.data
   if (data.code !== 200 ) {
+    console.log(data)
     Message.error(data.msg)
     return Promise.reject(data)
   }

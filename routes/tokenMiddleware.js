@@ -4,6 +4,7 @@ const jwt = require('./jwt')
 const needTokenApi = [
   // { method: "POST", path: "/api/student" },
   { method: "GET", path: "/api/article/getArtList" },
+  { method: "POST", path: "/api/article/addArticle" },
   { method: "GET", path: "/api/user/whoami" }
 ];
 module.exports = async (ctx, next) => {
@@ -16,6 +17,7 @@ module.exports = async (ctx, next) => {
     return
   }
   const result = jwt.verify(ctx)
+  console.log("我是token里面的", result)
   if (result) {
     ctx.request.userId = result.id
     await next()
