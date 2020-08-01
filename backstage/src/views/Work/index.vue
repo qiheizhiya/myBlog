@@ -10,8 +10,8 @@
       </div>
       <div class="block flex align-center justify-center flex-column article">
         <div class="title">文章</div>
-        <div><span>31</span>篇</div>
-        <div class="tips">9天前发布了一篇文章，继续努力哦！</div>
+        <div><span>{{info.articleCount}}</span>篇</div>
+        <div class="tips">{{info.articleDiff}}天前发布了一篇文章，继续努力哦！</div>
       </div>
       <div class="block comment flex align-center justify-center flex-column ">
         <div class="title">留言</div>
@@ -29,10 +29,23 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getHomeInfo } from '@/api/user'
 export default {
   computed: mapState(['userInfo']),
-  mounted() {
-    console.log(this.userInfo)
+  data () {
+    return {
+      info: {}
+    }
+  },
+  created () {
+    this.setGui()
+  },
+  methods: {
+    async setGui () {
+      getHomeInfo().then(res => {
+        this.info = res.data.data
+      })
+    }
   }
 }
 </script>

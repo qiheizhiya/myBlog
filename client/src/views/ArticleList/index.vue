@@ -2,20 +2,20 @@
   <div class="flex flex-column align-center">
     <Header />
     <div class="list">
-      <ul class="monUl">
-        <li class="monTitle">Jun, 2020</li>
-        <ul class="mContent" v-for="item in 10" :key="item">
+      <ul class="monUl" v-for="(item, index) in requestDatas" :key="index">
+        <li class="monTitle">{{item[0].month}}, {{year}}</li>
+        <router-link tag="ul" :to="{name: 'detail', query: {id: thunk.id}}" class="mContent" v-for="thunk in item" :key="thunk.id" >
           <li class="mCLi flex space-between">
             <div class="mCLeft flex align-center">
-              <img src="https://image.raindays.cn/Mood/image/1593794317426.jpg" alt />
+              <img :src="thunk.imgUrl" :title="thunk.title" :alt="thunk.title" />
               <div class="mCLText flex flex-column space-around">
-                <span>微信号可以改了，你还相信时间吗</span>
-                <span>42 LIKE / 581 READ</span>
+                <span>{{thunk.title}}</span>
+                <span>{{thunk.likeNum}} 喜欢 / {{thunk.visitsNum}} 读</span>
               </div>
             </div>
             <span class="mCRight flex align-center">15th</span>
           </li>
-        </ul>
+        </router-link>
       </ul>
     </div>
     
@@ -23,8 +23,31 @@
 </template>
 <script>
 import Header from "@c/Header";
+import { list } from "@/api/article"
 export default {
   components: { Header },
+  data () {
+    return {
+      page: {
+        pageSize: 10,
+        pageNum: 1
+      },
+      requestDatas: {},
+      total: 0,
+      year: 2020
+    }
+  },
+  created () {
+    this.getArtList()
+    this.year = new Date().getFullYear()
+  }, 
+  methods: {
+    async getArtList () {
+      const result = await list(this.page)
+      this.requestDatas = result.data.data.datas
+      this.total = result.data.data.total
+    }
+  }
 };
 </script>
 

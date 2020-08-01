@@ -18,12 +18,30 @@ exports.deleteArt = async function (id) {
 // 获取文章列表
 exports.getArtList = async function (page = 1, limit = 10) {
   const result = await Article.findAndCountAll({
-    limit: ( page - 1 ) * limit,
-    offset: +limit
+    offset: ( page - 1 ) * limit,
+    limit: +limit,
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  })
+  const { rows, count } = result
+  if (rows.length === 0 && !rows) return { total: 0, datas: [] }
+  const dateArr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'].reverse()
+  const monthArr = ['12月份', '11月份', '10月份', '9月份', '8月份', '7月份', '6月份', '5月份', '4月份', '3月份', '2月份' , '1月份']
+  const groupArr = []
+  dateArr.forEach((date, index) => {
+    const resultArr = rows.filter(item => {
+      if (item.createdAt.substr(5,2) === date) { 
+        item.dataValues.month = monthArr[index]
+      }
+      return item.createdAt.substr(5,2) === date
+    })
+    if (resultArr.length === 0) return
+    groupArr.push(resultArr)
   })
   return {
-    total: result.count,
-    datas: JSON.parse(JSON.stringify(result.rows))
+    total: count,
+    datas: groupArr
   }
 }
 /**

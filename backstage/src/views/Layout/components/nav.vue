@@ -51,7 +51,7 @@ export default {
 
 <style lang="scss" scoped>
   .nav {
-    background-color: rgba(59, 140, 247, 1);
+    background-color: #5e768f ;
     width: 20vw;
     height: 100vh;
     color: #ffffff;

@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 // 引入elementUi
 import ElementUI from 'element-ui';
+import Header from "@c/Header"
 import 'element-ui/lib/theme-chalk/index.css';
 // 引入 iconfont
 import '@/assets/font/iconfont.css';
@@ -11,7 +12,7 @@ import '@/assets/font/iconfont.css';
 // import '@/assets/js/flexible.js'
 Vue.use(ElementUI)
 Vue.config.productionTip = false;
-
+Vue.component('Header',Header)
 new Vue({
   router,
   store,
