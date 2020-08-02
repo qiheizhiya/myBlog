@@ -65,7 +65,9 @@ exports.getHomeInfo = async function() {
     ]
   })
   const { count, rows } = result
-  if (rows.length !== 0 && !rows) return
+  console.log(result)
+  if (rows.length === 0) return {articleCount: 0, articleDiff: 0}
+  console.log("xiam le ")
   const x = new moment()
   const y = new moment(rows[0].createdAt)
   const articleDiff = x.diff(y, 'd')

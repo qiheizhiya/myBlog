@@ -12,8 +12,10 @@ article.post('/getArtList', async ctx => {
 })
 
 article.get('/getArtDetail', async ctx => {
-  console.log(ctx.query)
-  ctx.body = 'hhh'
+  const { id } = ctx.query
+  const userId = ctx.request.userId
+  const result = await artServ.getArtDetail(id, userId)
+  apiHandle(ctx, result, '获取文章详情, 刷新一下试试~~')
 })
 
 article.post('/addArticle', async ctx => {

@@ -12,7 +12,6 @@
       </div>
       <div class="content markdown-body">
         <div v-html="detail.content"></div>
-        <!-- <mavon-editor v-model="detail.content" :editable="false" :subfield="false" defaultOpen="preview" :toolbarsFlag="false"/> -->
       </div>
     </div>
   </div>

@@ -69,6 +69,7 @@ exports.getArtDetail = async function (id, userId) {
   if (!result) return result
   result = result.toJSON()
   result.Users.length === 0 ? result.isLike = false : result.isLike = true // 如果等于0就是不喜欢该文章
+  delete result.Users
   return result
 }
 

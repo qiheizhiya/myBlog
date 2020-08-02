@@ -39,7 +39,8 @@ user.get("/whoami", async ctx => {
 
 user.get("/getHomeInfo", async ctx => {
   const result = await User.getHomeInfo(ctx.request.userId)
-  apiHandle(ctx, result, '')
+  console.log("我是接口里面的", result)
+  apiHandle(ctx, result, '还没有文章呢，赶紧去发一篇文章吧..')
 })
 
 module.exports = user
