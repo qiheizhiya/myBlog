@@ -21,7 +21,6 @@ user.post('/login', async ctx => {
 
 user.post('/registry', async ctx => {
   const bodyData = ctx.request.body
-  console.log(bodyData.captcha, ctx.session.captcha)
   if (bodyData.captcha !== ctx.session.captcha) {
     apiHandle(ctx, '', '验证码错误')
     return
@@ -35,9 +34,12 @@ user.post('/registry', async ctx => {
 
 user.get("/whoami", async ctx => {
   const result = await User.getSelf(ctx.request.userId)
-  console.log(result)
   apiHandle(ctx, result, '')
 })
 
+user.get("/getHomeInfo", async ctx => {
+  const result = await User.getHomeInfo(ctx.request.userId)
+  apiHandle(ctx, result, '')
+})
 
 module.exports = user

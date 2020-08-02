@@ -1,4 +1,7 @@
 const User = require('../models/tables/user')
+const Article = require('../models/tables/article')
+const moment = require('moment')
+const sequelize = require('../models/tables/db')
 // 增加一个用户
 exports.addUser = async function (adminObj) {
   const [result, created] = await User.findOrCreate({
@@ -52,4 +55,22 @@ exports.getSelf = async function (id) {
   delete val.password
   delete val.deletedAt
   return val
+}
+
+exports.getHomeInfo = async function() {
+  const result = await Article.findAndCountAll({
+    attributes: ['createdAt'],
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  })
+  const { count, rows } = result
+  if (rows.length !== 0 && !rows) return
+  const x = new moment()
+  const y = new moment(rows[0].createdAt)
+  const articleDiff = x.diff(y, 'd')
+  return {
+    articleCount: count,
+    articleDiff
+  }
 }

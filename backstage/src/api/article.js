@@ -1,5 +1,4 @@
 import axios from '../utils/request.js'
 
-export async function add (data) {
-  return await axios.post('/api/article/addArticle', data)
-}
+// 新增一篇文章
+export const add = (data) => axios.post('/api/article/addArticle', data)

@@ -4,7 +4,7 @@ module.exports = async (ctx, next) => {
     await next();
   } catch (e) {
     if (e.errorCode) {
-      return ctx.body = error.msg
+      return ctx.body = e.msg
     }
   }
 };

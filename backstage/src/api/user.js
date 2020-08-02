@@ -11,3 +11,6 @@ export async function whoami () {
 export async function updateUserInfo (data) {
   return await axios.post('/api/user/registry', data)
 }
+
+// 获取首页信息
+export const getHomeInfo = () => axios.get('/api/user/getHomeInfo')
