@@ -2,7 +2,7 @@
   <div class="flex flex-column align-center">
     <Header />
     <div class="detail">
-      <h1 class="title">此刻正在聆听的你，今天过得好么</h1>
+      <h1 class="title">{{detail.title}}</h1>
       <div class="status flex align-center">
         <span>七月 31, 2020</span>
         <span>阅读：0</span>
@@ -10,8 +10,9 @@
         <span>评论：0</span>
         <span>喜欢: 0</span>
       </div>
-      <div class="content">
-
+      <div class="content markdown-body">
+        <div v-html="detail.content"></div>
+        <!-- <mavon-editor v-model="detail.content" :editable="false" :subfield="false" defaultOpen="preview" :toolbarsFlag="false"/> -->
       </div>
     </div>
   </div>
@@ -22,7 +23,7 @@ import { detail } from "@/api/article"
 export default {
   data () {
     return {
-
+      detail: {}
     }
   },
   created () {
@@ -32,7 +33,7 @@ export default {
   methods: {
     async getDetail (id) {
       const result = await detail(id)
-      console.log(result)
+      this.detail = result.data.data
     }
   }
 }
@@ -75,4 +76,21 @@ export default {
       width: 90%;
     }
   }
+
+  
+</style>
+<style lang="less">
+.markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+}
+ 
+@media (max-width: 767px) {
+    .markdown-body {
+        padding: 15px;
+    }
+}
 </style>
