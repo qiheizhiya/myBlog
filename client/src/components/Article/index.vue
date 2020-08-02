@@ -54,7 +54,6 @@ export default {
 .article {
   position: relative;
   z-index: 2;
-  border-bottom: 1px solid #eaeaea;
   &:not(:first-of-type) {
     margin-top: 100px;
   }
@@ -206,6 +205,7 @@ export default {
 @media screen and (max-width: 900px) {
   .article {
     flex-direction: column !important;
+    border-bottom: 1px solid #eaeaea;
     .img-outer {
       width: 100%;
       height: auto;

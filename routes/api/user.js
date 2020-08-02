@@ -11,6 +11,7 @@ user.post('/addUser', async ctx => {
 })
 
 user.post('/login', async ctx => {
+  console.log('用户触发了登录')
   const { account, password } = ctx.request.body
   const result = await User.login(account, password)
   apiHandle(ctx, result, '账号不存在, 请先注册账号', ( {id} ) => {
