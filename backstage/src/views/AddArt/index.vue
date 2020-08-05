@@ -74,10 +74,10 @@ export default {
   },
   methods: {
     mkChange (val, ren) {
-      this.content = val
+      this.content = ren
     },
     mkSave (val, ren) {
-      this.content = val
+      this.content = ren
     },
     beforeAvatarUpload(file) {
       const isLt4M = file.size / 1024 / 1024 < 4;

@@ -5,10 +5,10 @@
       <h1 class="title">{{detail.title}}</h1>
       <div class="status flex align-center">
         <span>七月 31, 2020</span>
-        <span>阅读：0</span>
-        <span>字数：0</span>
+        <span>阅读：{{detail.visitsNum}}</span>
+        <span>字数：{{detail.textLen}}</span>
         <span>评论：0</span>
-        <span>喜欢: 0</span>
+        <span>喜欢: {{detail.likeNum}}</span>
       </div>
       <div class="content markdown-body">
         <div v-html="detail.content"></div>
@@ -86,7 +86,13 @@ export default {
     margin: 0 auto;
     padding: 45px;
 }
- 
+
+@media screen and (min-width: 968px){
+  .markdown-body {
+    font-size: 16px !important;
+  }
+}
+
 @media (max-width: 767px) {
     .markdown-body {
         padding: 15px;

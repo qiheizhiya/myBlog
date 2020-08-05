@@ -3,7 +3,7 @@
     <Header />
     <div class="list">
       <ul class="monUl" v-for="(item, index) in requestDatas" :key="index">
-        <li class="monTitle">{{item[0].month}}, {{year}}</li>
+        <li class="monTitle">{{item[0].month}}, {{item[0].year}}</li>
         <router-link tag="ul" :to="{name: 'detail', query: {id: thunk.id}}" class="mContent" v-for="thunk in item" :key="thunk.id" >
           <li class="mCLi flex space-between">
             <div class="mCLeft flex align-center">

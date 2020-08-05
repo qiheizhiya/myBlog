@@ -25,31 +25,47 @@ exports.getArtList = async function (page = 1, limit = 10) {
     ]
   })
   const { rows, count } = result
-  if (rows.length === 0 && !rows) return { total: 0, datas: [] }
-  const dateArr = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'].reverse()
-  const monthArr = ['12月份', '11月份', '10月份', '9月份', '8月份', '7月份', '6月份', '5月份', '4月份', '3月份', '2月份' , '1月份']
-  const groupArr = []
-  dateArr.forEach((date, index) => {
-    const resultArr = rows.filter(item => {
-      if (item.createdAt.substr(5,2) === date) { 
-        item.dataValues.month = monthArr[index]
-      }
-      return item.createdAt.substr(5,2) === date
-    })
-    if (resultArr.length === 0) return
-    groupArr.push(resultArr)
-  })
+  if (rows.length === 0 && !rows) return { total: 0, datas: [] } // 如果没有文章
+  const groupArr = listGroup(rows)
   return {
     total: count,
     datas: groupArr
   }
 }
+
+// 把文章数据进行时间分组 
+function listGroup (rows) {
+  const yearMap = new Map()
+  const yearArr = [] // 记录文章出现的年份
+  const yearGroupArr = [] // 把文章按照年份分组
+  rows.forEach(item => {
+    const year = item.createdAt.split("-")[0]
+    !yearMap.has(year) ? yearMap.set(year, year) : '' // 如果年份没出现过，记录起来
+  })
+  yearMap.forEach(item => yearArr.push(item)) // 把年份处理成数组
+
+  yearArr.forEach(year => { // 把文章按年份分组
+    const resultArr = rows.filter(item => {
+      const [ rowYear, rowMonth ] = item.createdAt.split("-")
+      if (rowYear === year) { 
+        item.dataValues.year = year
+      }
+      item.dataValues.month = rowMonth
+      return rowYear === year
+    })
+    if (resultArr.length === 0) return
+    yearGroupArr.push(resultArr)
+  })
+
+  return yearGroupArr
+}
+
 /**
  * 获取文章详情
  * @param {*} id 文章Id
  * @param {*} userId 用户Id
  */
-exports.getArtDetail = async function (id, userId) { 
+exports.getArtDetail = async function (id, userId, ctx) { 
   let result = await Article.findOne({
     where: {
       id
@@ -67,9 +83,25 @@ exports.getArtDetail = async function (id, userId) {
     }]
   })
   if (!result) return result
+  addVisits(ctx, result) 
   result = result.toJSON()
-  result.Users.length === 0 ? result.isLike = false : result.isLike = true // 如果等于0就是不喜欢该文章
-  delete result.Users
+  handlerData(result)
   return result
 }
 
+/**
+ * 5分钟内不会增加浏览数
+ * @param {*} ctx 
+ */
+function addVisits (ctx, result) {
+  if (!ctx.session.isVisits) { // 如果5分钟内浏览过了，不在增加浏览数
+    result.increment('visitsNum', {by: 1})
+    ctx.session.isVisits = true
+  }
+}
+function handlerData (result) {
+  result.Users.length === 0 ? result.isLike = false : result.isLike = true // 如果等于0就是不喜欢该文章
+  const len = result.content.replace(/<\/?.+?>/g, "").replace(/(\r\n|\n|\r)/gm, "").length
+  result.textLen = len // 统计字数
+  delete result.Users
+}
