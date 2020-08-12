@@ -14,7 +14,7 @@ const User = sequelize.define('User', {
   birthday: {
     type: DataTypes.DATE,
     get(){
-      return moment(this.getDataValue('birthday')).format('YYYY-MM-DD HH:mm:ss')
+      if (this.getDataValue('birthday')) { return moment(this.getDataValue('birthday')).format('YYYY-MM-DD HH:mm:ss') } else return ''
     }
   },
   avatar: {

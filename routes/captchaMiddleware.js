@@ -26,7 +26,6 @@ exports.captchaHandler = async (ctx, next) => {
   }
   const now = Date.now()
   ctx.session.records.push(now)
-
   // 如果在一小段时间中请求达到了一定的数量，就可能是机器
   const duration = 10000;
   const repeat = 3;

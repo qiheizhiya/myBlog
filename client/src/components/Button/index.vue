@@ -1,7 +1,5 @@
 <template>
-  <div class="flex align-center justify-center">
-    <button class="btn btn-gradient" @click="click" :style="styles">{{text}}</button>
-  </div>
+  <button class="btn btn-gradient" @click="click" :style="styles">{{text}}</button>
 </template>
 <script>
 export default {
@@ -36,7 +34,7 @@ export default {
   z-index: 5;
   &-gradient {
     color: #fff;
-    background: linear-gradient(90deg, #00dbde, rgb(0, 132, 255), #00dbde);
+    background: linear-gradient(90deg, #6497ac, #363636);
     background-size: 300%;
     border-radius: 2em;
     opacity: .5;
@@ -57,7 +55,7 @@ export default {
 
     &:hover::before {
       opacity: 1;
-      filter: blur(20px);
+      filter: blur(10px);
       animation: glow 8s linear infinite;
     }
   }
@@ -66,6 +64,7 @@ export default {
 @keyframes glow {
   to {
     background-position: 300%;
+    
   }
 }
 

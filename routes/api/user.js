@@ -11,7 +11,6 @@ user.post('/addUser', async ctx => {
 })
 
 user.post('/login', async ctx => {
-  console.log('用户触发了登录')
   const { account, password } = ctx.request.body
   const result = await User.login(account, password)
   apiHandle(ctx, result, '账号不存在, 请先注册账号', ( {id} ) => {
@@ -20,16 +19,19 @@ user.post('/login', async ctx => {
 })
 
 user.post('/registry', async ctx => {
-  const bodyData = ctx.request.body
+  const bodyData = ctx.request.body 
   if (bodyData.captcha !== ctx.session.captcha) {
     apiHandle(ctx, '', '验证码错误')
     return
   }
-  const token = jwt.verify(ctx)
-  if (token){
-    const result = await User.registry(token.id, bodyData)
-    apiHandle(ctx, result, '该账号已被使用,请换个账号')
-  } 
+  const result = await User.registry(bodyData)
+  apiHandle(ctx, result, '该账号已被使用,请换个账号')
+})
+
+user.post('/updateUserInfo', async ctx => {
+  const bodyData = ctx.request.body
+  const result = await User.updateUserInfo(bodyData)
+  apiHandle(ctx, result, '失败了...请重试呜呜')
 })
 
 user.get("/whoami", async ctx => {
@@ -39,7 +41,6 @@ user.get("/whoami", async ctx => {
 
 user.get("/getHomeInfo", async ctx => {
   const result = await User.getHomeInfo(ctx.request.userId)
-  console.log("我是接口里面的", result)
   apiHandle(ctx, result, '还没有文章呢，赶紧去发一篇文章吧..')
 })
 

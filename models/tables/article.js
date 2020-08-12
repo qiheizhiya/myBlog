@@ -17,6 +17,9 @@ const Article = sequelize.define('Article', {
   musicUrl: {
     type: DataTypes.STRING
   },
+  musicName: {
+    type: DataTypes.STRING
+  },
   content: {
     type: DataTypes.TEXT,
     allowNull: false

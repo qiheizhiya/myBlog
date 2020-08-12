@@ -38,7 +38,7 @@
 
 <script>
 import { updateUserInfo } from '@/api/user'
-import { mapState } from 'vuex' 
+import { mapState, mapMutations } from 'vuex' 
 export default {
   computed: mapState(['userInfo']),
   data () {
@@ -48,7 +48,8 @@ export default {
         userName: '',
         birthday: '',
         motto: '',
-        avatar: ''
+        avatar: '',
+        id: ''
       }
     }
   },
@@ -57,12 +58,13 @@ export default {
       immediate: true,
       handler (newval) {
         for (let key in this.form) {
-          this.form[key] = newval[key]
+          newval[key] && (this.form[key] = newval[key])
         }
       },
     }
   },
   methods: {
+    ...mapMutations(['setUserInfo']),
     handleAvatarSuccess(res, file) {
       this.form.avatar = this.mainUrl + res.data
       this.$message.success('图片上传成功')
@@ -82,6 +84,7 @@ export default {
     onSubmit () {
       updateUserInfo(this.form).then(res => {
         this.$message.success(res.data.msg)
+        this.setUserInfo(res.data.data)
       })
     }
   }

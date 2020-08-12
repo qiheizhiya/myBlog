@@ -2,13 +2,8 @@ const sequelize = require('./db')
 const { DataTypes } = require("sequelize")
 const moment = require("moment")
 const ArticleWord = sequelize.define('ArticleWord', {
-  articleId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+  floorId: {
+    type: DataTypes.INTEGER
   },
   content: {
     type: DataTypes.STRING,

@@ -1,4 +1,5 @@
 const Article = require('../models/tables/article')
+const ArticleWord = require('../models/tables/articleWord')
 const User = require('../models/tables/user')
 // 增加文章
 exports.addArticle = async function (artObj) {
@@ -85,7 +86,7 @@ exports.getArtDetail = async function (id, userId, ctx) {
   if (!result) return result
   addVisits(ctx, result) 
   result = result.toJSON()
-  handlerData(result)
+  handlerData(result, commentCount)
   return result
 }
 

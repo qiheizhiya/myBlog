@@ -33,6 +33,7 @@ ins.interceptors.response.use(resp => {
 }, err => {
   if (err.response.status === 403) {
     localStorage.removeItem("token")
+    localStorage.removeItem('userInfo')
     Message.error('登陆已过期,请重新登陆')
   }
   return Promise.reject(err)

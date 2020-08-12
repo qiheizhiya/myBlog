@@ -8,10 +8,17 @@
 </template>
 <script>
 import Center from "@c/Index/center";
+import { addUser } from "@/api/user"
 export default {
   name: "maske",
   components: {
     Center
+  },
+  async created () {
+    if (!localStorage.getItem('userInfo')) { // 如果用户进入首页没有用户信息，贼去注册
+      const result = await addUser({account: Date.now()})
+      localStorage.setItem('userInfo', JSON.stringify(result.data.data))
+    }
   }
 };
 </script>
@@ -31,7 +38,7 @@ export default {
     transform: translate(-50%, -50%);
   }
   .bg {
-    width: 100%;
+    width: 120%;
     height: 100vh;
     animation: change 15s infinite ;
     background: linear-gradient(125deg,#2980b9,#633bd3,#8e44ad,#192f44,#27ae60);

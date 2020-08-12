@@ -9,7 +9,7 @@ export async function whoami () {
 }
 
 export async function updateUserInfo (data) {
-  return await axios.post('/api/user/registry', data)
+  return await axios.post('/api/user/updateUserInfo', data)
 }
 
 // 获取首页信息

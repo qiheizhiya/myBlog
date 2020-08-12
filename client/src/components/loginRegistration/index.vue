@@ -113,6 +113,7 @@ export default {
       }
       const result = await valiFunc(valData)
       if (!result) return
+      this.type === 1 && (this.data.id = JSON.parse(localStorage.getItem('userInfo')).id)
       this.$emit('click', {type: this.type, data: this.data})
     },
     // 切换操作类型

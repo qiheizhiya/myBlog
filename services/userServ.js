@@ -34,8 +34,8 @@ exports.login = async function (account, password) {
   return null
 }
 // 注册用户(按我的博客逻辑是 修改用户信息)
-exports.registry = async function (id, data) {
-  const result = await User.findByPk(id)
+exports.registry = async function (data) {
+  const result = await User.findByPk(data.id)
   if (!result) return // 没有这个ID
   if (result.account === data.account) return  // 账号已存在
   for (let key in data) {
@@ -44,7 +44,23 @@ exports.registry = async function (id, data) {
     }
   }
   await result.save()
-  return '成功'
+  delete result.password
+  delete result.deletedAt
+  return result
+}
+
+exports.updateUserInfo = async function (data) {
+  const result = await User.findByPk(data.id)
+  if (!result) return // 没有这个ID
+  for (let key in data) {
+    if (data[key]) {
+      result[key] = data[key]
+    }
+  }
+  await result.save()
+  delete result.password
+  delete result.deletedAt
+  return result
 }
 
 // 获取自己
@@ -65,9 +81,7 @@ exports.getHomeInfo = async function() {
     ]
   })
   const { count, rows } = result
-  console.log(result)
   if (rows.length === 0) return {articleCount: 0, articleDiff: 0}
-  console.log("xiam le ")
   const x = new moment()
   const y = new moment(rows[0].createdAt)
   const articleDiff = x.diff(y, 'd')

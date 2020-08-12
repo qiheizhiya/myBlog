@@ -10,6 +10,7 @@
               <img :src="thunk.imgUrl" :title="thunk.title" :alt="thunk.title" />
               <div class="mCLText flex flex-column space-around">
                 <span>{{thunk.title}}</span>
+
                 <span>{{thunk.likeNum}} 喜欢 / {{thunk.visitsNum}} 读</span>
               </div>
             </div>

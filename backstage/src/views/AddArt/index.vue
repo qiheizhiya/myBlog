@@ -10,6 +10,9 @@
       <el-form-item prop="description">
         <el-input v-model.trim="ruleForm.description" placeholder="描述"></el-input>
       </el-form-item>
+      <el-form-item prop="musicName">
+        <el-input v-model.trim="ruleForm.musicName" placeholder="音乐名称"></el-input>
+      </el-form-item>
     </el-form>
     <div class="imgs flex align-center">
       <el-upload
@@ -56,15 +59,13 @@ export default {
       ruleForm: {
         title: '',
         description: '',
+        musicName: '',
         content: ''
       },
       rules: {
         title: [
           { required: true, message: '请输入标题', trigger: 'blur' },
           { min: 0, max: 20, message: '不能超过20个字', trigger: 'blur' }
-        ],
-        description: [
-          { required: true, message: '请输入描述', trigger: 'blur'}
         ]
       },
       imgUrl: '',
@@ -74,10 +75,10 @@ export default {
   },
   methods: {
     mkChange (val, ren) {
-      this.content = ren
+      this.content = val
     },
     mkSave (val, ren) {
-      this.content = ren
+      this.content = val
     },
     beforeAvatarUpload(file) {
       const isLt4M = file.size / 1024 / 1024 < 4;

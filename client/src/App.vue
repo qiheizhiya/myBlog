@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <transition class="change" name="fade" mode="out-in" >
-      <router-view :key="routerId" />
+      <keep-alive>
+        <router-view :key="routerId" />
+      </keep-alive>
     </transition>
   </div>
 </template>
@@ -19,19 +21,19 @@ export default {
   font-family: eafont,Hiragino Sans GB,Hiragino Sans GB W3,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 .fade-leave-active {
-  transition: all .7s ease-in;
+  transition: all .6s ease-out;
+  opacity: 0;
+  transform: translateX(-40px);
 }
 .fade-enter-active {
-  transition: all 1s linear;
-}
-.fade-leave-to {
-  transform: translateX(-80px);
-  opacity: 0;
+  transition: all .5s ease-out;
 }
 .fade-enter {
   opacity: 0;
+  transform: translateX(40px);
 }
 
 </style>

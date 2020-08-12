@@ -3,8 +3,7 @@ module.exports = async (ctx, next) => {
   try {
     await next();
   } catch (e) {
-    if (e.errorCode) {
-      return ctx.body = e.msg
-    }
+    ctx.status = e.statusCode || e.status || 500
+    ctx.body = e.message
   }
 };

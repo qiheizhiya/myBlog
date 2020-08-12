@@ -33,10 +33,12 @@ export default {
 
     // 登陆
     landing ({account, password}) {
-      login(account, password).then(res => {
+      login(account, password).then( async res => {
         localStorage.setItem('token', res.data.data)
         this.$store.commit("setIsToken", true)
         this.$message.success('登陆成功, 1秒后即将返回首页')
+        const result = await whoami()
+        localStorage.setItem('userInfo', JSON.stringify(result.data.data))
         setTimeout(() => {
           this.$router.push({ path: '/' })
         }, 1000)
@@ -44,12 +46,7 @@ export default {
       })
     },
     // 注册
-    enroll ({account, password, captcha}) {
-      const data = {
-        account: account,
-        password: password,
-        captcha: captcha
-      }
+    enroll (data) {
       registry(data).then(res => {
         this.$message.success('注册成功')
         this.updateType += 1

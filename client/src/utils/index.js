@@ -39,7 +39,11 @@ export async function valiFunc (arr) {
   for (let item of arr) {
     if (!item.data || item.data.length === 0) {
       res = false
-      Message.error(item.msg)
+      Message({
+        message: item.msg,
+        type: 'error',
+        offset: 60
+      })
       break
     }
   }

@@ -25,8 +25,7 @@ ins.interceptors.response.use(resp => {
   //   localStorage.setItem("token", resp.headers.authorization)
   // }
   const data = resp.data
-  if (data.code !== 200 ) {
-    console.log(data)
+  if (data.code !== 200 ) {  
     Message.error(data.msg)
     return Promise.reject(data)
   }

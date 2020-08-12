@@ -10,7 +10,6 @@ export default new Vuex.Store({
   mutations: {
     setUserInfo (state, data) {
       state.userInfo = data
-      console.log(data)
     }
   },
   actions: {},
