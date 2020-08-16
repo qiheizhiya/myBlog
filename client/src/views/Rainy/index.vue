@@ -9,7 +9,7 @@
         <img class="rain-bg" src="@img/rain/rain-bg.gif" draggable="false">
         <img class="words" src="@img/rain/words.png" draggable="false">
 
-        <ul class="option" v-show="show">
+        <ul class="option flex align-center" v-show="show">
             <li v-for="(item, index) in rainIcon" :key="index">
                 <span @click="music(index, item.active)">
                     <img :src="item.on" draggable="false" v-if="item.active" />
@@ -29,6 +29,7 @@
 
 <script>
 export default {
+    name: 'rainy',
     data(){
         return{
             audioDom: [],
@@ -51,6 +52,12 @@ export default {
                     off: require('@img/rain/rain3_off.png'),
                     music: require('@img/rain/rain.mp3'),
                     active: false
+                },
+                {
+                    on: require('@img/rain/rain4_on.png'),
+                    off: require('@img/rain/rain4_off.png'),
+                    music: require('@img/rain/rain2.mp3'),
+                    active: false
                 }
             ],
             loading: true,
@@ -63,10 +70,7 @@ export default {
       document.documentElement.addEventListener('click', this.oncePlay)
     },
     beforeRouteLeave (to, from, next) {
-      new Promise (resolve => resolve(this.show = false)).then(res => {
-        next()
-      })
-      
+      new Promise (resolve => resolve(this.show = false)).then(res => next())
     },
     methods: {
         toIndex(){
@@ -127,7 +131,7 @@ export default {
         right: 80px;
     }
     .option{
-        width: 416px;
+        width: auto;
         height: 70px;
         position: fixed;
         bottom: 0;
@@ -139,6 +143,16 @@ export default {
             cursor: pointer;
             span{
                 display: inline-block;
+            }
+            &:last-child {
+                width: 108px;
+                height: 73px;
+                line-height: 73px;
+                img {
+                    widows: 50px;
+                    height: 30px;
+                    vertical-align: middle;
+                }
             }
         }
     }

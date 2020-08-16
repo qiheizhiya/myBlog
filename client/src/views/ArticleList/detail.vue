@@ -1,17 +1,17 @@
 <template>
   <div class="flex flex-column align-center">
-    <Header />
+    <Header @like="likeChange" :isLike="detail.isLike" :midText="detail.title" :showLike="true" :music="detail.musicUrl" />
     <div class="detail">
       <h1 class="title">{{detail.title}}</h1>
       <div class="status flex align-center">
-        <span>七月 31, 2020</span>
+        <span>{{detail.month}} {{detail.day}}, {{detail.year}}</span>
         <span>阅读：{{detail.visitsNum}}</span>
         <span>字数：{{detail.textLen}}</span>
         <span>评论：{{commentList.total}}</span>
         <span>喜欢: {{detail.likeNum}}</span>
       </div>
       <div class="content markdown-body">
-        <div v-html="content"></div>
+        <div v-html="content" v-highlight></div>
       </div>
       <div id="hash"></div>
       <div class="inputOuter">
@@ -33,15 +33,15 @@
 
 <script>
 import marked from "marked";
-import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
-import { detail } from "@/api/article";
+import { detail, setLike } from "@/api/article";
 import Button from "@c/Button"
 import MessageList from "./components/messageList"
 import { valiFunc } from '@/utils'
 import { updateUserInfo } from '@/api/user'
 import { add, list } from "@/api/articleWord"
 export default {
+  name: "detail",
   components: { Button, MessageList },
   data() {
     return {
@@ -59,7 +59,7 @@ export default {
       isPerfect: true
     };
   },
-  async created() {
+  async created () {
     await this.getDetail(this.$route.query.id); // 获取详情
     await this.markdownRender() // markdown 加载
     await this.getComData()
@@ -68,14 +68,12 @@ export default {
   methods: {
     async getDetail(id) {
       const result = await detail(id);
-      this.detail = result.data.data;
+      const data = await this.$store.dispatch('dataHandle', result.data.data)
+      this.detail = data;
     },
     markdownRender() {
       marked.setOptions({
         renderer: new marked.Renderer(),
-        highlight: function(code) {
-          return hljs.highlightAuto(code).value;
-        },
         pedantic: false,
         gfm: true,
         tables: true,
@@ -113,8 +111,16 @@ export default {
         content: this.userContent
       }
       this.floorId && (data.floorId = this.floorId)
-      const reqResult = await add(data)
-      console.log(reqResult)
+      try {
+        const reqResult = await add(data)
+        this.userContent = ''
+        this.getComData()
+        this.$message({
+          type: 'success',
+          message: '评论成功~~',
+          offset: 60
+        })
+      } catch (e) { }
     },
     // 判断是否需要填用户名
     isAnyUserName () {
@@ -137,8 +143,27 @@ export default {
     },
     // 获取评论列表
     async getComData () {
-      const result = await list(this.page)
+      const data = {
+        ...this.page,
+        articleId: this.detail.id
+      }
+      const result = await list(data)
       this.commentList = result.data.data
+    },
+    // 设置喜欢这篇文章
+    async likeChange (e) {
+      if (!e) { // 未喜欢这篇文章
+        const data = {
+          articleId: this.detail.id,
+          userId: JSON.parse(localStorage.getItem('userInfo')).id
+        }
+        const result = await setLike(data)
+        this.$message({ type: 'success', message: '相识虽浅,似是经年', offset: 60 })
+        this.$set(this.detail, 'isLike', true)
+        this.$ser(this.detail, 'likeNum', this.detail.likeNum + 1)
+      } else {
+        this.$message({ type: 'error', message: '您已经喜欢过这篇文章啦~~', offset: 60 })
+      }
     }
   }
 };
@@ -256,14 +281,25 @@ export default {
   padding: 45px;
 }
 .markdown-body pre {
+  background-color: #353535 !important;
   border-radius: 12px !important;
+  font-size: 90% !important;
 }
 @media screen and (min-width: 968px) {
   .markdown-body {
     font-size: 16px !important;
   }
 }
-
+.hljs-comment {
+  color: #848991 !important;
+}
+.hljs-keyword {
+  color: #6ab0f3 !important;
+}
+code {
+  color: #b3b9c5 !important;
+  font-weight: 400 !important;
+}
 @media (max-width: 767px) {
   .markdown-body {
     padding: 15px;

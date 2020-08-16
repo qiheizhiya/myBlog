@@ -1,18 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Backbone from "../views/backbone"
 import routeArr from "./routes"
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/",
-    component: Backbone,
-    children: [
-      ...routeArr
-    ]
-  }
-];
+const routes = routeArr
 
 const router = new VueRouter({
   mode: "history",

@@ -26,7 +26,11 @@ ins.interceptors.response.use(resp => {
   // }
   const data = resp.data
   if (data.code !== 200 ) {
-    Message.error(data.msg)
+    Message({
+      type: 'error',
+      message: data.msg,
+      offset: 60
+    })
     return Promise.reject(data)
   }
   return resp
@@ -34,7 +38,11 @@ ins.interceptors.response.use(resp => {
   if (err.response.status === 403) {
     localStorage.removeItem("token")
     localStorage.removeItem('userInfo')
-    Message.error('登陆已过期,请重新登陆')
+    Message({
+      type: 'error',
+      message: '登陆已过期,请重新登陆',
+      offset: 60
+    })
   }
   return Promise.reject(err)
 })

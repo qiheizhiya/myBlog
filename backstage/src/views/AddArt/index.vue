@@ -100,7 +100,7 @@ export default {
       return isLt4M
     },
     handleMusicSuccess (res, file) {
-      this.musicUrl = this.mainUrl + file.name
+      this.musicUrl = this.mainUrl + res.data
       this.$message.success('音频上传成功')
     },
     addArticle () {

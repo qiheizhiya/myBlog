@@ -16,8 +16,8 @@ export default [
   },
   {
     path: '/detail',
-    name: 'detail',
-    component: () => import("../views/ArticleList/detail")
+    name: 'Detail',
+    component: () => import("../views/ArticleList/detail"),
   },
   {
     path: "/demo",

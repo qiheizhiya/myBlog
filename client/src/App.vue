@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <transition class="change" name="fade" mode="out-in" >
-      <keep-alive>
+      <keep-alive :exclude="['articleList', 'detail']">
         <router-view :key="routerId" />
       </keep-alive>
     </transition>
+    <BackTop />
   </div>
 </template>
 <script>
+import BackTop from '@c/backToTop'
 export default {
+  components: { BackTop },
   computed: {
     routerId () {
       return this.$route.name

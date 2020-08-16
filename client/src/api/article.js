@@ -8,3 +8,6 @@ export const list = data => axios.post('/api/article/getArtList', data)
 
 // 获取文章详情
 export const detail = id => axios.get('/api/article/getArtDetail', { params: { id } })
+
+// 喜欢这篇文章
+export const setLike = data => axios.post('/api/article/likeArt', data)

@@ -4,29 +4,29 @@
     <div class="list">
       <ul class="monUl" v-for="(item, index) in requestDatas" :key="index">
         <li class="monTitle">{{item[0].month}}, {{item[0].year}}</li>
-        <router-link tag="ul" :to="{name: 'detail', query: {id: thunk.id}}" class="mContent" v-for="thunk in item" :key="thunk.id" >
+        <router-link tag="ul" :to="{name: 'Detail', query: {id: thunk.id}}" class="mContent" v-for="thunk in item" :key="thunk.id" >
           <li class="mCLi flex space-between">
             <div class="mCLeft flex align-center">
               <img :src="thunk.imgUrl" :title="thunk.title" :alt="thunk.title" />
               <div class="mCLText flex flex-column space-around">
                 <span>{{thunk.title}}</span>
-
                 <span>{{thunk.likeNum}} 喜欢 / {{thunk.visitsNum}} 读</span>
               </div>
             </div>
-            <span class="mCRight flex align-center">15th</span>
+            <span class="mCRight flex align-center">{{thunk.day}}</span>
           </li>
         </router-link>
       </ul>
+      <Loader v-if="isLoading" />
+      <span class="notMany" v-else>没有更多了~~O(∩_∩)O</span>
     </div>
-    
   </div>
 </template>
 <script>
-import Header from "@c/Header";
-import { list } from "@/api/article"
+import Loader from "@c/Loading"
 export default {
-  components: { Header },
+  name: 'articleList',
+  components: { Loader },
   data () {
     return {
       page: {
@@ -35,18 +35,34 @@ export default {
       },
       requestDatas: {},
       total: 0,
-      year: 2020
+      isLoading: false,
+      isNext: true
     }
   },
   created () {
     this.getArtList()
-    this.year = new Date().getFullYear()
+    this.bottomHandle()
   }, 
   methods: {
     async getArtList () {
-      const result = await list(this.page)
+      const result = await this.$store.dispatch('getArtList', this.page)
+      this.isLoading = false
       this.requestDatas = result.data.data.datas
       this.total = result.data.data.total
+      if (this.requestDatas[0].length >= this.total) this.isNext = false
+    },
+    bottomHandle () {
+      window.addEventListener('scroll', () => {
+        if (!this.isNext) return
+        this.isLoading = true
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+        const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+        if (scrollTop + windowHeight >= scrollHeight) {
+          this.page.pageSize += 10
+          this.getArtList()
+        }
+      })
     }
   }
 };
@@ -124,6 +140,16 @@ export default {
         }
       }
     }
+  }
+  .notMany {
+    padding: 20px 0 0;
+    color: #909090;
+    letter-spacing: 2px;
+    transition: all .3s;
+    border-radius: 4px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
   }
   @media screen and (max-width: 700px){
     .list {

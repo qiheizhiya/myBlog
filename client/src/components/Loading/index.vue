@@ -1,68 +1,59 @@
 <template>
-  <div class="loader">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="flex align-center space-between">
+    <div class="loader flex align-center justify-center">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 </template>
 <style scoped lang="less">
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #222;
-}
-
 .loader {
-  position: relative;
-  width: 8em;
-  height: 8em;
-  background: linear-gradient(-225deg, #ff3cac 0%, #562b7c 52%, #2b86c5 100%);
-  border-radius: 50%;
-  animation: spin 0.5s linear infinite;
-
-  span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    background: inherit;
-
-    &:nth-child(1) {
-      filter: blur(5px);
-    }
-
-    &:nth-child(2) {
-      filter: blur(10px);
-    }
-
-    &:nth-child(3) {
-      filter: blur(25px);
-    }
-
-    &:nth-child(4) {
-      filter: blur(50px);
-    }
+  width: 100%;
+  height: 100%;
+}
+span {
+  width: 24px;
+  height: 24px;
+  background: #3ac;
+  border-radius: 100%;
+  animation: slide 1s infinite;
+  display: inline-block;
+  margin: 0 2px;
+  &:nth-of-type(1) {
+    animation-delay: 0.1s;
+    background: #32aacc;
   }
-
-  &::after {
-    position: absolute;
-    content: "";
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    background: #222;
-    border-radius: inherit;
+  &:nth-of-type(2) {
+    animation-delay: 0.2s;
+    background: #64aacc;
+  }
+  &:nth-of-type(3) {
+    animation-delay: 0.3s;
+    background: #96aacc;
+  }
+  &:nth-of-type(4) {
+    animation-delay: 0.4s;
+    background: #c8aacc;
+  }
+  &:nth-of-type(5) {
+    animation-delay: 0.5s;
+    background: #faaacc;
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(1turn);
+@keyframes slide {
+  0% {
+    ransform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
-
 </style>

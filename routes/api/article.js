@@ -6,8 +6,8 @@ const { apiHandle } = require('../getSendMessage')
 let article = new Router()
 
 article.post('/getArtList', async ctx => {
-  const { pageSize = 10, pageNum = 1 } = ctx.request.body
-  const result = await artServ.getArtList(pageNum, pageSize)
+  const { pageSize = 10, pageNum = 1, isHome = false } = ctx.request.body
+  const result = await artServ.getArtList(pageNum, pageSize, isHome)
   apiHandle(ctx, result, '获取文章列表失败, 刷新一下试试~~')
 })
 
@@ -29,5 +29,10 @@ article.post('/addArticle', async ctx => {
   }
 })
 
+article.post('/likeArt', async ctx => {
+  const data = ctx.request.body
+  const result = await artServ.likeArt(data)
+  apiHandle(ctx, result, '喜欢文章失败，刷新一下试试~~')
+})
 
 module.exports = article

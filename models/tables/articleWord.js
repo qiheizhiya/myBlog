@@ -15,10 +15,10 @@ const ArticleWord = sequelize.define('ArticleWord', {
       return moment(this.getDataValue('createdAt')).format('YYYY-MM-DD HH:mm:ss')
     }
   },
-  updateAt: {
+  updatedAt: {
     type: DataTypes.DATE,
     get(){
-      return moment(this.getDataValue('updateAt')).format('YYYY-MM-DD HH:mm:ss')
+      return moment(this.getDataValue('updatedAt')).format('YYYY-MM-DD HH:mm:ss')
     }
   }
 },

@@ -56,7 +56,7 @@ export default {
             { name:' Demo',icon:'iconfont icon-ziyuan', path:'/demo' },
             { name:' 关于我',icon:'iconfont icon-liuyanban', path:'/self' },
             { name:' 留言版',icon:'iconfont icon-liuyanban', path:'/message' },
-            { name:' Github',icon:'iconfont icon-GitHub', path:'https://github.com/qiheizhiya/' },
+            { name:' Github',icon:'iconfont icon-GitHub', path:'https://github.com/qiheizhiya/myBlog' },
         ]
     };
   },

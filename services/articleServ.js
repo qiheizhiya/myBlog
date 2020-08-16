@@ -1,6 +1,7 @@
 const Article = require('../models/tables/article')
 const ArticleWord = require('../models/tables/articleWord')
 const User = require('../models/tables/user')
+const { model } = require('../models/tables/db')
 // 增加文章
 exports.addArticle = async function (artObj) {
   const ins = await Article.create(artObj)
@@ -17,20 +18,26 @@ exports.deleteArt = async function (id) {
   }
 }
 // 获取文章列表
-exports.getArtList = async function (page = 1, limit = 10) {
+exports.getArtList = async function (page = 1, limit = 10, isHome = false) {
   const result = await Article.findAndCountAll({
     offset: ( page - 1 ) * limit,
     limit: +limit,
     order: [
       ['createdAt', 'DESC']
+    ],
+    include: [
+      {
+        model: ArticleWord
+      }
     ]
   })
-  const { rows, count } = result
+  let { rows, count } = result
   if (rows.length === 0 && !rows) return { total: 0, datas: [] } // 如果没有文章
-  const groupArr = listGroup(rows)
+  if (!isHome) { rows = listGroup(rows) }
+  count = await Article.count()
   return {
     total: count,
-    datas: groupArr
+    datas: rows
   }
 }
 
@@ -47,11 +54,14 @@ function listGroup (rows) {
 
   yearArr.forEach(year => { // 把文章按年份分组
     const resultArr = rows.filter(item => {
-      const [ rowYear, rowMonth ] = item.createdAt.split("-")
+      const [ rowYear, rowMonth, surplus ] = item.createdAt.split("-")
+      let rowDay = surplus.split(" ")[0]
+      rowDay[0] === '0' ? rowDay = rowDay.substr(1, 1) : ''
       if (rowYear === year) { 
         item.dataValues.year = year
       }
       item.dataValues.month = rowMonth
+      item.dataValues.day = rowDay
       return rowYear === year
     })
     if (resultArr.length === 0) return
@@ -86,7 +96,7 @@ exports.getArtDetail = async function (id, userId, ctx) {
   if (!result) return result
   addVisits(ctx, result) 
   result = result.toJSON()
-  handlerData(result, commentCount)
+  handlerData(result)
   return result
 }
 
@@ -105,4 +115,16 @@ function handlerData (result) {
   const len = result.content.replace(/<\/?.+?>/g, "").replace(/(\r\n|\n|\r)/gm, "").length
   result.textLen = len // 统计字数
   delete result.Users
+}
+
+exports.likeArt = async function ({ articleId, userId }) {
+  try {
+    const artIns = await Article.findByPk(articleId)
+    const userIns = await User.findByPk(userId)
+    await artIns.addUser(userIns)
+    await artIns.increment('likeNum')
+    return true
+  } catch (e) {
+    return false
+  }
 }

@@ -9,7 +9,7 @@
             <img :src="list.User.avatar" />
           </div>
           <div class="reply-date flex align-center space-between">
-              <span class="name">{{list.User.userName}}</span>
+              <div class="name flex align-center">{{list.User.userName}}<el-tag class="master" effect="dark" size="mini" v-if="list.User.id === 1">站主</el-tag> </div>
               <div class="flex algin-center">
                 <div class="reply" @click="setInput(list.User, list.id)">回复</div>
                 <div class="date">{{list.createdAt}}</div>
@@ -24,10 +24,10 @@
             <img :src="children.User.avatar" />
           </div>
           <div class="reply-date flex align-center space-between">
-              <span class="name">{{list.User.userName}}</span>
+              <div class="name flex align-center">{{list.User.userName}}<el-tag class="master" effect="dark" size="mini" v-if="list.User.id === 1" >站主</el-tag> </div>
               <div class="flex algin-center">
-                <div class="reply" @click="setInput(list.User, list.id)">回复</div>
-                <div class="date">{{list.createdAt}}</div>
+                <div class="reply" @click="setInput(children.User, list.id)">回复</div>
+                <div class="date">{{children.createdAt}}</div>
               </div>
           </div>
         </div>
@@ -41,7 +41,7 @@
 export default {
   props: {
     lists: {
-      type: Object,
+      type: [Array, Object],
       default: () => {}
     }
   },
@@ -49,6 +49,9 @@ export default {
     return {
       replyShow: ''
     };
+  },
+  created () {
+    console.log(this.lists)
   },
   methods: {
     setInput (data, parentId) {
@@ -128,6 +131,11 @@ export default {
           transition: all 0.3s;
           position: relative;
           border-bottom: 1px dashed #89b60331;
+          .master {
+            border-bottom: none;
+            font-size: 12px;
+            margin-left: 10px;
+          }
         }
       }
       
@@ -161,6 +169,15 @@ export default {
             display: block;
             border-bottom: none;
             margin-bottom: 2px;
+            .master {
+              font-size: 10px;
+              margin-left: 10px;
+            }
+            /deep/ .el-tag--mini {
+              height: 16px;
+              line-height: 15px;
+              padding: 0 3px;
+            }
           }
           .reply {
             opacity: 1;

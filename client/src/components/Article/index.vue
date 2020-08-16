@@ -1,50 +1,64 @@
 <template>
   <div>
-    <div class="article flex align-center" v-for="item in 3" :key="item.id">
+    <div class="article flex align-center" v-for="item in datas" :key="item.id">
       <div class="img-outer flex align-center justify-center">
-        <img src="https://image.raindays.cn/Mood/image/1593794317426.jpg" alt />
+        <img :src="item.imgUrl" alt />
       </div>
       <div class="text-outer">
         <div class="info" >
-          <div class="time" >六月 15, 2020</div>
+          <div class="time" >{{item.month}} {{item.day}}, {{item.year}}</div>
           <div class="title" >
-            <a >微信号可以改了，你还相信时间吗</a>
+            <a >{{item.title}}</a>
           </div>
           <div class="description" >
-            终于，在千呼万唤中，微信终于可以修改微信号啦！
-            微信官宣了这一消息，几亿用户奔走相告沸腾不已，众人瞩目的微信每次出一...
+            {{item.description}}
           </div>
           <div class="handle flex align-center ">
             <div class="handle-thunk flex align-center">
               <i class="iconfont icon-view"></i>
-              <span>1234</span>
+              <span>{{item.visitsNum}}</span>
             </div>
             <div class="handle-thunk flex align-center">
-              <i class="iconfont icon-dianzan"></i>
-              <span>1234</span>
+              <i class="iconfont icon-xinheart118"></i>
+              <span>{{item.likeNum}}</span>
             </div>
             <div class="handle-thunk flex align-center">
               <i class="iconfont icon-pinglun"></i>
-              <span>1234</span>
+              <span>{{item.ArticleWords.length}}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <Button text="查看更多" :styles="buttonStyle" />
+    <div class="loader flex align-center justify-center">
+      <Loader v-if="isLoading" />
+      <span class="notMany" v-else>没有更多了~~O(∩_∩)O</span>
+    </div>
   </div>
 </template>
 <script>
 import Button from '@c/Button'
+import Loader from "@c/Loading"
 export default {
-  components: { Button },
+  components: { Button, Loader },
+  props: {
+    datas: {
+      type: [Array, Object],
+      default: () => []
+    },
+    isLoading: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       buttonStyle: {
         padding: '8px 26px',
         fontSize: '14px',
-        marginTop: '60px',
-        borderRadius: '2px'
+        margin: '60px auto 0',
+        borderRadius: '2px',
+        display: 'block'
       }
     }
   }
@@ -72,12 +86,18 @@ export default {
     border: 1px solid #f3fafd;
     transition: all .3s;
     flex: 0 0 auto;
+    img {
+      flex: 0 0 auto;
+      width: 100%;
+      height: 100%;
+    }
   }
   .text-outer {
     padding: 80px 100px 0 80px;
     border: 1px solid #eaeaea;
     border-radius: 6px;
     height: 400px;
+    width: 500px;
     .info {
       .time {
         color: #999;
@@ -149,12 +169,16 @@ export default {
           }
           &:nth-of-type(2) {
             &::after {
-              content: '点个赞吧';
+              content: '喜欢人数';
             }
           }
           &:nth-of-type(3) {
+            i {
+              font-size: 16px;
+              margin-right: 2px;
+            }
             &::after {
-              content: '来评论吧';
+              content: '评论数';
             }
           }
           &:nth-of-type(2):hover {
@@ -182,6 +206,18 @@ export default {
         }
       }
     }
+  }
+}
+.loader {
+  margin-top: 30px;
+  .notMany {
+    letter-spacing: 2px;
+    height: 34px;
+    line-height: 36px;
+    padding: 0 36px;
+    color: #909090;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
   }
 }
 @media screen and (max-width: 1200px) {

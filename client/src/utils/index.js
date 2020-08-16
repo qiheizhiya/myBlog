@@ -14,6 +14,7 @@ export function debounce(fn, delay) {
     }, delay);
   };
 }
+
 export function throttle(fn, delay) {
   var last;
   var timer;
@@ -34,7 +35,7 @@ export function throttle(fn, delay) {
     }
   }
 }
-export async function valiFunc (arr) {
+export async function valiFunc(arr) {
   let res = true
   for (let item of arr) {
     if (!item.data || item.data.length === 0) {
@@ -49,3 +50,4 @@ export async function valiFunc (arr) {
   }
   return res
 }
+

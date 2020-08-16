@@ -1,9 +1,7 @@
 <template>
-  <div class="Maskparent">
-    <div id="Maske">
-      <Center class="center" />
-      <div class="bg"></div>
-    </div>
+  <div id="Maske">
+    <Center class="center" />
+    <div class="bg"></div>
   </div>
 </template>
 <script>
@@ -26,7 +24,7 @@ export default {
 #Maske {
   position: absolute;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   transition: all 0.5s;
   z-index: 5;
@@ -38,7 +36,7 @@ export default {
     transform: translate(-50%, -50%);
   }
   .bg {
-    width: 120%;
+    width: 100%;
     height: 100vh;
     animation: change 15s infinite ;
     background: linear-gradient(125deg,#2980b9,#633bd3,#8e44ad,#192f44,#27ae60);

@@ -34,7 +34,7 @@ export default {
   z-index: 5;
   &-gradient {
     color: #fff;
-    background: linear-gradient(90deg, #6497ac, #363636);
+    background: linear-gradient(90deg, #353535, #c9c6c6);
     background-size: 300%;
     border-radius: 2em;
     opacity: .5;

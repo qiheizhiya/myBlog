@@ -1,72 +1,61 @@
 <template>
   <div class="max">
     <div id="scene" class="img-outer">
-      <div  data-depth="0.4" class="move-outer flex align-center justify-center"  >
+      <div data-depth="0.4" class="move-outer flex align-center justify-center"  >
         <img src="@/assets/img/jm.png" :width="imgWidth" :height="imgHeight" >
       </div>
     </div>
-    <!-- <div id="scene" :style="{height:boxH}">
-      <div class="layer" data-depth="0.4" :style="layerStyle">
-        <img id="image" :style="imgStyle" src="@/assets/img/jm.png" width="1920" height="1080">
-      </div>
-		</div> -->
     <div class="header flex align-center space-between">
       <img src="@/assets/img/whitelogo.png" alt="">
       <router-link :to="{name: 'Home'}" tag="div" class="icon" ><i class="el-icon-s-unfold"></i></router-link>
     </div>
     <div class="mask"></div>
     <div class="info">
-      <div class="time">七月4号</div>
+      <div class="time">{{date.month}} {{date.day}}, {{date.year}}</div>
       <div class="title">你好，我叫隆杰！</div>
       <div class="content">眼里有光，心中有爱，一路春暖花开，看淡得失，珍惜拥有，不负时光，不负自己，所有美好，都将如期而至</div>
     </div>
   </div>
 </template>
 <script>
-import { throttle } from '../../../src/utils/index'
 import Parallax from 'parallax-js'
+import { debounce } from '@/utils'
 export default {
+  name: 'giantScreen',
   data () {
     return {
       imgWidth: null,
       imgHeight: null,
-      drawer: false
+      drawer: false,
+      date: {}
     }
   },
   created () {
-    const that = this
-    let width = document.documentElement.clientWidth * 1.1
-    let height = document.documentElement.clientHeight * 1.2
-    if (width < 1400) { width = 1400 }
-    if (height < 610 ) { height = 610}
-    that.imgWidth = width
-    that.imgHeight = height
+    let wWidth = document.documentElement.clientWidth
+    let wHeight = document.documentElement.clientHeight
+    this.imgWidth = wWidth + 150
+    this.imgHeight = wHeight + 200
+    if (wWidth <= 600) { this.imgWidth = 1920 / 1.3; this.imgHeight = 1080 / 1.3}
+    this.getYearMonthDay()
   },
   mounted () {
-    this.resizeHandle()
     const scene = document.getElementById('scene');
 		const parallaxInstance = new Parallax(scene, {
 			relativeInput: true,
 			clipRelativeInput: true,
 		})
   },
-  destroyed () {
-    window.onresize = window.onload = null
-  },
   methods: {
     drawHandle () {
       this.drawer = !this.drawer
     },
-    resizeHandle () {
-      const that = this
-      window.onresize = window.onload = function () {
-        let width = document.documentElement.clientWidth * 1.1
-        let height = document.documentElement.clientHeight * 1.1
-        if (width < 1400) { width = 1400 }
-        if (height < 610 ) { height = 610}
-        that.imgWidth = width
-        that.imgHeight = height
-      }
+    async getYearMonthDay () {
+      const date = new Date()
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
+      const day = date.getDate()
+      const result = `${year}-${month}-${day} ${123}`
+      this.date = await this.$store.dispatch('dataHandle', { createdAt: result })
     }
   }
 }

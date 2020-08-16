@@ -4,10 +4,11 @@
       <img @click="toIndex" src="@img/textlogo.png" alt />
       <i class="iconfont" @click="changeMusic" :class="isPlay ? 'icon-zanting' : 'icon-bofang'"></i>
     </div>
-    <div class="mid">哈哈哈</div>
-    <router-link tag="div" :to="{}" class="right">
+    <div class="mid" :class="musicIcon==='show' ? 'show' : 'hid'">{{midText}}</div>
+    <div class="right flex align-center">
+      <i class="iconfont" :class="isLike ? 'icon-xin' : 'icon-xinheart118'" v-if="showLike" @click="$emit('like', isLike)"></i>
       <img src="@/assets/img/tx.jpg" alt />
-    </router-link>
+    </div>
     <div class="progressBar" :style="{width: progressBarWidth + '%'}"></div>
     <div class="music-btn" @click="changeMusic" :class="[musicIcon]">
       <svg
@@ -29,15 +30,31 @@
       </svg>
       <span class="iconfont" :class="isPlay ? 'icon-zanting' : 'icon-bofang'"></span>
     </div>
-    <audio loop id="music">
-      <source src="@img/music.mp3" type="audio/mpeg">
-    </audio>
+    <audio loop id="music" :src="music"> </audio>
   </div>
 </template>
 
 <script>
 import { throttle } from '../../../src/utils/index'
 export default {
+  props: {
+    music: {
+      type: String,
+      default: require('@img/music.mp3')
+    },
+    isLike: {
+      type: Boolean,
+      default: false
+    },
+    midText: {
+      type: String,
+      default: '文章列表'
+    },
+    showLike: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       isPlay: false,
@@ -45,18 +62,21 @@ export default {
       dashArray: Math.PI * 100,
       progressBarWidth: 0,
       musicIcon: "",
-      audioDom: '',
+      audioDom: '', 
+      mid: ''
     };
   },
   computed: {
-    // mobile music progress
     dashOffset() {
       return (1 - this.progressBarWidth / 100) * this.dashArray;
     }
   },
   mounted () {
-    this.initMusic() // 
+    this.initMusic() // 加载音乐
     this.listenScroll()
+  },
+  created () {
+    this.mid = this.midText
   },
   methods: {
     // 音乐播放处理
@@ -136,8 +156,26 @@ export default {
     }
   }
   .mid {
+    font-weight: 600;
+    transition: all .4s ease-in;
+  }
+  .mid.hid {
+    opacity: 0;
   }
   .right {
+    .iconfont {
+      font-size: 26px;
+      margin: 0 16px;
+      cursor: pointer;
+      transition: all .3s;
+      &.icon-xin {
+        color: #ef6d57;
+        font-weight: bold;
+      }
+      &.icon-xinheart118:hover {
+        color: #ef6d57;
+      }
+    }
     img {
       width: 30px;
       height: auto;
