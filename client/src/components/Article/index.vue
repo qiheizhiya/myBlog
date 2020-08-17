@@ -1,19 +1,17 @@
 <template>
   <div>
-    <div class="article flex align-center" v-for="item in datas" :key="item.id">
-      <div class="img-outer flex align-center justify-center">
+    <div class="article flex align-center wow fadeInUp" v-for="item in datas" :key="item.id">
+      <div class="img-outer flex align-center justify-center" @click="toDetail(item.id)">
         <img :src="item.imgUrl" alt />
       </div>
       <div class="text-outer">
-        <div class="info" >
-          <div class="time" >{{item.month}} {{item.day}}, {{item.year}}</div>
-          <div class="title" >
-            <a >{{item.title}}</a>
+        <div class="info">
+          <div class="time">{{item.month}} {{item.day}}, {{item.year}}</div>
+          <div class="title" @click="toDetail(item.id)">
+            <a>{{item.title}}</a>
           </div>
-          <div class="description" >
-            {{item.description}}
-          </div>
-          <div class="handle flex align-center ">
+          <div class="description">{{item.description}}</div>
+          <div class="handle flex align-center">
             <div class="handle-thunk flex align-center">
               <i class="iconfont icon-view"></i>
               <span>{{item.visitsNum}}</span>
@@ -37,8 +35,10 @@
   </div>
 </template>
 <script>
-import Button from '@c/Button'
-import Loader from "@c/Loading"
+import Button from "@c/Button";
+import Loader from "@c/Loading";
+import {WOW} from 'wowjs'
+
 export default {
   components: { Button, Loader },
   props: {
@@ -51,15 +51,30 @@ export default {
       default: false
     }
   },
-  data () {
+  watch: {
+    datas() {
+      this.$nextTick(() => {
+        new WOW({
+          live: false,
+          offset: 0
+        }).init()
+      })
+    }
+  },
+  data() {
     return {
       buttonStyle: {
-        padding: '8px 26px',
-        fontSize: '14px',
-        margin: '60px auto 0',
-        borderRadius: '2px',
-        display: 'block'
+        padding: "8px 26px",
+        fontSize: "14px",
+        margin: "60px auto 0",
+        borderRadius: "2px",
+        display: "block"
       }
+    };
+  },
+  methods: {
+    toDetail (id) {
+      this.$router.push({name: 'Detail', params: { id }})
     }
   }
 };
@@ -73,7 +88,7 @@ export default {
   }
   &:nth-of-type(odd) {
     flex-direction: row-reverse;
-  } 
+  }
   .img-outer {
     width: 680px;
     height: 440px;
@@ -84,7 +99,7 @@ export default {
     overflow: hidden;
     border-radius: 6px;
     border: 1px solid #f3fafd;
-    transition: all .3s;
+    transition: all 0.3s;
     flex: 0 0 auto;
     img {
       flex: 0 0 auto;
@@ -115,14 +130,28 @@ export default {
           font-size: 24px;
           line-height: 30px;
           cursor: pointer;
+          &:hover {
+            text-decoration: none;
+            background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='blue' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E") repeat-x 0 100%;
+            background-size: 20px auto;
+            animation: waveMove 1s infinite linear;
+          }
         }
       }
+      @keyframes waveMove{    
+        0%{    
+          background-position:0% 100%;    
+        }    
+        100%{    
+          background-position:-20px 100%;    
+        }    
+      }    
       .description {
         color: #666;
         font-size: 14px;
         line-height: 22px;
         margin-top: 10px;
-        .text-overflow(3)
+        .text-overflow(3);
       }
       .handle {
         margin-top: 60px;
@@ -130,13 +159,14 @@ export default {
         color: #999;
         .handle-thunk {
           position: relative;
-          &::after, &::before {
+          &::after,
+          &::before {
             opacity: 0;
             visibility: visible;
           }
           &::after {
             content: "浏览数";
-            transform: translate(-50%,-5px);
+            transform: translate(-50%, -5px);
             background: #ef6d57;
             white-space: nowrap;
             color: #fff;
@@ -146,20 +176,21 @@ export default {
             position: absolute;
             bottom: 100%;
             left: 50%;
-            transition: all .3s;
+            transition: all 0.3s;
           }
           &::before {
-            content: '';
+            content: "";
             position: absolute;
             bottom: 100%;
             left: 50%;
-            transition: all .3s;
+            transition: all 0.3s;
             border: 5px solid transparent;
             border-top-color: #ef6d57;
-            transform: translate(-50%,5px);
+            transform: translate(-50%, 5px);
           }
           &:hover {
-            &::after, &::before {
+            &::after,
+            &::before {
               opacity: 1;
               visibility: visible;
             }
@@ -169,7 +200,7 @@ export default {
           }
           &:nth-of-type(2) {
             &::after {
-              content: '喜欢人数';
+              content: "喜欢人数";
             }
           }
           &:nth-of-type(3) {
@@ -178,7 +209,7 @@ export default {
               margin-right: 2px;
             }
             &::after {
-              content: '评论数';
+              content: "评论数";
             }
           }
           &:nth-of-type(2):hover {
@@ -262,7 +293,7 @@ export default {
           margin-top: 30px;
         }
         .description {
-          .text-overflow(2)
+          .text-overflow(2);
         }
       }
     }

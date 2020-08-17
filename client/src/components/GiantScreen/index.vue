@@ -2,7 +2,7 @@
   <div class="max">
     <div id="scene" class="img-outer">
       <div data-depth="0.4" class="move-outer flex align-center justify-center"  >
-        <img src="@/assets/img/jm.png" :width="imgWidth" :height="imgHeight" >
+        <img src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/main.jpg" :width="imgWidth" :height="imgHeight" >
       </div>
     </div>
     <div class="header flex align-center space-between">
@@ -34,8 +34,8 @@ export default {
     let wWidth = document.documentElement.clientWidth
     let wHeight = document.documentElement.clientHeight
     this.imgWidth = wWidth + 150
-    this.imgHeight = wHeight + 200
-    if (wWidth <= 600) { this.imgWidth = 1920 / 1.3; this.imgHeight = 1080 / 1.3}
+    this.imgHeight = wHeight + 150
+    if (wWidth <= 600) { this.imgWidth = 1920 / 1.3; this.imgHeight = 960}
     this.getYearMonthDay()
   },
   mounted () {
@@ -126,7 +126,7 @@ export default {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(176, 14, 37, 0.7);
+    background-color: #4c50cf86;
     clip-path: polygon(0 0,25% 0,60% 100%,0 100%);
     pointer-events: none;
   }

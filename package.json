@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@koa/cors": "^3.1.0",
+    "ali-oss": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",

@@ -60,7 +60,7 @@ export default {
     };
   },
   async created () {
-    await this.getDetail(this.$route.query.id); // 获取详情
+    await this.getDetail(this.$route.params.id); // 获取详情
     await this.markdownRender() // markdown 加载
     await this.getComData()
     this.isAnyUserName() // 如果该账号已经填了用户名，则不需要填了

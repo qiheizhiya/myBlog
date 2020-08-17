@@ -7,7 +7,7 @@
       <el-form-item label="头像">
         <el-upload
           class="avatar-uploader"
-          :action="mainUrl + '/upload'"
+          :action="mainUrl + '/ossUpload'"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -66,7 +66,8 @@ export default {
   methods: {
     ...mapMutations(['setUserInfo']),
     handleAvatarSuccess(res, file) {
-      this.form.avatar = this.mainUrl + res.data
+      console.log(res.data)
+      this.form.avatar = res.data
       this.$message.success('图片上传成功')
     },
     beforeAvatarUpload(file) {

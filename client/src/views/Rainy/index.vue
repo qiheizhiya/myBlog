@@ -21,9 +21,6 @@
                 </audio>
             </li>
         </ul>
-
-        <!-- loading -->
-		<!-- <Loading v-if="loading"></Loading> -->
     </div>
 </template>
 
@@ -64,13 +61,14 @@ export default {
             img: null
         }
     },
-    mounted(){
+    activated(){
       this.audioDom = document.getElementsByClassName("music");
       this.userToast()
       document.documentElement.addEventListener('click', this.oncePlay)
     },
-    beforeRouteLeave (to, from, next) {
-      new Promise (resolve => resolve(this.show = false)).then(res => next())
+    deactivated () {
+        document.documentElement.removeEventListener('click', this.oncePlay)
+        this.rainIcon.forEach(item => this.$set(item, 'active', false))
     },
     methods: {
         toIndex(){

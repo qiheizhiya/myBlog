@@ -18,7 +18,7 @@
       <el-upload
         class="upload"
         drag
-        :action="mainUrl + '/upload'"
+        :action="mainUrl + '/ossUpload'"
         accept="image/*"
         :on-success="handleAvatarSuccess"
         :show-file-list="false"
@@ -33,7 +33,7 @@
         drag
         :show-file-list="false"
         accept="audio/*"
-        :action="mainUrl + '/upload'"
+        :action="mainUrl + '/ossUpload'"
         :on-success="handleMusicSuccess"
         :before-upload="beforeMusicUpload"
         >
@@ -88,7 +88,7 @@ export default {
       return isLt4M;
     },
     handleAvatarSuccess(res, file) {
-      this.imgUrl = this.mainUrl + res.data
+      this.imgUrl = res.data
       this.$message.success('图片上传成功')
     },
     beforeMusicUpload (file) {
@@ -100,7 +100,7 @@ export default {
       return isLt4M
     },
     handleMusicSuccess (res, file) {
-      this.musicUrl = this.mainUrl + res.data
+      this.musicUrl = res.data
       this.$message.success('音频上传成功')
     },
     addArticle () {

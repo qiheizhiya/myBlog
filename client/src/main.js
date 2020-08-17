@@ -8,15 +8,18 @@ import store from "./store";
 
 // 引入elementUi
 import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI)
+// 引入elementUi
 
 // 引入全局组件Header
 import Header from "@c/Header"
 Vue.component('Header',Header)
-
-import 'element-ui/lib/theme-chalk/index.css';
+// 引入全局组件Header
 
 // 引入 iconfont
 import '@/assets/font/iconfont.css';
+// 引入 iconfont
 
 // 高亮富文本
 import hljs from 'highlight.js/lib/core';
@@ -28,14 +31,13 @@ Vue.directive('highlight',function (el) {
     hljs.highlightBlock(block)
   })
 })
+// 高亮富文本
 
-Vue.use(ElementUI)
-
+// 引入markdown-css
 import 'github-markdown-css/github-markdown.css'
+// 引入markdown-css
 
 Vue.config.productionTip = false;
-
-
 
 new Vue({
   router,

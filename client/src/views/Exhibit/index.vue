@@ -9,6 +9,7 @@
 <script>
 import GiantScreen from '@c/GiantScreen/index'
 import Article from '@c/Article/index'
+
 export default {
   name: 'home',
   components: { GiantScreen, Article },
@@ -17,7 +18,7 @@ export default {
       requestDatas: [],
       total: '',
       page: {
-        pageSize: 10,
+        pageSize: 100,
         pageNum: 1,
         isHome: true
       },
@@ -27,6 +28,8 @@ export default {
   },
   created () {
     this.getArtList()
+  },
+  activated () {
     this.bottomHandle()
   },
   methods: {
@@ -34,24 +37,27 @@ export default {
       const result = await this.$store.dispatch('getArtList', this.page)
       this.isLoading = false
       const datas = result.data.data.datas
-      datas.forEach(item => this.$store.dispatch('dataHandle', item))
-      console.log(datas)
+      datas.forEach(item => this.$store.dispatch('dataHandle', item)) // 增加年月日字段
       this.requestDatas = datas
       this.total = result.data.data.total
       if (this.requestDatas.length >= this.total) this.isNext = false
     },
     bottomHandle () {
-      window.addEventListener('scroll', () => {
-        if (!this.isNext) return
+      window.onscroll = this.scrollHandle
+    },
+    scrollHandle() {
+      if (!this.isNext) return
         this.isLoading = true
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
         const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
         const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
         if (scrollTop + windowHeight >= scrollHeight) {
-          this.page.pageSize += 10
+          this.page.pageSize += 50
           this.getArtList()
         }
-      })
+    },
+    deactivated () {
+      window.onscroll = null
     }
   }
 }

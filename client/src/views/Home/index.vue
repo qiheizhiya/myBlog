@@ -2,6 +2,7 @@
   <div id="Maske">
     <Center class="center" />
     <div class="bg"></div>
+    <div class="beian">粤ICP备20043000号</div>
   </div>
 </template>
 <script>
@@ -42,6 +43,16 @@ export default {
     background: linear-gradient(125deg,#2980b9,#633bd3,#8e44ad,#192f44,#27ae60);
     background-size: 800%;
     z-index: -99;
+  }
+  .beian {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 16px;
   }
   @keyframes change {
     0% { background-position-x: 0%;}

@@ -4,7 +4,7 @@
     <div class="list">
       <ul class="monUl" v-for="(item, index) in requestDatas" :key="index">
         <li class="monTitle">{{item[0].month}}, {{item[0].year}}</li>
-        <router-link tag="ul" :to="{name: 'Detail', query: {id: thunk.id}}" class="mContent" v-for="thunk in item" :key="thunk.id" >
+        <router-link tag="ul" :to="{name: 'Detail', params: {id: thunk.id}}" class="mContent wow fadeInUp" v-for="thunk in item" :key="thunk.id" >
           <li class="mCLi flex space-between">
             <div class="mCLeft flex align-center">
               <img :src="thunk.imgUrl" :title="thunk.title" :alt="thunk.title" />
@@ -24,19 +24,30 @@
 </template>
 <script>
 import Loader from "@c/Loading"
+import { WOW } from 'wowjs'
+
 export default {
   name: 'articleList',
   components: { Loader },
   data () {
     return {
       page: {
-        pageSize: 10,
+        pageSize: 20,
         pageNum: 1
       },
-      requestDatas: {},
+      requestDatas: [],
       total: 0,
       isLoading: false,
       isNext: true
+    }
+  },
+  watch: {
+    requestDatas: {
+      handler() {
+        this.$nextTick(() => {
+          new WOW({ live: false, offset: 0 }).init()
+        })
+      }
     }
   },
   created () {
@@ -59,7 +70,8 @@ export default {
         const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
         const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
         if (scrollTop + windowHeight >= scrollHeight) {
-          this.page.pageSize += 10
+          this.num++
+          this.page.pageSize += 20
           this.getArtList()
         }
       })
