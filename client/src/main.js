@@ -2,7 +2,7 @@ import Vue from "vue";
 
 import App from "./App.vue";
 
-import router from "./router";
+import router from "./router/handler";
 
 import store from "./store";
 
@@ -14,7 +14,7 @@ Vue.use(ElementUI)
 
 // 引入全局组件Header
 import Header from "@c/Header"
-Vue.component('Header',Header)
+Vue.component('Header', Header)
 // 引入全局组件Header
 
 // 引入 iconfont

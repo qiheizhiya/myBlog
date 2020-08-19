@@ -2,17 +2,26 @@ export default [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/Home")
+    component: () => import("../views/Home"),
+    meta: {
+      title: '漆黑之牙'
+    }
   },
   {
     path: "/exhibit",
     name: "Exhibit",
-    component: () => import("../views/Exhibit") 
+    component: () => import("../views/Exhibit"),
+    meta: {
+      title: '展览 | 漆黑之牙'
+    }
   },
   {
     path: "/articleList",
     name: "ArticleList",
-    component: () => import("../views/ArticleList")
+    component: () => import("../views/ArticleList"),
+    meta: {
+      title: 'Article | 漆黑之牙'
+    }
   },
   {
     path: '/detail/:id',
@@ -22,7 +31,10 @@ export default [
   {
     path: "/demo",
     name: "Demo",
-    component: () => import("../views/Demo")
+    component: () => import("../views/Demo"),
+    meta: {
+      title: 'Demo | 漆黑之牙'
+    }
   },
   {
     path: "/self",

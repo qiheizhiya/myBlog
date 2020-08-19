@@ -1,17 +1,18 @@
 <template>
   <div id="app">
+    <pageLoadScrollBar />
     <transition class="change" name="fade" mode="out-in" >
-      <keep-alive :exclude="['articleList', 'detail']">
+      <keep-alive :exclude="['detail']">
         <router-view :key="routerId" />
       </keep-alive>
     </transition>
-    <BackTop />
+    <el-backtop /> 
   </div>
 </template>
 <script>
-import BackTop from '@c/backToTop'
+import pageLoadScrollBar from "@c/pageLoadScrollBar"
 export default {
-  components: { BackTop },
+  components: { pageLoadScrollBar },
   computed: {
     routerId () {
       return this.$route.name

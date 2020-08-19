@@ -5,11 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isToken: !!localStorage.getItem('token') // 有没有token
+    isToken: !!localStorage.getItem('token'), // 有没有token
+    showPageLoadScrollBar: false 
   },
   mutations: {
     setIsToken (state, data) {
       state.isToken = data
+    },
+    setShowPageLoadScrollBar (state, data) {
+      state.showPageLoadScrollBar = !!data
     }
   },
   actions: {

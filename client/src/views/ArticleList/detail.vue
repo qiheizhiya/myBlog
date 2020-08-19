@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-column align-center">
+    <scrollBar/>
     <Header @like="likeChange" :isLike="detail.isLike" :midText="detail.title" :showLike="true" :music="detail.musicUrl" />
     <div class="detail">
       <h1 class="title">{{detail.title}}</h1>
@@ -37,12 +38,15 @@ import "highlight.js/styles/monokai-sublime.css";
 import { detail, setLike } from "@/api/article";
 import Button from "@c/Button"
 import MessageList from "./components/messageList"
+import scrollBar  from './components/scrollBar'
 import { valiFunc } from '@/utils'
 import { updateUserInfo } from '@/api/user'
 import { add, list } from "@/api/articleWord"
+
+
 export default {
   name: "detail",
-  components: { Button, MessageList },
+  components: { Button, MessageList, scrollBar },
   data() {
     return {
       detail: {},
@@ -69,6 +73,7 @@ export default {
     async getDetail(id) {
       const result = await detail(id);
       const data = await this.$store.dispatch('dataHandle', result.data.data)
+      document.title = data.title // 动态设置页面的title
       this.detail = data;
     },
     markdownRender() {

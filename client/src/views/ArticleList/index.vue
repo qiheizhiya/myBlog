@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-column align-center">
+  <div class="flex flex-column align-center" v-loading.fullscreen.lock="pageLoad">
     <Header />
     <div class="list">
       <ul class="monUl" v-for="(item, index) in requestDatas" :key="index">
@@ -18,7 +18,7 @@
         </router-link>
       </ul>
       <Loader v-if="isLoading" />
-      <span class="notMany" v-else>没有更多了~~O(∩_∩)O</span>
+      <span class="notMany" v-else-if="!isLoading && !pageLoad">没有更多了~~O(∩_∩)O</span>
     </div>
   </div>
 </template>
@@ -37,6 +37,7 @@ export default {
       },
       requestDatas: [],
       total: 0,
+      pageLoad: true,
       isLoading: false,
       isNext: true
     }
@@ -60,6 +61,7 @@ export default {
       this.isLoading = false
       this.requestDatas = result.data.data.datas
       this.total = result.data.data.total
+      this.pageLoad = false
       if (this.requestDatas[0].length >= this.total) this.isNext = false
     },
     bottomHandle () {

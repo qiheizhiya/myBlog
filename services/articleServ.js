@@ -45,6 +45,7 @@ exports.getArtList = async function (page = 1, limit = 10, isHome = false) {
 function listGroup (rows) {
   const yearMap = new Map()
   const yearArr = [] // 记录文章出现的年份
+  const monthArr = ['12', '11', '10', '09', '08', '07', '06', '05', '04', '03', '02', '01']
   const yearGroupArr = [] // 把文章按照年份分组
   rows.forEach(item => {
     const year = item.createdAt.split("-")[0]
@@ -52,7 +53,7 @@ function listGroup (rows) {
   })
   yearMap.forEach(item => yearArr.push(item)) // 把年份处理成数组
 
-  yearArr.forEach(year => { // 把文章按年份分组
+  yearArr.forEach(year => { // 把文章按年份分组 然后在按月份分组....其实就是按年份和月份降序排序
     const resultArr = rows.filter(item => {
       const [ rowYear, rowMonth, surplus ] = item.createdAt.split("-")
       let rowDay = surplus.split(" ")[0]
@@ -65,7 +66,10 @@ function listGroup (rows) {
       return rowYear === year
     })
     if (resultArr.length === 0) return
-    yearGroupArr.push(resultArr)
+    monthArr.forEach(m => {
+      const resultMonth = resultArr.filter(d => d.dataValues.month === m)
+      resultMonth.length !== 0 && yearGroupArr.push(resultMonth)
+    })
   })
 
   return yearGroupArr
@@ -94,22 +98,12 @@ exports.getArtDetail = async function (id, userId, ctx) {
     }]
   })
   if (!result) return result
-  addVisits(ctx, result) 
+  result.increment('visitsNum', {by: 1})
   result = result.toJSON()
   handlerData(result)
   return result
 }
-
-/**
- * 5分钟内不会增加浏览数
- * @param {*} ctx 
- */
-function addVisits (ctx, result) {
-  if (!ctx.session.isVisits) { // 如果5分钟内浏览过了，不在增加浏览数
-    result.increment('visitsNum', {by: 1})
-    ctx.session.isVisits = true
-  }
-}
+// 给数据增加字段
 function handlerData (result) {
   result.Users.length === 0 ? result.isLike = false : result.isLike = true // 如果等于0就是不喜欢该文章
   const len = result.content.replace(/<\/?.+?>/g, "").replace(/(\r\n|\n|\r)/gm, "").length
