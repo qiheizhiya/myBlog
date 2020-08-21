@@ -22,7 +22,7 @@
             </div>
             <div class="handle-thunk flex align-center">
               <i class="iconfont icon-pinglun"></i>
-              <span>{{item.ArticleWords.length}}</span>
+              <span>{{item.articlewords.length}}</span>
             </div>
           </div>
         </div>

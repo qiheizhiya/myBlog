@@ -5,13 +5,9 @@ const { getResult } = require('../getSendMessage')
 const fs = require('fs')
 let OSS = require('ali-oss')
 
-let client = new OSS({
-    region: 'oss-cn-shenzhen',
-    secure: true,
-    accessKeyId: 'LTAI4GDzcetJ7bnf2fafPUVg',
-    accessKeySecret: 'DfDNr6PzyeEB8fy9k95wqw6f5Y5sjq',
-    bucket: 'qiheizhiya',
-});
+const ossEncrypt = require('../../encrypt/ossEncrypt')
+
+let client = new OSS(ossEncrypt);
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

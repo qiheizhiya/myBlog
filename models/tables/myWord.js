@@ -1,7 +1,7 @@
 const sequelize = require('./db')
 const { DataTypes } = require("sequelize")
 const moment = require("moment")
-const MyWord = sequelize.define('MyWord', {
+const MyWord = sequelize.define('myword', {
   userId: { // 留言用户ID
     type: DataTypes.INTEGER,
     allowNull: false

@@ -1,7 +1,7 @@
 const sequelize = require('./db')
 const { DataTypes } = require("sequelize")
 const moment = require("moment")
-const Classify = sequelize.define('Classify', {
+const Classify = sequelize.define('classify', {
   name: { // 留言用户ID
     type: DataTypes.STRING,
     allowNull: false

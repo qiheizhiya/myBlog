@@ -1,7 +1,7 @@
 const sequelize = require('./db')
 const { DataTypes } = require("sequelize")
 const moment = require("moment")
-const Article = sequelize.define('Article', {
+const Article = sequelize.define('article', {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false

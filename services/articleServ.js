@@ -105,10 +105,10 @@ exports.getArtDetail = async function (id, userId, ctx) {
 }
 // 给数据增加字段
 function handlerData (result) {
-  result.Users.length === 0 ? result.isLike = false : result.isLike = true // 如果等于0就是不喜欢该文章
+  result.users.length === 0 ? result.isLike = false : result.isLike = true // 如果等于0就是不喜欢该文章
   const len = result.content.replace(/<\/?.+?>/g, "").replace(/(\r\n|\n|\r)/gm, "").length
   result.textLen = len // 统计字数
-  delete result.Users
+  delete result.users
 }
 
 exports.likeArt = async function ({ articleId, userId }) {

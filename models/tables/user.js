@@ -1,7 +1,7 @@
 const sequelize = require('./db')
 const { DataTypes } = require("sequelize")
 const moment = require("moment")
-const User = sequelize.define('User', {
+const User = sequelize.define('user', {
   userName: {
     type: DataTypes.STRING
   },

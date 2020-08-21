@@ -1,7 +1,7 @@
 const sequelize = require('./db')
 const { DataTypes } = require("sequelize")
 const moment = require("moment")
-const ArticleWord = sequelize.define('ArticleWord', {
+const ArticleWord = sequelize.define('articleword', {
   floorId: {
     type: DataTypes.INTEGER
   },
