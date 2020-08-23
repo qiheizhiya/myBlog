@@ -12,7 +12,6 @@
 <style scoped lang="less">
 .loader {
   width: 100%;
-  height: 100%;
 }
 span {
   width: 24px;

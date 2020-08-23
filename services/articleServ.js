@@ -1,7 +1,6 @@
 const Article = require('../models/tables/article')
 const ArticleWord = require('../models/tables/articleWord')
 const User = require('../models/tables/user')
-const { model } = require('../models/tables/db')
 // 增加文章
 exports.addArticle = async function (artObj) {
   const ins = await Article.create(artObj)
@@ -32,12 +31,15 @@ exports.getArtList = async function (page = 1, limit = 10, isHome = false) {
     ]
   })
   let { rows, count } = result
-  if (rows.length === 0 && !rows) return { total: 0, datas: [] } // 如果没有文章
+  let len = rows.length
+  if (rows.length === 0 && !rows) return { total: 0, datas: [], len } // 如果没有文章
+  rows.forEach(item => item.dataValues.index = page - 1)
   if (!isHome) { rows = listGroup(rows) }
   count = await Article.count()
   return {
     total: count,
-    datas: rows
+    datas: rows,
+    len
   }
 }
 

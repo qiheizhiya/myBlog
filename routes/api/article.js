@@ -12,8 +12,7 @@ article.post('/getArtList', async ctx => {
 })
 
 article.get('/getArtDetail', async ctx => {
-  const { id } = ctx.query
-  const userId = ctx.request.userId
+  const { id, userId } = ctx.query
   const result = await artServ.getArtDetail(id, userId, ctx)
   apiHandle(ctx, result, '获取文章详情, 刷新一下试试~~')
 })

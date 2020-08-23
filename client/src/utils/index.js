@@ -51,3 +51,19 @@ export async function valiFunc(arr) {
   return res
 }
 
+export function bottomHandle (isScroll, callback) {
+  window.onscroll = () => {
+    if (!isScroll()) return
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+    const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+    if (scrollTop + windowHeight >= scrollHeight) {
+      console.log(scrollTop, windowHeight, scrollHeight)
+      callback()
+    }
+  }
+}
+
+export function clearBottomHandle () {
+  window.onscroll = null
+}

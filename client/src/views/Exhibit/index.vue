@@ -2,13 +2,14 @@
   <div class="outer">
     <GiantScreen />
     <div class="content-wrap">
-      <Article :datas="requestDatas" :isLoading="isLoading" />
+      <Article :datas="requestDatas" :isLoading="isLoading" :isNext="isNext" />
     </div>
   </div>
 </template>
 <script>
 import GiantScreen from '@c/GiantScreen/index'
 import Article from '@c/Article/index'
+import { bottomHandle, clearBottomHandle } from '@/utils'
 
 export default {
   name: 'home',
@@ -16,12 +17,12 @@ export default {
   data () {
     return {
       requestDatas: [],
-      total: '',
       page: {
-        pageSize: 100,
+        pageSize: 5,
         pageNum: 1,
         isHome: true
       },
+      len: 0,
       isLoading: false,
       isNext: true
     }
@@ -30,34 +31,26 @@ export default {
     this.getArtList()
   },
   activated () {
-    this.bottomHandle()
+    bottomHandle(()=> this.isNext, () => {
+      this.isLoading = true
+      this.page.pageNum += 1
+      this.getArtList()
+    })
+  },
+  deactivated () {
+    clearBottomHandle()
   },
   methods: {
     async getArtList () {
       const result = await this.$store.dispatch('getArtList', this.page)
-      this.isLoading = false
-      const datas = result.data.data.datas
+      const { len, total, datas } = result.data.data
       datas.forEach(item => this.$store.dispatch('dataHandle', item)) // 增加年月日字段
-      this.requestDatas = datas
-      this.total = result.data.data.total
-      if (this.requestDatas.length >= this.total) this.isNext = false
-    },
-    bottomHandle () {
-      window.onscroll = this.scrollHandle
-    },
-    scrollHandle() {
-      if (!this.isNext) return
-        this.isLoading = true
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-        const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-        if (scrollTop + windowHeight >= scrollHeight) {
-          this.page.pageSize += 50
-          this.getArtList()
-        }
-    },
-    deactivated () {
-      window.onscroll = null
+      setTimeout(() => {
+        this.requestDatas.push(...datas)
+        this.len += len
+        this.isNext = this.len < total
+        this.isLoading = false
+      }, 1000)
     }
   }
 }

@@ -665,6 +665,7 @@ body {
       .navgation {
         i {
           margin: 6px;
+          font-size: 15px;
         }
       }
     }

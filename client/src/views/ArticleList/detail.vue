@@ -15,19 +15,8 @@
         <div v-html="content" v-highlight></div>
       </div>
       <div id="hash"></div>
-      <div class="inputOuter">
-        <div class="inputContent">
-          <el-input v-model="userName" v-if="!userName" class="userName" placeholder="用户名称" ></el-input>
-          <div>
-            <transition name="el-fade-in-linear">
-              <el-tag effect="dark" closable class="tag" @close="tagClose" v-if="aiteName" size="small">@{{aiteName}}</el-tag>
-            </transition>
-          </div>
-          <el-input type="textarea" :rows="8" placeholder="请输入内容" resize="none" v-model="userContent" class="userContent"> </el-input>
-          <Button :styles="{width: '100px', height: '34px', borderRadius: '10px'}" text="提交" @onclick="comment" />
-        </div>
-      </div>
-      <MessageList @reply="reply" :lists="commentList" />
+      <MessageInput :aiteName="aiteName" @tagClose="tagClose" @comment="comment" /> 
+      <MessageList @reply="reply" :lists="commentList" :isLoading="isLoading" :isNext="isNext" />
     </div>
   </div>
 </template> 
@@ -36,17 +25,15 @@
 import marked from "marked";
 import "highlight.js/styles/monokai-sublime.css";
 import { detail, setLike } from "@/api/article";
-import Button from "@c/Button"
 import MessageList from "./components/messageList"
 import scrollBar  from './components/scrollBar'
-import { valiFunc } from '@/utils'
-import { updateUserInfo } from '@/api/user'
+import MessageInput from './components/messageInput'
 import { add, list } from "@/api/articleWord"
-
+import { bottomHandle } from '@/utils'
 
 export default {
   name: "detail",
-  components: { Button, MessageList, scrollBar },
+  components: { MessageList, scrollBar, MessageInput },
   data() {
     return {
       detail: {},
@@ -60,18 +47,26 @@ export default {
         pageSize: 10,
         pageNum: 1,
       },
-      isPerfect: true
+      len: 0,
+      isLoading: false,
+      isNext: true
     };
   },
   async created () {
-    await this.getDetail(this.$route.params.id); // 获取详情
+    await this.getDetail(this.$route.params.id, JSON.parse(localStorage.getItem('userInfo')).id); // 获取详情
     await this.markdownRender() // markdown 加载
-    await this.getComData()
-    this.isAnyUserName() // 如果该账号已经填了用户名，则不需要填了
+  },
+  mounted () {
+    this.getComData() // 加载留言列表
+    bottomHandle(()=> this.isNext, () => { // 触底监听事件
+      this.isLoading = true
+      this.page.pageSize += 10
+      this.getComData()
+    })
   },
   methods: {
-    async getDetail(id) {
-      const result = await detail(id);
+    async getDetail(id, userId) {
+      const result = await detail(id, userId);
       const data = await this.$store.dispatch('dataHandle', result.data.data)
       document.title = data.title // 动态设置页面的title
       this.detail = data;
@@ -101,24 +96,15 @@ export default {
       this.floorId = ''
     },
     // 评论提交
-    async comment () {
-      const valiData = [ { data: this.userContent, msg: '留言内容不能为空'} ]
-      if (!this.userName) { // 如果需要填用户名，则用户名不能为空
-        valiData.push({ data: this.userName, msg: '用户名不能为空'})
-      }
-      const result = await valiFunc(valiData) // 验证没通过
-      if (!result) return // 返回
-      
-      // this.isPerfect && this.setUserNickName()
+    async comment (content) {
       const data = {
-        articleId: this.$route.query.id,
+        articleId: this.$route.params.id,
         userId: JSON.parse(localStorage.getItem('userInfo')).id,
-        content: this.userContent
+        content
       }
       this.floorId && (data.floorId = this.floorId)
       try {
         const reqResult = await add(data)
-        this.userContent = ''
         this.getComData()
         this.$message({
           type: 'success',
@@ -127,33 +113,22 @@ export default {
         })
       } catch (e) { }
     },
-    // 判断是否需要填用户名
-    isAnyUserName () {
-      try {
-        const userName = JSON.parse(localStorage.getItem('userInfo')).userName
-        if (userName) {
-          this.userName = userName
-          this.isPerfect = false
-        }
-      } catch (e) {}
-    },
-    // 如果需要完善用户名，则去完善
-    setUserNickName () {
-      try {
-        updateUserInfo({userName: this.userName, id: JSON.parse(localStorage.getItem('userInfo').userName)})
-      } catch (e) {
-        console.log(e)
-      }
-      
-    },
+    
     // 获取评论列表
     async getComData () {
       const data = {
         ...this.page,
-        articleId: this.detail.id
+        articleId: this.$route.params.id
       }
       const result = await list(data)
-      this.commentList = result.data.data
+      const { len, total } = result.data.data
+      setTimeout(() => {
+        this.commentList = result.data.data
+        console.log(this.commentList)
+        this.len += len
+        this.isNext = this.len < total
+        this.isLoading = false
+      }, 1000)
     },
     // 设置喜欢这篇文章
     async likeChange (e) {
@@ -165,11 +140,11 @@ export default {
         const result = await setLike(data)
         this.$message({ type: 'success', message: '相识虽浅,似是经年', offset: 60 })
         this.$set(this.detail, 'isLike', true)
-        this.$ser(this.detail, 'likeNum', this.detail.likeNum + 1)
+        this.$set(this.detail, 'likeNum', this.detail.likeNum + 1)
       } else {
         this.$message({ type: 'error', message: '您已经喜欢过这篇文章啦~~', offset: 60 })
       }
-    }
+    },
   }
 };
 </script>
@@ -206,60 +181,6 @@ export default {
   .content {
     padding-top: 100px;
     font-size: 14px;
-  }
-  .inputOuter {    
-    margin-bottom: 60px;
-  }
-  .inputContent {
-    border: 1px solid #eee;
-    border-radius: 6px;
-    padding: 15px 12px;
-    transition: all .3s;
-    font-size: 14px;
-    color: #333333;
-    .tag {
-      margin-top: 10px;
-      border-radius: 20px;
-    }
-    .userName, .userContent {
-      width: 50%;
-      font-size: 14px;
-      margin-right: 12px;
-      transition: all .3s;
-      border: none;
-      border-radius: 4px;
-      border-bottom: 1px dashed #f0f0f0;
-      outline: none;
-      /deep/ .el-input__inner {
-        border: none;
-        border-bottom: 1px dashed #DCDFF6;
-        &:focus {
-          border-color: #008c8c;
-        }
-      }
-      /deep/ .el-textarea__inner {
-        border: 1px dashed #DCDFF6;
-        &:focus {
-          border-color: #008c8c;
-        }
-      }
-    }
-    .submit {
-      width: 100px;
-      font-size: 14px;
-      color: #5f5f5f;
-      border-radius: 6px;
-      background: #eaeaea;
-      cursor: pointer;
-      outline: none;
-      border: none;
-      margin-right: 12px;
-      transition: all .3s;
-    }
-    .userContent {
-      width: 100%;
-      margin: 10px 0;
-    }
   }
   
 }

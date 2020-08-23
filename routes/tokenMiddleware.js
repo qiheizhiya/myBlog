@@ -3,7 +3,6 @@ const { pathToRegexp } = require("path-to-regexp");
 const jwt = require('./jwt')
 const needTokenApi = [
   { method: "POST", path: "/api/article/addArticle" },
-  { method: "GET", path: "/api/article/getArtDetail" },
   { method: "GET", path: "/api/user/whoami" },
   { method: "GET", path: "/api/user/getHomeInfo"}
 ];

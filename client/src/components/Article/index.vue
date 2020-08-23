@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="article flex align-center wow fadeInUp" v-for="item in datas" :key="item.id">
+    <div class="article flex align-center fadeInUp" :class="`wow${item.index}`" v-for="item in datas" :key="item.id">
       <div class="img-outer flex align-center justify-center" @click="toDetail(item.id)">
         <img :src="item.imgUrl" alt />
       </div>
@@ -29,15 +29,15 @@
       </div>
     </div>
     <div class="loader flex align-center justify-center">
-      <Loader v-if="isLoading" />
-      <span class="notMany" v-else>没有更多了~~O(∩_∩)O</span>
+      <Loader v-show="isLoading"/>
+      <span class="notMany" v-show="!isLoading && !isNext">没有更多了~~O(∩_∩)O</span>
     </div>
   </div>
 </template>
 <script>
 import Button from "@c/Button";
 import Loader from "@c/Loading";
-import {WOW} from 'wowjs'
+import { WOW } from 'wowjs'
 
 export default {
   components: { Button, Loader },
@@ -49,20 +49,24 @@ export default {
     isLoading: {
       type: Boolean,
       default: false
+    },
+    isNext: {
+      type: Boolean,
+      default: true
     }
   },
   watch: {
     datas() {
       this.$nextTick(() => {
-        new WOW({
-          live: false,
-          offset: 0
-        }).init()
+        new WOW({ live: false, offset: 0,boxClass: `wow${this.wowNum}`, }).init()
+        this.wowNum++
       })
     }
   },
   data() {
     return {
+      wowNum: 0,
+      pageLoad: true,
       buttonStyle: {
         padding: "8px 26px",
         fontSize: "14px",
@@ -240,6 +244,7 @@ export default {
   }
 }
 .loader {
+  height: 40px;
   margin-top: 30px;
   .notMany {
     letter-spacing: 2px;

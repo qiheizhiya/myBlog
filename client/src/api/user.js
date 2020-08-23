@@ -10,7 +10,7 @@ export const addUser = (data) => axios.post('/api/user/addUser', data)
 export const registry = (data) => axios.post('/api/user/registry', data)
 
 // 修改用户信息
-export const updateUserInfo = data => axios.post('/apo/user/updateUserInfo', data)
+export const updateUserInfo = data => axios.post('/api/user/updateUserInfo', data)
 
 // 获取个人信息
 export const whoami = () => axios.get('/api/user/whoami')

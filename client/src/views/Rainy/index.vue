@@ -156,6 +156,21 @@ export default {
     }
 }
 @media screen and (max-width: 480px){
+    .rain {
+        .logo-img{
+            color: #fff;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 9999;
+            cursor: pointer;
+            width: 88px;
+            height: 55px;
+            img{
+                width: 100%;
+            }
+        }
+    }
     .rain{
         .rain-bg{
             position: absolute;
@@ -178,6 +193,19 @@ export default {
                 span{
                     display: flex;
                     justify-content: center;
+                }
+                &:last-child {
+                    width: 60px;
+                    height: 40px;
+                    line-height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    img {
+                        width: auto;
+                        height: 30px;
+                        vertical-align: middle;
+                    }
                 }
             }
         }

@@ -82,6 +82,24 @@ export default {
   }
 
   @media screen and (max-width: 700px){
+    .max {
+      width: 100vw;
+      height: 100vh;
+      .icon {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        top: 10px;
+        left: 10px;
+        img {
+          width: 80px;
+          height: auto;
+          cursor: pointer;
+        }
+      }
+   }
     .form {
       width: 90%;
     }

@@ -1,8 +1,6 @@
 <template>
   <div class="message">
-    <span>评论列表</span>
-    <span>（{{lists.total}}）</span>
-    <div class="messageList" v-for="list in lists.datas" :key="list.id">
+    <div class="messageList fadeInUp" :class="`wow${list.index}`"  v-for="list in datas" :key="list.id">
       <div class="parent">
         <div class="ml-info flex align-center space-between">
           <div class="avatar-name flex align-center">
@@ -11,43 +9,29 @@
           <div class="reply-date flex align-center space-between">
               <div class="name flex align-center">{{list.user.userName}}<el-tag class="master" effect="dark" size="mini" v-if="list.user.id === 1">站主</el-tag> </div>
               <div class="flex algin-center">
-                <div class="reply" @click="setInput(list.user, list.id)">回复</div>
                 <div class="date">{{list.createdAt}}</div>
               </div>
           </div>
         </div>
         <div class="ml-result">{{list.content}}</div>
       </div>
-      <div class="children" v-for="children in list.children" :key="children.item">
-        <div class="ml-info flex align-center space-between">
-          <div class="avatar-name flex align-center">
-            <img :src="children.user.avatar" />
-          </div>
-          <div class="reply-date flex align-center space-between">
-              <div class="name flex align-center">{{list.user.userName}}<el-tag class="master" effect="dark" size="mini" v-if="list.user.id === 1" >站主</el-tag> </div>
-              <div class="flex algin-center">
-                <div class="reply" @click="setInput(children.user, list.id)">回复</div>
-                <div class="date">{{children.createdAt}}</div>
-              </div>
-          </div>
-        </div>
-        <div class="ml-result">{{children.content}}</div>
-      </div>
     </div>
     <div class="loader flex align-center justify-center">
       <Loader v-show="isLoading"/>
-      <span class="notMany" v-show="!isLoading && !isNext">没有更多评论了~~O(∩_∩)O</span>
+      <span class="notMany" v-show="!isLoading && !isNext">没有更多留言了~~O(∩_∩)O</span>
     </div>
   </div>
 </template>
 
 <script>
 import Loader from "@c/Loading"
+import { WOW } from 'wowjs'
+
 export default {
   props: {
-    lists: {
+    datas: {
       type: [Array, Object],
-      default: () => {}
+      default: () => []
     },
     isLoading: {
       type: Boolean,
@@ -58,22 +42,20 @@ export default {
       default: true
     }
   },
-  components: { Loader },
-  data() {
-    return {
-      replyShow: ''
-    };
-  },
-  methods: {
-    setInput (data, parentId) {
-      const hash = document.getElementById("hash")
-      hash.scrollIntoView({
-          behavior: "smooth"
+  watch: {
+    datas() {
+      this.$nextTick(() => {
+        new WOW({ live: false, offset: 0,boxClass: `wow${this.wowNum}`, }).init()
+        this.wowNum++
       })
-      data.parentId = parentId
-      this.$emit('reply', data)
     }
-  }
+  },
+  data () {
+    return {
+      wowNum: 0
+    }
+  },
+  components: { Loader }
 };
 </script>
 
@@ -85,15 +67,6 @@ export default {
   margin-bottom: 20px;
   display: inline-block;
   position: relative;
-  margin-top: 50px;
-
-  span {
-    &:first-of-type {
-      font-size: 18px;
-      margin-right: 8px;
-      border-bottom: 1px solid #666;
-    }
-  }
   .messageList {
     padding: 25px 0;
     border-bottom: 1px solid #f6f7f8;
@@ -104,10 +77,6 @@ export default {
         .reply {
             opacity: 1 !important;
         }
-    }
-    .children {
-      padding-left: 50px;
-      margin-top: 30px;
     }
     .ml-info {
       .avatar-name {

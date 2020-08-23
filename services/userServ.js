@@ -1,7 +1,8 @@
 const User = require('../models/tables/user')
 const Article = require('../models/tables/article')
 const moment = require('moment')
-const sequelize = require('../models/tables/db')
+const { getRandom } = require('./utils')
+
 // 增加一个用户
 exports.addUser = async function (adminObj) {
   const [result, created] = await User.findOrCreate({
@@ -13,6 +14,9 @@ exports.addUser = async function (adminObj) {
   })
   // 如果已经被创建了
   if (!created) return
+  const avatarSrc = `https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar${getRandom(1, 9)}.jpg`
+  result.avatar = avatarSrc
+  result.save()
   return result.toJSON()
 }
 // 用户登陆
@@ -90,3 +94,4 @@ exports.getHomeInfo = async function() {
     articleDiff
   }
 }
+

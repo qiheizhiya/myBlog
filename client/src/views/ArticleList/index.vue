@@ -4,7 +4,7 @@
     <div class="list">
       <ul class="monUl" v-for="(item, index) in requestDatas" :key="index">
         <li class="monTitle">{{item[0].month}}, {{item[0].year}}</li>
-        <router-link tag="ul" :to="{name: 'Detail', params: {id: thunk.id}}" class="mContent wow fadeInUp" v-for="thunk in item" :key="thunk.id" >
+        <router-link tag="ul" :to="{name: 'Detail', params: {id: thunk.id}}" class="mContent fadeInUp" :class="`wow${thunk.index}`" v-for="thunk in item" :key="thunk.id" >
           <li class="mCLi flex space-between">
             <div class="mCLeft flex align-center">
               <img :src="thunk.imgUrl" :title="thunk.title" :alt="thunk.title" />
@@ -17,14 +17,17 @@
           </li>
         </router-link>
       </ul>
-      <Loader v-if="isLoading" />
-      <span class="notMany" v-else-if="!isLoading && !pageLoad">没有更多了~~O(∩_∩)O</span>
     </div>
+    <div class="footer">
+      <Loader v-show="isLoading"/>
+      <span class="notMany" v-show="!isLoading && !pageLoad">没有更多了~~O(∩_∩)O</span>
+    </div> 
   </div>
 </template>
 <script>
 import Loader from "@c/Loading"
 import { WOW } from 'wowjs'
+import { bottomHandle, clearBottomHandle } from '@/utils'
 
 export default {
   name: 'articleList',
@@ -32,51 +35,51 @@ export default {
   data () {
     return {
       page: {
-        pageSize: 20,
+        pageSize: 15,
         pageNum: 1
       },
       requestDatas: [],
-      total: 0,
       pageLoad: true,
       isLoading: false,
-      isNext: true
+      isNext: true,
+      wowNum: 0,
+      len: 0
     }
   },
   watch: {
     requestDatas: {
       handler() {
         this.$nextTick(() => {
-          new WOW({ live: false, offset: 0 }).init()
+          new WOW({ live: false, offset: 0,boxClass: `wow${this.wowNum}`, }).init()
+          this.wowNum++
         })
       }
     }
   },
   created () {
     this.getArtList()
-    this.bottomHandle()
-  }, 
+  },
+  activated () {
+    bottomHandle(()=> this.isNext, () => {
+      this.page.pageNum += 1
+      this.getArtList()
+    })
+  },
+  deactivated () {
+    clearBottomHandle()
+  },
   methods: {
     async getArtList () {
+      this.isLoading = true
       const result = await this.$store.dispatch('getArtList', this.page)
-      this.isLoading = false
-      this.requestDatas = result.data.data.datas
-      this.total = result.data.data.total
-      this.pageLoad = false
-      if (this.requestDatas[0].length >= this.total) this.isNext = false
-    },
-    bottomHandle () {
-      window.addEventListener('scroll', () => {
-        if (!this.isNext) return
-        this.isLoading = true
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-        const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-        if (scrollTop + windowHeight >= scrollHeight) {
-          this.num++
-          this.page.pageSize += 20
-          this.getArtList()
-        }
-      })
+      const { len, total, datas } = result.data.data
+      setTimeout(() => {
+        this.requestDatas.push(...datas)
+        this.pageLoad = false
+        this.isLoading = false
+        this.len += len
+        this.isNext = this.len !== total
+      }, 1000)
     }
   }
 };
@@ -85,7 +88,7 @@ export default {
 <style lang="less" scoped>
   .list {
     width: 640px;
-    padding: 80px 0 40px;
+    padding: 80px 0 0px;
     .monUl {
       .monTitle {
         color: #6e7ab5;
@@ -164,6 +167,10 @@ export default {
     text-align: center;
     display: inline-block;
     width: 100%;
+  }
+  .footer {
+    height: 40px;
+    margin-bottom: 40px;
   }
   @media screen and (max-width: 700px){
     .list {
