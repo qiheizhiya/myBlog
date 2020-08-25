@@ -1,5 +1,6 @@
 const User = require('../models/tables/user')
 const Article = require('../models/tables/article')
+const MyWord = require('../models/tables/myWord')
 const moment = require('moment')
 const { getRandom } = require('./utils')
 
@@ -89,9 +90,13 @@ exports.getHomeInfo = async function() {
   const x = new moment()
   const y = new moment(rows[0].createdAt)
   const articleDiff = x.diff(y, 'd')
+
+  const wordCount = await MyWord.count()
+  
   return {
     articleCount: count,
-    articleDiff
+    articleDiff,
+    wordCount
   }
 }
 

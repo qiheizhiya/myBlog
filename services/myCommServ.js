@@ -37,3 +37,14 @@ exports.getMyCommentList = async function (page = 1, limit = 10) {
         len
     }
 }
+
+// 删除文章
+exports.deleteWord = async function (id) {
+    const result = await myWord.findByPk(id)
+    if (result) { // 只有查到了
+        await result.destroy()
+        return true
+    } else {
+        return false
+    }
+}

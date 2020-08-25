@@ -44,7 +44,7 @@
     <div class="markDown">
       <mavon-editor :subfield="true" @save="mkSave" @change="mkChange" v-model="ruleForm.content"/>
     </div>
-    <div class="submit flex align-center">
+    <div class="submit flex align-center" v-if="userInfo.id === 1">
       <el-button class="subBtn" type="primary" icon="el-icon-position" @click="addArticle">发布</el-button>
     </div>
     
@@ -53,6 +53,7 @@
 
 <script>
 import { add } from '@/api/article'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -72,6 +73,9 @@ export default {
       musicUrl: '',
       musicText: '背景音乐',
     }
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   methods: {
     mkChange (val, ren) {

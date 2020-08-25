@@ -87,13 +87,13 @@ export default {
         password: '',
         captcha: ''
       },
-      captcha: 'http://localhost:5008/captcha'
+      captcha: `${this.mainUrl}/captcha`
     }
   },
   methods: {
     // 切换验证码
     changeCode () {
-      this.captcha = `http://localhost:5008/captcha?code=${Math.random()}`
+      this.captcha = `${this.mainUrl}/captcha?code=${Math.random()}`
     },
     // 提交表单
     async operate () {

@@ -39,6 +39,11 @@ import 'github-markdown-css/github-markdown.css'
 
 Vue.config.productionTip = false;
 
+let mainUrl = ''
+process.env.NODE_ENV === 'production' ? mainUrl = 'http://www.llongjie.top:5008' : mainUrl = 'http://localhost:5008'
+Vue.prototype.mainUrl = mainUrl
+
+
 new Vue({
   router,
   store,

@@ -12,7 +12,11 @@ import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 
 Vue.use(ElementUI)
-Vue.prototype.mainUrl = 'http://localhost:5008'
+
+let mainUrl = ''
+process.env.NODE_ENV === 'production' ? mainUrl = 'http://www.llongjie.top:5008' : mainUrl = 'http://localhost:5008'
+Vue.prototype.mainUrl = mainUrl
+
 Vue.config.productionTip = false;
 
 new Vue({

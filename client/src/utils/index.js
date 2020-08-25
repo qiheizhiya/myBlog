@@ -52,18 +52,22 @@ export async function valiFunc(arr) {
 }
 
 export function bottomHandle (isScroll, callback) {
-  window.onscroll = () => {
-    if (!isScroll()) return
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-    const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-    if (scrollTop + windowHeight >= scrollHeight) {
-      console.log(scrollTop, windowHeight, scrollHeight)
-      callback()
-    }
-  }
+  window.onscroll = throttle(scrollChange.bind(null, isScroll, callback), 200)
 }
 
 export function clearBottomHandle () {
   window.onscroll = null
+}
+
+
+function scrollChange (isScroll, callback) {
+  if (!isScroll()) return
+  console.log(111)
+  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+  const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+  if (scrollTop + windowHeight >= scrollHeight) {
+    console.log(scrollTop, windowHeight, scrollHeight)
+    callback()
+  }
 }

@@ -1,16 +1,13 @@
 import axios from '../utils/request.js'
 
-export async function login (account, password) {
-  return await axios.post('/api/user/login',{account, password})
-}
+// 登录
+export const login = (account, password) => axios.post('/api/user/login',{account, password})
 
-export async function whoami () {
-  return await axios.get('/api/user/whoami')
-}
+// 获取我的个人信息
+export const whoami = () => axios.get('/api/user/whoami')
 
-export async function updateUserInfo (data) {
-  return await axios.post('/api/user/updateUserInfo', data)
-}
+// 修改用户信息
+export const updateUserInfo = data => axios.post('/api/user/updateUserInfo', data)
 
 // 获取首页信息
 export const getHomeInfo = () => axios.get('/api/user/getHomeInfo')

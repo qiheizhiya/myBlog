@@ -4,8 +4,11 @@
 import axios from 'axios'
 import { Message } from "element-ui"
 
+let baseURL = ''
+process.env.NODE_ENV === 'production' ? baseURL = 'http://www.llongjie.top:5008' : baseURL = 'http://localhost:5008'
+
 const ins = axios.create({
-  baseURL: 'http://localhost:5008',
+  baseURL,
   timeout: 15000,
   withCredentials: true
 })

@@ -15,7 +15,7 @@
       </div>
       <div class="block comment flex align-center justify-center flex-column ">
         <div class="title">留言</div>
-        <div><span>31</span>条</div>
+        <div><span>{{info.wordCount}}</span>条</div>
         <div class="tips">感谢陌生人的留言！</div>
       </div>
       <div class="block flex align-center justify-center flex-column peopleNum">

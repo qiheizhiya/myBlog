@@ -132,7 +132,7 @@ export default {
   }
 }
 .loader {
-  height: 40px;
+  height: 50px;
   margin-top: 30px;
   .notMany {
     letter-spacing: 2px;

@@ -18,4 +18,10 @@ myWord.post('/getMyComList', async ctx => {
     apiHandle(ctx, result, '获取留言列表失败, 刷新一下试试~~')
 })
 
+myWord.post('/deleteCom', async ctx => {
+    const { id } = ctx.request.body
+    const result = await myCommServ.deleteWord(id)
+    apiHandle(ctx, result, '删除失败，请重新试试~~')
+})
+
 module.exports = myWord
