@@ -1,7 +1,9 @@
 const path = require('path');
+const CompressionPlugin = require("compression-webpack-plugin");
+
 module.exports = {
   // 基本路径
-  publicPath: process.env.NODE_ENV === 'production' ? '/pc/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
   assetsDir: './',
   // 输出文件目录
   outputDir: process.env.NODE_ENV === 'production' ? path.resolve(__dirname, '../public/pc') : 'devdist',
@@ -19,7 +21,19 @@ module.exports = {
         '@img': path.resolve(__dirname, './src/assets/img'),
         '@c': path.resolve(__dirname, './src/components'),
       }
-    }
+    },
+    config.plugins.push(new CompressionPlugin({
+      filename: '[path].gz[query]',
+      //压缩算法
+      algorithm: 'gzip',
+      //匹配文件
+      test: /\.js$|\.css$|\.html$|/,
+      //压缩超过此大小的文件,以字节为单位
+      threshold: 1024,
+      minRatio: 0.75,
+      //删除原始文件只保留压缩后的文件
+      deleteOriginalAssets: false
+    }))
   },
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,

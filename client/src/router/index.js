@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes = routeArr
 
 let base = ''
-process.env.NODE_ENV === 'production' ? base = '/pc/' : base = ''
+process.env.NODE_ENV === 'production' ? base = '' : base = ''
 const router = new VueRouter({
   mode: "history",
   base,
