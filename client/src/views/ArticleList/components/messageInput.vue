@@ -8,7 +8,7 @@
         </transition>
       </div>
       <el-input type="textarea" :rows="rows" placeholder="请输入内容" maxlength="130" show-word-limit resize="none" v-model="userContent"  class="userContent" ></el-input>
-      <Button :styles="{width: '100px', height: '34px', borderRadius: '10px'}" text="提交"  @onclick="comment" />
+      <Button :styles="{width: rows === 4 ? '80px' : '100px', height: rows === 4 ? '26px' : '34px', borderRadius: '10px'}" text="提交"  @onclick="comment" />
     </div>
   </div>
 </template>

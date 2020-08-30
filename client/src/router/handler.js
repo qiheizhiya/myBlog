@@ -12,7 +12,11 @@ router.beforeEach((to, from, next) => {
             background: 'rgba(255,255,255,.8)'
         });
     }
-    
+    if (_hmt) {
+        if (to.path) {
+            _hmt.push(['_trackPageview', to.fullPath]);
+        }
+    }
     const { meta } = to
     for (let name in meta) {
         document[name] = meta[name]

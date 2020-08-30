@@ -5,11 +5,8 @@ Vue.use(VueRouter);
 
 const routes = routeArr
 
-let base = ''
-process.env.NODE_ENV === 'production' ? base = '' : base = ''
 const router = new VueRouter({
   mode: "history",
-  base,
   routes,
   scrollBehavior () { // 页面刷新后回到顶部
     return { x: 0, y: 0}

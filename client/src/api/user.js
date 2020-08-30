@@ -15,3 +15,5 @@ export const updateUserInfo = data => axios.post('/api/user/updateUserInfo', dat
 // 获取个人信息
 export const whoami = () => axios.get('/api/user/whoami')
 
+// 获取管理员的个人信息，必须在数据库里面id为 **1**
+export const getAboutMe = () => axios.get('/api/user/getAboutMe')

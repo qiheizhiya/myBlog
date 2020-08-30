@@ -142,14 +142,6 @@ export default {
           }
         }
       }
-      @keyframes waveMove{    
-        0%{    
-          background-position:0% 100%;    
-        }    
-        100%{    
-          background-position:-20px 100%;    
-        }    
-      }    
       .description {
         color: #666;
         font-size: 14px;

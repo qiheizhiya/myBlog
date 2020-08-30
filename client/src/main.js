@@ -39,10 +39,20 @@ import 'github-markdown-css/github-markdown.css'
 
 Vue.config.productionTip = false;
 
+// 设置请求域名
 let mainUrl = ''
 process.env.NODE_ENV === 'production' ? mainUrl = 'http://www.llongjie.top:5008' : mainUrl = 'http://localhost:5008'
 Vue.prototype.mainUrl = mainUrl
 
+// 添加百度统计
+var _hmt = _hmt || [];
+window._hmt = _hmt; // 必须把_hmt挂载到window下，否则找不到
+(function () {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?47c4ba855b7925913cdf701208a1dc0f";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
 
 new Vue({
   router,

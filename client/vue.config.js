@@ -1,9 +1,10 @@
 const path = require('path');
 const CompressionPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   // 基本路径
-  publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
+  publicPath: '/',
   assetsDir: './',
   // 输出文件目录
   outputDir: process.env.NODE_ENV === 'production' ? path.resolve(__dirname, '../public/pc') : 'devdist',
@@ -22,18 +23,24 @@ module.exports = {
         '@c': path.resolve(__dirname, './src/components'),
       }
     },
+    config.externals = { // 不打包elementUi和Vue 使用cdn的方式引入
+      "element-ui": "ELEMENT",
+      'vue': 'Vue'
+    }
+    config.optimization.minimizer[0].options.terserOptions.compress = { drop_console: process.env.NODE_ENV === 'production', drop_debugger: false, pure_funcs: ['console.log'] } // 移除console
     config.plugins.push(new CompressionPlugin({
       filename: '[path].gz[query]',
       //压缩算法
       algorithm: 'gzip',
       //匹配文件
-      test: /\.js$|\.css$|\.html$|/,
+      test: /\.js$|\.css$|\.html$|\.woff$|\.ttf$|\.eot$|/,
       //压缩超过此大小的文件,以字节为单位
       threshold: 1024,
-      minRatio: 0.75,
+      minRatio: 0.8,
       //删除原始文件只保留压缩后的文件
-      deleteOriginalAssets: false
+      deleteOriginalAssets: process.env.NODE_ENV === 'production'
     }))
+    // config.plugins.push(new BundleAnalyzerPlugin()) // 是否查看构建后的信息
   },
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,

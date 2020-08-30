@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-column align-center" v-loading.fullscreen.lock="pageLoad">
-    <Header midText="留言列表" />
+    <Header src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/longzhu.mp3" midText="留言列表" />
     <div class="content">
       <MessageInput @comment="comment" :rows="5" :hiddenOuter="true" v-if="!pageLoad" />
-      <MessageList :datas="commentList" :isLoading="isLoading" :isNext="isNext" />
+      <MessageList :datas="commentList" :isLoading="isLoading" :pageLoad="pageLoad" :isNext="isNext" />
     </div>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
     return {
       commentList: [],
       isLoading: false,
-      isNext: false,
+      isNext: true,
       pageLoad: false,
       len: 0,
       page: {
@@ -31,6 +31,7 @@ export default {
     this.getComData()
   },
   activated () {
+    console.log('w jin lai le ')
     bottomHandle(()=> this.isNext, () => {
       this.page.pageNum += 1
       this.getComData()
@@ -68,6 +69,7 @@ export default {
           this.commentList.push(...datas)
           this.len += len
           this.isNext = this.len < total
+          console.log(this.isNext)
           this.isLoading = false
           this.page.pageNum === 1 ? (this.pageLoad = false) : ''
         }, 1000)

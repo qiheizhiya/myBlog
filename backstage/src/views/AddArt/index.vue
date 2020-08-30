@@ -41,9 +41,7 @@
         <div class="el-upload__text">{{musicText}}</div>
       </el-upload>
     </div>
-    <div class="markDown">
-      <mavon-editor :subfield="true" @save="mkSave" @change="mkChange" v-model="ruleForm.content"/>
-    </div>
+    <Markdown @contentChange="contentChange" style="height: 400px" />
     <div class="submit flex align-center" v-if="userInfo.id === 1">
       <el-button class="subBtn" type="primary" icon="el-icon-position" @click="addArticle">发布</el-button>
     </div>
@@ -54,6 +52,7 @@
 <script>
 import { add } from '@/api/article'
 import { mapState } from 'vuex'
+import Markdown from '@c/markdown'
 export default {
   data () {
     return {
@@ -74,16 +73,9 @@ export default {
       musicText: '背景音乐',
     }
   },
-  computed: {
-    ...mapState(['userInfo'])
-  },
+  components: { Markdown },
+  computed: { ...mapState(['userInfo']) },
   methods: {
-    mkChange (val, ren) {
-      this.content = val
-    },
-    mkSave (val, ren) {
-      this.content = val
-    },
     beforeAvatarUpload(file) {
       const isLt4M = file.size / 1024 / 1024 < 4;
       if (!isLt4M) {
@@ -107,17 +99,25 @@ export default {
       this.musicUrl = res.data
       this.$message.success('音频上传成功')
     },
+    contentChange (e) {
+      console.log(e)
+      this.ruleForm.content = e
+    },
     addArticle () {
-      if (!this.imgUrl) { this.$message.error('封面图片不能为空'); return }
-      if (!this.ruleForm.content) { this.$message.error('文章内容不能为空'); return }
-      const data = {
-        ...this.ruleForm,
-        imgUrl: this.imgUrl,
-        musicUrl: this.musicUrl,
-        content: this.content
-      }
-      add(data).then(res => {
-        this.$message.success('添加文章成功')
+      this.$refs.ruleForm.validate(valid => {
+        if (valid) {
+          if (!this.imgUrl) { this.$message.error('封面图片不能为空'); return }
+          if (!this.ruleForm.content) { this.$message.error('文章内容不能为空'); return }
+          const data = {
+            ...this.ruleForm,
+            imgUrl: this.imgUrl,
+            musicUrl: this.musicUrl,
+            content: this.content
+          }
+          add(data).then(res => {
+            this.$message.success('添加文章成功')
+          })
+        }
       })
     }
   }
@@ -166,13 +166,6 @@ export default {
         transition: all .3s;
       }
       
-    }
-  }
-
-  .markDown {
-    margin-top: 30px;
-    .v-note-wrapper {
-      min-height: 400px;
     }
   }
 

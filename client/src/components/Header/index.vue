@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" ref="head">
     <div class="left flex align-center">
       <img @click="toIndex" src="@img/textlogo.png" alt />
       <i class="iconfont" @click="changeMusic" :class="isPlay ? 'icon-zanting' : 'icon-bofang'"></i>
@@ -7,7 +7,10 @@
     <div class="mid" :class="musicIcon==='show' ? 'show' : 'hid'">{{midText}}</div>
     <div class="right flex align-center">
       <i class="iconfont" :class="isLike ? 'icon-xin' : 'icon-xinheart118'" v-if="showLike" @click="$emit('like', isLike)"></i>
-      <img src="@/assets/img/tx.jpg" alt />
+      <router-link :to="{name: 'Self'}">
+        <img src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/adminAvatar.jpg" alt />
+      </router-link>
+      
     </div>
     <div class="progressBar" :style="{width: progressBarWidth + '%'}"></div>
     <div class="music-btn" @click="changeMusic" :class="[musicIcon]">
@@ -35,12 +38,13 @@
 </template>
 
 <script>
-import { throttle } from '../../../src/utils/index'
+import { throttle } from '@/utils/index'
 export default {
+  name: 'HeaderComp',
   props: {
     music: {
       type: String,
-      default: require('@img/music.mp3')
+      default: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/xingzhisuozai.mp3'
     },
     isLike: {
       type: Boolean,
@@ -63,7 +67,8 @@ export default {
       progressBarWidth: 0,
       musicIcon: "",
       audioDom: '', 
-      mid: ''
+      mid: '',
+      timer: ''
     };
   },
   computed: {
@@ -71,11 +76,21 @@ export default {
       return (1 - this.progressBarWidth / 100) * this.dashArray;
     }
   },
-  mounted () {
-    this.initMusic() // 加载音乐
+  activated () {
     this.listenScroll()
   },
+  deactivated () {
+    document.body.onscroll = null
+    this.audioDom.ontimeupdate = null
+    this.startListen = false
+    this.timer = null
+    this.isPlay = false
+  },
+  mounted () {
+    this.initMusic() // 加载音乐
+  },
   created () {
+    this.listenScroll() // 是为了防止有些界面是不缓存的情况
     this.mid = this.midText
   },
   methods: {
@@ -104,16 +119,15 @@ export default {
     },
     // 监听页面滚动
     listenScroll () {
-      document.body.onscroll = throttle(this.scrollHandle, 200)
+      if (this.timer) return
+      this.timer = setTimeout(() => {
+        document.body.onscroll = throttle(this.scrollHandle, 200)
+      }, 200);
     },
     scrollHandle () {
-      const scrollTop = document.documentElement.scrollTop
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset 
       scrollTop >= 60 ? this.musicIcon = 'show' : this.musicIcon = 'exit'
     }
-  },
-  destroyed () {
-    document.body.onscroll = null
-    this.audioDom.ontimeupdate = null
   }
 };
 </script>
@@ -242,6 +256,9 @@ export default {
 @media screen and (max-width: 600px) {
   .header {
     position: absolute;
+  }
+  .mid {
+    font-size: 14px;
   }
   .music-btn {
     opacity: 0;

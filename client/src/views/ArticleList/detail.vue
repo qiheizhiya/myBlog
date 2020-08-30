@@ -15,7 +15,7 @@
         <div v-html="content" v-highlight></div>
       </div>
       <div id="hash"></div>
-      <MessageInput :aiteName="aiteName" @tagClose="tagClose" @comment="comment" /> 
+      <MessageInput :aiteName="aiteName" @tagClose="tagClose" @comment="comment" :rows="rows" /> 
       <MessageList @reply="reply" :lists="commentList" :isLoading="isLoading" :isNext="isNext" />
     </div>
   </div>
@@ -48,6 +48,7 @@ export default {
         pageNum: 1,
       },
       len: 0,
+      rows: 6, // input的高
       isLoading: false,
       isNext: true
     };
@@ -55,6 +56,7 @@ export default {
   async created () {
     await this.getDetail(this.$route.params.id, JSON.parse(localStorage.getItem('userInfo')).id); // 获取详情
     await this.markdownRender() // markdown 加载
+    this.setInputHeight()
   },
   mounted () {
     this.getComData() // 加载留言列表
@@ -145,6 +147,11 @@ export default {
         this.$message({ type: 'error', message: '您已经喜欢过这篇文章啦~~', offset: 60 })
       }
     },
+
+    setInputHeight () {
+      const width = document.documentElement.clientWidth
+      width <= 600 && (this.rows = 4)
+    },
   }
 };
 </script>
@@ -193,42 +200,17 @@ export default {
 @media screen and (max-width: 600px) {
   .detail {
     .content {
-      padding-top: 60px;
+      padding-top: 30px;
     }
-  }
-}
-</style>
-<style lang="less">
-.markdown-body {
-  box-sizing: border-box;
-  min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px;
-}
-.markdown-body pre {
-  background-color: #353535 !important;
-  border-radius: 12px !important;
-  font-size: 90% !important;
-}
-@media screen and (min-width: 968px) {
-  .markdown-body {
-    font-size: 16px !important;
-  }
-}
-.hljs-comment {
-  color: #848991 !important;
-}
-.hljs-keyword {
-  color: #6ab0f3 !important;
-}
-code {
-  color: #b3b9c5 !important;
-  font-weight: 400 !important;
-}
-@media (max-width: 767px) {
-  .markdown-body {
-    padding: 15px;
+    .title {
+      font-size: 26px;
+      padding-top: 88px;
+    }
+    .status {
+      span {
+        font-size: 12px;
+      }
+    }
   }
 }
 </style>

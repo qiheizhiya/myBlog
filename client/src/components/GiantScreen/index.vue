@@ -1,8 +1,8 @@
 <template>
   <div class="max">
     <div id="scene" class="img-outer">
-      <div data-depth="0.4" class="move-outer flex align-center justify-center"  >
-        <img src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/main.jpg" :width="imgWidth" :height="imgHeight" >
+      <div data-depth="0.4" class="layer" >
+        <img src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/main.jpg" class="moveImg" :width="imgWidth" :height="imgHeight" >
       </div>
     </div>
     <div class="header flex align-center space-between">
@@ -26,7 +26,6 @@ export default {
     return {
       imgWidth: null,
       imgHeight: null,
-      drawer: false,
       date: {}
     }
   },
@@ -46,9 +45,6 @@ export default {
 		})
   },
   methods: {
-    drawHandle () {
-      this.drawer = !this.drawer
-    },
     async getYearMonthDay () {
       const date = new Date()
       const year = date.getFullYear()
@@ -62,7 +58,7 @@ export default {
 </script>
 <style lang="less" scoped>
   #scene{
-    height: 100%;
+    // height: 100%;
     position: relative;
     overflow: hidden;
     #image{
@@ -75,7 +71,6 @@ export default {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    transform-style: preserve-3d;
     position: relative;
     z-index: 9999;
     .img-outer {
@@ -83,17 +78,14 @@ export default {
       height: 100%;
       pointer-events: none;
     }
-    .move-outer {
-      backface-visibility: hidden;
-      img {
-        margin-bottom: 20px;
-        top: -30px;
-        left: 50%;
-        transform: translateX(-50%);
-        position: absolute;
-        max-width: none;
-        display: block;
-      }
+    .moveImg {
+      margin-bottom: 20px;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      position: absolute;
+      max-width: none;
+      display: block;
     }
   }
   .header {

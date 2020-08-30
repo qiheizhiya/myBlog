@@ -100,3 +100,11 @@ exports.getHomeInfo = async function() {
   }
 }
 
+// 获取指定的用户信息
+exports.getAboutMe = async function (id) {
+  const result = await User.findOne({
+    where: { id: 1 },
+    attributes: ['aboutMe']
+  })
+  return result.toJSON()
+}

@@ -1,5 +1,4 @@
 // 发送请求的时候，如果有token，需要附带在请求头中
-// 响应的时候，如果有token，保存到本地
 // 响应的时候，如果响应的消息码是403( 没有token，token失效),在本地删除token
 import axios from 'axios'
 import { Message } from "element-ui"

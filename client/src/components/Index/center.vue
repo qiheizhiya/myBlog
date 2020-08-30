@@ -53,7 +53,7 @@ export default {
             { name:' 主页',icon:'iconfont icon-wenzhangguanli', path:'/exhibit' },
             { name:' 文章列表',icon:'iconfont icon-wenzhangguanli', path:'/articleList' },
             { name:' 听雨',icon:'iconfont icon-xiangce', path:'/Rainy' },
-            { name:' Demo',icon:'iconfont icon-ziyuan', path:'/demo' },
+            // { name:' Demo',icon:'iconfont icon-ziyuan', path:'/demo' },
             { name:' 关于我',icon:'iconfont icon-liuyanban', path:'/self' },
             { name:' 留言版',icon:'iconfont icon-liuyanban', path:'/message' },
             { name:' Github',icon:'iconfont icon-GitHub', path:'https://github.com/qiheizhiya/myBlog' },
@@ -662,11 +662,12 @@ body {
 }
 @media screen and (max-width: 700px){
     #center {
-      .navgation {
-        i {
-          margin: 6px;
-          font-size: 15px;
-        }
+      .navgation i{
+        margin: 6px;
+        font-size: 14px;
+      }
+      .talk-method i {
+        font-size: 14px;
       }
     }
   }

@@ -7,23 +7,23 @@ import { throttle } from '@/utils'
 export default {
     name: 'scrollBar',
     data () {
-        return {
-            bar: 0,
-            throttleScrollHandle: ''
-        }
+      return {
+        bar: 0,
+        throttleScrollHandle: ''
+      }
     },
     created () {
-        this.throttleScrollHandle = throttle(this.scrollHandle, 100)
-        window.addEventListener('scroll', this.throttleScrollHandle)
+      this.throttleScrollHandle = throttle(this.scrollHandle, 100)
+      window.addEventListener('scroll', this.throttleScrollHandle)
     },
     methods: {
-        scrollHandle () {
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
-            const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-            const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-            let bar = Math.ceil(scrollTop) / Math.ceil(scrollHeight - windowHeight) * 100
-            this.bar = bar
-        }
+      scrollHandle () {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset 
+        const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+        let bar = Math.ceil(scrollTop) / Math.ceil(scrollHeight - windowHeight) * 100
+        this.bar = bar
+      }
     }
 }
 </script>

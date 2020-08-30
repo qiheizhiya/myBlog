@@ -17,7 +17,7 @@ export default {
         position: fixed;
         top: 0;
         width: 100%;
-        height: 3px;
+        height: 4px;
         z-index: 100000;
         background-image: linear-gradient(90deg, #2ae0c8, #a2e1d4, #acf6ef, #fe6673, #e6e2c3, #e3c887, #fad8be, #fbb8ac, #bdf3d4, #cbf5fb );
         animation: move 2s linear infinite ;

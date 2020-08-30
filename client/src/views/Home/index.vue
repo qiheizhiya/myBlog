@@ -60,4 +60,9 @@ export default {
     100% { background-position-x: 0%;}
   }
 }
+@media screen and (max-width: 700px) {
+  .beian {
+    font-size: 15px !important;
+  }
+}
 </style>

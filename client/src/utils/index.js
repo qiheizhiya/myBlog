@@ -52,22 +52,26 @@ export async function valiFunc(arr) {
 }
 
 export function bottomHandle (isScroll, callback) {
-  window.onscroll = throttle(scrollChange.bind(null, isScroll, callback), 200)
+  // window.onscroll = throttle(scrollChange.bind(null, isScroll, callback), 200)
+  window.addEventListener('scroll', throttleScroll(isScroll, callback), 200)
 }
 
 export function clearBottomHandle () {
-  window.onscroll = null
+  window.removeEventListener('scroll', throttleScroll)
 }
 
 
 function scrollChange (isScroll, callback) {
   if (!isScroll()) return
-  console.log(111)
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  const scrollTop = Math.ceil(document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset)
   const windowHeight = document.documentElement.clientHeight || document.body.clientHeight
-  const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+  const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight || window.scrollHeight
   if (scrollTop + windowHeight >= scrollHeight) {
     console.log(scrollTop, windowHeight, scrollHeight)
     callback()
   }
 }
+
+// 节流滚动方法
+const throttleScroll = (isScroll, callback) => throttle(scrollChange.bind(null, isScroll, callback), 200)
+

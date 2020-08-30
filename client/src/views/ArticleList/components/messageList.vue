@@ -36,7 +36,7 @@
     </div>
     <div class="loader flex align-center justify-center">
       <Loader v-show="isLoading"/>
-      <span class="notMany" v-show="!isLoading && !isNext">没有更多评论了~~O(∩_∩)O</span>
+      <!-- <span class="notMany" v-show="!isLoading && !isNext">没有更多评论了~~O(∩_∩)O</span> -->
     </div>
   </div>
 </template>
@@ -176,7 +176,15 @@ export default {
   }
 }
 @media screen and (max-width: 600px){
+  .loader {
+    height: 30px;
+    margin-top: 10px;
+    .notMany {
+      font-size: 14px !important;
+    }
+  }
   .message {
+    margin-top: 30px;
     .messageList {
       .ml-info {
         .avatar-name {

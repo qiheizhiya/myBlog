@@ -67,14 +67,12 @@ export default {
   methods: {
     ...mapMutations(['setUserInfo']),
     handleAvatarSuccess(res, file) {
-      console.log(res.data)
       this.form.avatar = res.data
       this.$message.success('图片上传成功')
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png';
       const isLt2M = file.size / 1024 / 1024 < 2;
-
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 或者 PNG 格式!');
       }

@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="loader flex align-center justify-center">
-      <Loader v-show="isLoading"/>
+      <Loader v-show="isLoading && !pageLoad"/>
       <span class="notMany" v-show="!isLoading && !isNext">没有更多留言了~~O(∩_∩)O</span>
     </div>
   </div>
@@ -40,6 +40,10 @@ export default {
     isNext: {
       type: Boolean,
       default: true
+    },
+    pageLoad: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -145,6 +149,10 @@ export default {
   }
 }
 @media screen and (max-width: 600px){
+  .loader {
+    height: 30px;
+    margin-top: 20px;
+  }
   .message {
     .messageList {
       .ml-info {

@@ -58,6 +58,23 @@ const routes = [
     ]
   },
   {
+    path: "/about",
+    name: "About",
+    redirect: 'aboutMe',
+    meta: {
+      name: '关于我',
+      icon: 'icon-tiyu'
+    },
+    component: Layout,
+    children: [
+      {
+        path: "/aboutMe",
+        name: "aboutMe",
+        component: () => import("../views/AboutMe")
+      }
+    ]
+  },
+  {
     path: "/comment",
     name: "Comment",
     redirect: 'commentList',
@@ -93,8 +110,12 @@ const routes = [
   },
 ];
 
+let base = ''
+process.env.NODE_ENV === 'production' ? base = '/back/' : base = ''
+
 const router = new VueRouter({
   mode: 'history',
+  base,
   routes
 });
 

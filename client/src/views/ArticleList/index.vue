@@ -19,7 +19,7 @@
       </ul>
     </div>
     <div class="footer">
-      <Loader v-show="isLoading"/>
+      <Loader v-show="isLoading && !pageLoad"/>
       <span class="notMany" v-show="!isLoading && !pageLoad">没有更多了~~O(∩_∩)O</span>
     </div> 
   </div>
@@ -50,8 +50,7 @@ export default {
     requestDatas: {
       handler() {
         this.$nextTick(() => {
-          new WOW({ live: false, offset: 0,boxClass: `wow${this.wowNum}`, }).init()
-          this.wowNum++
+          new WOW({ live: false, offset: 0,boxClass: `wow${this.wowNum++}`, }).init()
         })
       }
     }
@@ -79,7 +78,7 @@ export default {
         this.isLoading = false
         this.len += len
         this.isNext = this.len !== total
-      }, 1000)
+      }, 500)
     }
   }
 };
@@ -136,12 +135,10 @@ export default {
                 transition: all .6s;
               }
               span:nth-of-type(odd):hover {
-                color: #008c8c;
-                transform: skewY(2deg);
-              }
-              span:nth-of-type(even):hover {
-                color: #008c8c;
-                transform: skewY(-2deg);
+                text-decoration: none;
+                background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'%3E%3Cpath fill='none' stroke='blue' d='M0 3.5c5 0 5-3 10-3s5 3 10 3 5-3 10-3 5 3 10 3'/%3E%3C/svg%3E") repeat-x 0 100%;
+                background-size: 20px auto;
+                animation: waveMove 1s infinite linear;
               }
               span {
                 color: #a1a0d6;
