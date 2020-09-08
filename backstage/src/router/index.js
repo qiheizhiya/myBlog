@@ -114,7 +114,7 @@ let base = ''
 process.env.NODE_ENV === 'production' ? base = '/back/' : base = ''
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base,
   routes
 });

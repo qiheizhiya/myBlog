@@ -12,7 +12,7 @@
     <div class="mask"></div>
     <div class="info">
       <div class="time">{{date.month}} {{date.day}}, {{date.year}}</div>
-      <div class="title">你好，我叫隆杰！</div>
+      <div class="title">欢迎光临！！</div>
       <div class="content">眼里有光，心中有爱，一路春暖花开，看淡得失，珍惜拥有，不负时光，不负自己，所有美好，都将如期而至</div>
     </div>
   </div>

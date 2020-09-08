@@ -4,7 +4,7 @@ const CompressionPlugin = require("compression-webpack-plugin"); // gzip压缩
 
 module.exports = {
   // 基本路径
-  publicPath: process.env.NODE_ENV === 'production' ? '/back/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
   // 输出文件目录
   outputDir: process.env.NODE_ENV === 'production' ? path.resolve(__dirname, '../public/back') : 'devdist',
   // eslint-loader 是否在保存的时候检查
@@ -33,7 +33,7 @@ module.exports = {
       threshold: 1024,
       minRatio: 0.8,
       //删除原始文件只保留压缩后的文件
-      deleteOriginalAssets: process.env.NODE_ENV === 'production'
+      // deleteOriginalAssets: process.env.NODE_ENV === 'production'
     }))
   },
   // 生产环境是否生成 sourceMap 文件

@@ -25,48 +25,53 @@
       <span class="status offline"></span>
     </div>
     <div class="navgation flex align-center justify-center flex-wrap">
-        <i v-for="(item, index) in navgation" @click="triggerPage(item.path)" :key="index" :class="item.icon">
-            {{item.name}}
-        </i>
-        <i @click="triggerPage('/login')" class="iconfont icon-yonghu" v-if="!isToken">
-            登陆
-        </i>
-        <i @click="triggerPage('logoff')" class="iconfont icon-yonghu" v-else>
-            注销
-        </i>
+      <i
+        v-for="(item, index) in navgation"
+        @click="triggerPage(item.path)"
+        :key="index"
+        :class="item.icon"
+      >{{item.name}}</i>
+      <i @click="triggerPage('/login')" class="iconfont icon-user" v-if="!isToken"> 登陆</i>
+      <i @click="triggerPage('logoff')" class="iconfont icon-user" v-else> 注销</i>
     </div>
     <div class="talk-method flex align-center">
-      <i class="iconfont icon-weixin1 flex align-center"  ><span >：qwer880620</span> </i>
-      <i class="iconfont icon-QQ">：953136447
+      <i class="iconfont icon-weixin1 flex align-center">
+        <span>：qwer880620</span>
       </i>
+      <i class="iconfont icon-QQ">：953136447</i>
     </div>
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
   name: "center",
-  computed: mapState(['isToken']),
+  computed: mapState(["isToken"]),
   data() {
     return {
-       navgation: [
-            { name:' 主页',icon:'iconfont icon-wenzhangguanli', path:'/exhibit' },
-            { name:' 文章列表',icon:'iconfont icon-wenzhangguanli', path:'/articleList' },
-            { name:' 听雨',icon:'iconfont icon-xiangce', path:'/Rainy' },
-            // { name:' Demo',icon:'iconfont icon-ziyuan', path:'/demo' },
-            { name:' 关于我',icon:'iconfont icon-liuyanban', path:'/self' },
-            { name:' 留言版',icon:'iconfont icon-liuyanban', path:'/message' },
-            { name:' Github',icon:'iconfont icon-GitHub', path:'https://github.com/qiheizhiya/myBlog' },
-        ]
+      navgation: [
+        { name:' 主页',icon:'iconfont icon-wenzhangguanli', path:'/exhibit' },
+        { name:' 文章列表',icon:'iconfont icon-wenzhangguanli', path:'/articleList' },
+        { name:' 听雨',icon:'iconfont icon-xiangce', path:'/Rainy' },
+        { name:' 关于我',icon:'iconfont icon-liuyanban', path:'/self' },
+        { name:' 留言版',icon:'iconfont icon-liuyanban', path:'/message' },
+        { name:' Github',icon:'iconfont icon-GitHub', path:'https://github.com/qiheizhiya/myBlog' },
+      ]
     };
+  },
+  created () {
+    const clientWidth = document.documentElement.clientWidth || document.body.clientWidth
+    if (clientWidth >= 800) {
+      this.navgation.splice(3, 0, { name:' Demo',icon:'iconfont icon-ziyuan', path:'/demo' })
+    }
   },
   methods: {
     triggerPage(path) {
       if (path === "https://github.com/qiheizhiya/") {
         window.open(path);
-      } else if (path === 'logoff') {
-        this.$store.dispatch('clearToken')
-        this.$message.success('注销成功')
+      } else if (path === "logoff") {
+        this.$store.dispatch("clearToken");
+        this.$message.success("注销成功");
       } else {
         this.$router.push(path);
       }
@@ -553,15 +558,15 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%; 
+  height: 100%;
   .navgation {
     i {
-      margin: .2rem;
+      margin: 0.2rem;
     }
   }
   .navgation,
   .talk-method {
-    margin: .4rem 0;
+    margin: 0.4rem 0;
     white-space: nowrap;
     font-size: 16px;
     color: white;
@@ -660,15 +665,15 @@ body {
   background-color: #000;
   overflow: hidden;
 }
-@media screen and (max-width: 700px){
-    #center {
-      .navgation i{
-        margin: 6px;
-        font-size: 14px;
-      }
-      .talk-method i {
-        font-size: 14px;
-      }
+@media screen and (max-width: 700px) {
+  #center {
+    .navgation i {
+      margin: 6px;
+      font-size: 14px;
+    }
+    .talk-method i {
+      font-size: 14px;
     }
   }
+}
 </style>

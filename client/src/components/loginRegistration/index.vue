@@ -12,7 +12,7 @@
     />
     <label for="username">账号</label>
   </div>
-  <transition name="el-fade-in-linear">
+  <transition name="fade">
     <div class="form-control" v-if="type === 1">
       <input
         type="text"
@@ -272,6 +272,19 @@ export default {
 @media screen and ( max-width: 600px ) {
   .login-form {
     padding: 26px 20px !important;
+    h1 {
+      margin: 0 0 24px 0;
+      font-size: 24px;
+    }
+  }
+  .form-control {
+    width: 40vw;
+    margin: 18px 0;
+  }
+  .code {
+    width: 80px;
+    right: -80px !important;
+    top: -5px !important;
   }
 }
 </style>
