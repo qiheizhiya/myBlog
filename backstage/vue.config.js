@@ -4,7 +4,7 @@ const CompressionPlugin = require("compression-webpack-plugin"); // gzip压缩
 
 module.exports = {
   // 基本路径
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/back/' : '/',
   // 输出文件目录
   outputDir: process.env.NODE_ENV === 'production' ? path.resolve(__dirname, '../public/back') : 'devdist',
   // eslint-loader 是否在保存的时候检查
@@ -21,6 +21,10 @@ module.exports = {
         '@img': path.resolve(__dirname, './src/assets/img'),
         '@c': path.resolve(__dirname, './src/components'),
       }
+    },
+    config.externals = { // 不打包elementUi和Vue 使用cdn的方式引入
+      "element-ui": "ELEMENT",
+      'vue': 'Vue'
     },
     config.optimization.minimizer[0].options.terserOptions.compress = { drop_console: process.env.NODE_ENV === 'production', drop_debugger: false, pure_funcs: ['console.log'] } // 移除console
     config.plugins.push(new CompressionPlugin({

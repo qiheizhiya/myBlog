@@ -29,7 +29,7 @@ const routes = [
     redirect: 'index',
     meta: {
       name: '主页',
-      icon: 'icon-tiyu'
+      icon: 'el-icon-s-home'
     },
     component: Layout,
     children: [
@@ -46,7 +46,7 @@ const routes = [
     redirect: 'addArt',
     meta: {
       name: '发布文章',
-      icon: 'icon-tiyu'
+      icon: 'el-icon-position'
     },
     component: Layout,
     children: [
@@ -63,7 +63,7 @@ const routes = [
     redirect: 'aboutMe',
     meta: {
       name: '关于我',
-      icon: 'icon-tiyu'
+      icon: 'el-icon-watermelon'
     },
     component: Layout,
     children: [
@@ -80,7 +80,7 @@ const routes = [
     redirect: 'commentList',
     meta: {
       name: '评论列表',
-      icon: 'icon-tiyu'
+      icon: 'el-icon-chat-dot-square'
     },
     component: Layout,
     children: [
@@ -97,7 +97,7 @@ const routes = [
     redirect: 'setting',
     meta: {
       name: '设置',
-      icon: 'icon-tiyu'
+      icon: 'el-icon-setting'
     },
     component: Layout,
     children: [

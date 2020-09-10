@@ -10,7 +10,7 @@
       <el-menu :default-active="defaultPath" active-text-color="#0d80ff" :router="true" class="el-menu-vertical-demo">
         <template v-for="(router) in routes" >
           <el-menu-item :index="router.path" :key="router.path" v-if="!router.hidden" class="flex align-center thunk">
-            <i class="el-icon-menu" :class="router.meta.icon"></i>
+            <i :class="router.meta.icon"></i>
             <span slot="title">{{router.meta.name}}</span>
           </el-menu-item>
         </template>
