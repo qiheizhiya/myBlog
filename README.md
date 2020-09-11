@@ -138,4 +138,4 @@ ossEncrypt.js
 
 开源不易，需鼓励，可以的话请不要白嫖(手动狗头)
 
-![1](https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20200911125745.jpg)
+![1](https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/zhifubaoerweima.jpg)
