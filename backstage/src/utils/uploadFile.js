@@ -6,7 +6,6 @@ process.env.NODE_ENV === 'production' ? baseURL = 'http://www.llongjie.top:5008'
 
 const ins = axios.create({
   baseURL,
-  timeout: 15000,
   withCredentials: true
 })
 

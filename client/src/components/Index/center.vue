@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     triggerPage(path) {
-      if (path === "https://github.com/qiheizhiya/") {
+      if (path === "https://github.com/qiheizhiya/myBlog") {
         window.open(path);
       } else if (path === "logoff") {
         this.$store.dispatch("clearToken");

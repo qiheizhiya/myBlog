@@ -1,4 +1,10 @@
-import Vue from "vue";
+// import Vue from "vue";
+
+// 引入elementUi
+// import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
+// Vue.use(ElementUI)
+// 引入elementUi
 
 import App from "./App.vue";
 
@@ -6,11 +12,6 @@ import router from "./router/handler";
 
 import store from "./store";
 
-// 引入elementUi
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI)
-// 引入elementUi
 
 // 引入全局组件Header
 import Header from "@c/Header"
@@ -61,3 +62,9 @@ new Vue({
 }).$mount("#app");
 
 
+if (process.env.NODE_ENV == 'development') {
+  Vue.config.devtools = true
+} else {
+  Vue.config.devtools = false
+  Vue.config.productionTip = false
+}

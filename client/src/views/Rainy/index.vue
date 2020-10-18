@@ -118,7 +118,8 @@ export default {
         }
     }
     .rain-bg{
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
     }
     .words{
         position: fixed;
@@ -180,6 +181,8 @@ export default {
             left: 60%;
             top: 50%;
             transform: translate(-50%,-50%);
+            height: 100%;
+            width: auto;
         }
         .option{
             width: auto;

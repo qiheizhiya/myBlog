@@ -112,7 +112,7 @@ export default {
             ...this.ruleForm,
             imgUrl: this.imgUrl,
             musicUrl: this.musicUrl,
-            content: this.content
+            content: this.ruleForm.content
           }
           add(data).then(res => {
             this.$message.success('添加文章成功')

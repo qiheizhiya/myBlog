@@ -14,6 +14,8 @@ const port = 5008 // 端口
 
 app.use(require('./errorMiddleware')) // 错误处理中间件
 
+app.use(require('./apiLoggerMiddleware')) // API请求日志
+
 app.use(cors({
   credentials: true // 服务端下发到客户端的 response 中头部字段，意义是允许客户端携带验证信息
 }));

@@ -6,7 +6,7 @@
     <div class="tables">
       <el-table :data="tableData" :header-row-style="{background: 'none'}" v-loading="loading" style="width: 100%">
       <el-table-column v-for="(item, index) in tableColumn" :key="index" :prop="item.prop" :label="item.label"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" v-if="userInfo.id === 1">
          <template slot-scope="scope">
            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -21,6 +21,7 @@
 
 <script>
 import { list, deleteWord } from '@/api/word'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -41,6 +42,7 @@ export default {
   created () {
     this.getLists()
   },
+  computed: { ...mapState(['userInfo']) },
   methods: {
     async getLists () {
       this.loading = true

@@ -29,7 +29,7 @@
       <el-form-item label="座右铭">
         <el-input v-model="form.motto"></el-input>
       </el-form-item>
-      <el-form-item v-if="userInfo.id === 1">
+      <el-form-item >
         <el-button type="primary" @click="onSubmit">保存</el-button>
       </el-form-item>
     </el-form>

@@ -12,7 +12,11 @@
     <div class="mask"></div>
     <div class="info">
       <div class="time">{{date.month}} {{date.day}}, {{date.year}}</div>
-      <div class="title">欢迎光临！！</div>
+      <div class="title">欢迎光临！！
+        <transition name="el-fade-in-linear">
+          <span v-show="!hiddenText" class="tipsText">请向下滚动</span>
+        </transition>
+      </div>
       <div class="content">眼里有光，心中有爱，一路春暖花开，看淡得失，珍惜拥有，不负时光，不负自己，所有美好，都将如期而至</div>
     </div>
   </div>
@@ -20,12 +24,14 @@
 <script>
 import Parallax from 'parallax-js'
 import { debounce } from '@/utils'
+import { setTimeout } from 'timers'
 export default {
   name: 'giantScreen',
   data () {
     return {
       imgWidth: null,
       imgHeight: null,
+      hiddenText: false,
       date: {}
     }
   },
@@ -42,7 +48,8 @@ export default {
 		const parallaxInstance = new Parallax(scene, {
 			relativeInput: true,
 			clipRelativeInput: true,
-		})
+    })
+    this.hiddenTextEmit()
   },
   methods: {
     async getYearMonthDay () {
@@ -52,11 +59,22 @@ export default {
       const day = date.getDate()
       const result = `${year}-${month}-${day} ${123}`
       this.date = await this.$store.dispatch('dataHandle', { createdAt: result })
+    },
+    hiddenTextEmit () {
+      setTimeout( () => { this.hiddenText = true }, 3000)
     }
   }
 }
 </script>
 <style lang="less" scoped>
+  @keyframes move {
+    from {
+      transform: translateY(0px);
+    }
+    to {
+      transform: translateY(-20px);
+    }
+  }
   #scene{
     // height: 100%;
     position: relative;
@@ -87,6 +105,12 @@ export default {
       max-width: none;
       display: block;
     }
+  }
+  .tipsText {
+    color: greenyellow;
+    font-weight: bold;
+    display: inline-block;
+    animation: move .6s infinite alternate;
   }
   .header {
     padding: 0 40px;
@@ -175,4 +199,5 @@ export default {
       transform: none;
     }
   }
+
 </style>

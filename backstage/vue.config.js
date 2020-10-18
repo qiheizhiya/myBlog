@@ -26,7 +26,8 @@ module.exports = {
       "element-ui": "ELEMENT",
       'vue': 'Vue'
     },
-    config.optimization.minimizer[0].options.terserOptions.compress = { drop_console: process.env.NODE_ENV === 'production', drop_debugger: false, pure_funcs: ['console.log'] } // 移除console
+    process.env.NODE_ENV === 'production' ? config.mode = 'production' : config.mode = 'development'
+    // config.optimization.minimizer[0].options.terserOptions.compress = { drop_console: process.env.NODE_ENV === 'production', drop_debugger: false, pure_funcs: ['console.log'] } // 移除console
     config.plugins.push(new CompressionPlugin({
       filename: '[path].gz[query]',
       //压缩算法

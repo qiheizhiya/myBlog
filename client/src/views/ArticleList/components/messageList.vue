@@ -24,7 +24,7 @@
             <img :src="children.user.avatar" />
           </div>
           <div class="reply-date flex align-center space-between">
-              <div class="name flex align-center">{{list.user.userName}}<el-tag class="master" effect="dark" size="mini" v-if="list.user.id === 1" >站主</el-tag> </div>
+              <div class="name flex align-center">{{children.user.userName}}<el-tag class="master" effect="dark" size="mini" v-if="children.user.id === 1" >站主</el-tag> </div>
               <div class="flex algin-center">
                 <div class="reply" @click="setInput(children.user, list.id)">回复</div>
                 <div class="date">{{children.createdAt}}</div>
@@ -159,6 +159,7 @@ export default {
       padding-left: 52px;
       white-space: pre-wrap;
       font-size: 14px;
+      word-break: break-all;
     }
   }
 }
