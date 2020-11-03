@@ -1,0 +1,41 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "sync": "node models/sync"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qiheizhiya/myBlog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qiheizhiya/myBlog/issues"
+  },
+  "homepage": "https://github.com/qiheizhiya/myBlog#readme",
+  "devDependencies": {
+    "@types/node": "^14.0.23",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "ali-oss": "^6.10.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-log4": "^2.3.2",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^9.1.0",
+    "koa-session": "^6.0.0",
+    "koa-static": "^5.0.0",
+    "moment": "^2.27.0",
+    "mysql2": "^2.1.0",
+    "path-to-regexp": "^6.1.0",
+    "sequelize": "^6.3.3",
+    "svg-captcha": "^1.4.0"
+  }
+}
