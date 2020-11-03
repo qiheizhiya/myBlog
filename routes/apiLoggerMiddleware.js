@@ -6,7 +6,9 @@ module.exports = async (ctx, next) => {
         await next();
     }
     finally {
-        apiLogger.debug(`${ctx.method} ${ctx.path} ${JSON.stringify(ctx.body)}`)
+        if (ctx.type === 'application/json') {
+            apiLogger.debug(`${ctx.method} ${ctx.path} ${JSON.stringify(ctx.body)}`)
+        }
     }
 
 };

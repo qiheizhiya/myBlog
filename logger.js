@@ -14,7 +14,9 @@ log4js.configure({
             }
         },
         default: {
-            type: 'stdout'
+            type: 'stdout',
+            maxLogSize: 1024 * 1024, // 配置文件的最大字节数
+            keepFileExt: 3, // 最多保存3天
         }
     },
     categories: {
