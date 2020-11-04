@@ -19,7 +19,10 @@
         class="upload"
         drag
         :action="mainUrl + '/ossUpload'"
+        :headers="token"
+        :on-error="uploadError"
         accept="image/*"
+        :disabled="userInfo.id !== 1"
         :on-success="handleAvatarSuccess"
         :show-file-list="false"
         :before-upload="beforeAvatarUpload"
@@ -33,6 +36,9 @@
         drag
         :show-file-list="false"
         accept="audio/*"
+        :disabled="userInfo.id !== 1"
+        :headers="token"
+        :on-error="uploadError"
         :action="mainUrl + '/ossUpload'"
         :on-success="handleMusicSuccess"
         :before-upload="beforeMusicUpload"
@@ -71,6 +77,9 @@ export default {
       imgUrl: '',
       musicUrl: '',
       musicText: '背景音乐',
+      token: {
+        authorization: "bearer " + localStorage.getItem('token')
+      }
     }
   },
   components: { Markdown },
@@ -100,7 +109,6 @@ export default {
       this.$message.success('音频上传成功')
     },
     contentChange (e) {
-      console.log(e)
       this.ruleForm.content = e
     },
     addArticle () {
@@ -119,6 +127,9 @@ export default {
           })
         }
       })
+    },
+    uploadError (e) {
+      this.$message.error(JSON.parse(e.message).msg)
     }
   }
 }

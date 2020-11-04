@@ -4,7 +4,9 @@ const jwt = require('./jwt')
 const needTokenApi = [
   { method: "POST", path: "/api/article/addArticle" },
   { method: "GET", path: "/api/user/whoami" },
-  { method: "GET", path: "/api/user/getHomeInfo"}
+  { method: "GET", path: "/api/user/getHomeInfo" },
+  { method: "POST", path: "/ossUpload" },
+  { method: "POST", path: "/upload" }
 ];
 module.exports = async (ctx, next) => {
   const apis = needTokenApi.filter(api => {

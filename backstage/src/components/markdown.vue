@@ -6,6 +6,7 @@
 
 <script>
 import { uploadImg } from '@/api/user'
+import { mapState } from 'vuex'
 export default {
   props: {
     defaultContent: {
@@ -13,6 +14,7 @@ export default {
       default: ''
     }
   },
+  computed: { ...mapState(['userInfo']) },
   data () {
     return {
       content: ''
@@ -35,7 +37,10 @@ export default {
       this.$emit('contentChange', this.content)
     },
     async imgAdd (pos, $file) {
-      console.log(pos, $file)
+      if (!this.userInfo.id !== 1) {
+        this.$message.error('您并不是管理员哦~无法上传图片')
+        return
+      }
       const formdata = new FormData();
       formdata.append('file', $file);
       console.log(formdata.get('file'))

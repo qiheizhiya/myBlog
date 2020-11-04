@@ -230,6 +230,7 @@ export default {
         font-size: 12px;
         padding-left: 0;
         margin-top: 10px;
+        word-break: break-all;
       }
     }
   }

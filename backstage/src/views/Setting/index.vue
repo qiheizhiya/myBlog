@@ -9,6 +9,8 @@
           class="avatar-uploader"
           :action="mainUrl + '/ossUpload'"
           :disabled="userInfo.id !== 1"
+          :headers="token"
+          :on-error="uploadError"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload">
@@ -45,6 +47,9 @@ export default {
   data () {
     return {
       imageUrl: '',
+      token: {
+        authorization: "bearer " + localStorage.getItem('token')
+      },
       form: {
         userName: '',
         birthday: '',
@@ -80,6 +85,9 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
+    },
+    uploadError (e) {
+      this.$message.error(JSON.parse(e.message).msg)
     },
     onSubmit () {
       updateUserInfo(this.form).then(res => {
