@@ -18,7 +18,8 @@ module.exports = async (ctx, next) => {
     return
   }
   const result = jwt.verify(ctx)
-  if (result) {
+  const isPass = result && (result.id === 1 || ctx.path === '/api/user/whoami' || ctx.path === '/api/user/getHomeInfo')
+  if (isPass) {
     ctx.request.userId = result.id
     await next()
   } else {
