@@ -15,7 +15,7 @@
 看到这里了，请你们不要白嫖，点个[star(O(∩_∩)O)](https://github.com/qiheizhiya/myBlog)
 
 ### 前台页面
-- 页面设计 借鉴开源项目**白茶**
+- 页面设计 借鉴开源项目[**白茶**](https://github.com/wsydxiangwang/Mood)
   
 **支持PC端和移动端，响应式页面，更多页面戏节让你去发掘**
 
