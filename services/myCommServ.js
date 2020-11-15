@@ -3,7 +3,7 @@ const User = require('../models/tables/user')
 const { limitComment } = require('./utils')
 
 exports.addMyComment = async function (commentInfo, ctx) {
-    const isAllow = limitComment(ctx, 29, 2) // 2分钟内不能超过两条 
+    const isAllow = limitComment(ctx, 2, 2) // 2分钟内不能超过两条 
     if (isAllow) {
         const ins = await myWord.create(commentInfo)
         return ins.toJSON()

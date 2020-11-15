@@ -1,13 +1,13 @@
 <template>
   <div class="inputOuter">
     <div class="inputContent" :class="hiddenOuter ? 'hiddenOuter' : ''">
-      <el-input v-model="userName" v-if="!isPerfect" :class="hiddenOuter ? 'outerInput' : ''" maxlength="10" show-word-limit class="userName" placeholder="用户名称"></el-input>
+      <el-input v-model.trim="userName" v-if="!isPerfect" :class="hiddenOuter ? 'outerInput' : ''" maxlength="10" show-word-limit class="userName" placeholder="用户名称"></el-input>
       <div>
         <transition name="el-fade-in-linear">
           <el-tag effect="dark" closable class="tag" @close="tagClose" v-if="aiteName" size="small" >@{{aiteName}}</el-tag>
         </transition>
       </div>
-      <el-input type="textarea" :rows="rows" placeholder="请输入内容" maxlength="130" show-word-limit resize="none" v-model="userContent"  class="userContent" ></el-input>
+      <el-input type="textarea" :rows="rows" placeholder="请输入内容" maxlength="130" show-word-limit resize="none" v-model.trim="userContent"  class="userContent" ></el-input>
       <Button :styles="{width: rows === 4 ? '80px' : '100px', height: rows === 4 ? '26px' : '34px', borderRadius: '10px'}" text="提交"  @onclick="comment" />
     </div>
   </div>

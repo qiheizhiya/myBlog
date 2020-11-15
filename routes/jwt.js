@@ -1,4 +1,4 @@
-const secrect = "longjie"
+const secrect = "longjiegege"
 const jwt = require("jsonwebtoken")
 const { getResult } = require('./getSendMessage')
 // 颁发jwt
