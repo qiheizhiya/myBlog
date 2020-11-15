@@ -15,7 +15,7 @@
 看到这里了，请你们不要白嫖，点个[star(O(∩_∩)O)](https://github.com/qiheizhiya/myBlog)
 
 ### 前台页面
-- 页面设计 借鉴开源项目**白茶**
+- 页面设计 借鉴开源项目[**白茶**](https://github.com/wsydxiangwang/Mood)
   
 **支持PC端和移动端，响应式页面，更多页面戏节让你去发掘**
 
@@ -128,7 +128,7 @@ ossEncrypt.js
 
 接下来就可以愉快的玩耍了
 
-**确保数据库信息填写正确之后 在根目录输入在 npm sync 同步数据库，提示同步完成即可**
+**确保数据库信息填写正确之后 在根目录输入在 npm run sync 同步数据库，提示同步完成即可**
 **然后输入npm start 开启服务，这样本地服务就跑起来了**
 **接下来就跟平时开发一样跑前端就行了，进入client或者backstage 输入 npm run dev 进入开发模式**
 
