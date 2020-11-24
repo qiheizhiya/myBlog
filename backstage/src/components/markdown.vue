@@ -37,7 +37,7 @@ export default {
       this.$emit('contentChange', this.content)
     },
     async imgAdd (pos, $file) {
-      if (!this.userInfo.id !== 1) {
+      if (this.userInfo.id !== 1) {
         this.$message.error('您并不是管理员哦~无法上传图片')
         return
       }
