@@ -4,8 +4,7 @@
 import axios from 'axios'
 import { Message } from "element-ui"
 
-let baseURL = ''
-process.env.NODE_ENV === 'production' ? baseURL = 'http://www.llongjie.top:5008' : baseURL = 'http://localhost:5008'
+const baseURL = process.env.VUE_APP_URL
 
 const ins = axios.create({
   baseURL,

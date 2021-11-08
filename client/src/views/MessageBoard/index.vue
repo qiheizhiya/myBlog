@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-column align-center" v-loading.fullscreen.lock="pageLoad">
-    <Header src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/longzhu.mp3" midText="留言列表" />
+    <Header src="https://efiles.oss-cn-shenzhen.aliyuncs.com/file/longzhu.mp3" midText="留言列表" />
     <div class="content">
       <MessageInput @comment="comment" :rows="5" :hiddenOuter="true" v-if="!pageLoad" />
       <MessageList :datas="commentList" :isLoading="isLoading" :pageLoad="pageLoad" :isNext="isNext" />

@@ -6,7 +6,7 @@
 
         <!-- <span class="logo iconfont icon-logo4" @click="toIndex"></span> -->
 
-        <img class="rain-bg" src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/rain-bg.gif" draggable="false">
+        <img class="rain-bg" src="https://efiles.oss-cn-shenzhen.aliyuncs.com/file/rain-bg.gif" draggable="false">
         <img class="words" src="@img/rain/words.png" draggable="false">
 
         <ul class="option flex align-center" v-show="show">
@@ -35,25 +35,25 @@ export default {
                 {
                     on: require('@img/rain/rain_on.png'),
                     off: require('@img/rain/rain_off.png'),
-                    music: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/thunder.mp3',
+                    music: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/thunder.mp3',
                     active: false
                 },
                 {
                     on: require('@img/rain/rain2_on.png'),
                     off: require('@img/rain/rain2_off.png'),
-                    music: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/loudThunder.mp3',
+                    music: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/loudThunder.mp3',
                     active: false
                 },
                 {
                     on: require('@img/rain/rain3_on.png'),
                     off: require('@img/rain/rain3_off.png'),
-                    music: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/rain.mp3',
+                    music: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/rain.mp3',
                     active: false
                 },
                 {
                     on: require('@img/rain/rain4_on.png'),
                     off: require('@img/rain/rain4_off.png'),
-                    music: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/bizhibian.mp3',
+                    music: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/bizhibian.mp3',
                     active: false
                 }
             ],

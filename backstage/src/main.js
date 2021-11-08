@@ -17,9 +17,7 @@ Vue.use(mavonEditor)
 
 Vue.use(ElementUI)
 
-let mainUrl = ''
-process.env.NODE_ENV === 'production' ? mainUrl = 'http://www.llongjie.top:5008' : mainUrl = 'http://localhost:5008'
-Vue.prototype.mainUrl = mainUrl
+Vue.prototype.mainUrl = process.env.VUE_APP_URL
 
 Vue.config.productionTip = false;
 

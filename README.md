@@ -420,7 +420,7 @@ index.html
     <meta name="anthor" content="XXX，123456789@qq.com">
     <meta name="robots" content="博客, 前端, blog, 个人博客, XXX, Yong,XXX的博客,web,VUE,React">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-    <link rel="icon" href="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/favicon.ico">
+    <link rel="icon" href="https://efiles.oss-cn-shenzhen.aliyuncs.com/file/favicon.ico">
     <!-- 使用CDN的CSS文件 -->
     <% for (var i in htmlWebpackPlugin.options.cdn &&
     htmlWebpackPlugin.options.cdn.css) { %>
@@ -531,4 +531,4 @@ vue.config.js
 
 开源不易，需鼓励，可以的话请不要白嫖(手动狗头)
 
-![1](https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/zhifubaoerweima.jpg)
+![1](https://efiles.oss-cn-shenzhen.aliyuncs.com/file/zhifubaoerweima.jpg)

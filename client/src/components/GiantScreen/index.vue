@@ -2,7 +2,7 @@
   <div class="max">
     <div id="scene" class="img-outer">
       <div data-depth="0.4" class="layer" >
-        <img src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/main.jpg" class="moveImg" :width="imgWidth" :height="imgHeight" >
+        <img src="https://efiles.oss-cn-shenzhen.aliyuncs.com/file/main.jpg" class="moveImg" :width="imgWidth" :height="imgHeight" >
       </div>
     </div>
     <div class="header flex align-center space-between">

@@ -125,7 +125,7 @@ export default {
 
 <style lang="less" scoped>
 .outer {
-  background: url('https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/pianoBg.jpg');
+  background: url('https://efiles.oss-cn-shenzhen.aliyuncs.com/file/pianoBg.jpg');
   width: 100%;
   height: 100%;
   z-index: 2000;

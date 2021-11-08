@@ -8,7 +8,7 @@
     <div class="right flex align-center">
       <i class="iconfont" :class="isLike ? 'icon-xin' : 'icon-xinheart118'" v-if="showLike" @click="$emit('like', isLike)"></i>
       <router-link :to="{name: 'Self'}">
-        <img src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/adminAvatar.jpg" alt />
+        <img src="https://efiles.oss-cn-shenzhen.aliyuncs.com/file/adminAvatar.jpg" alt />
       </router-link>
       
     </div>
@@ -44,7 +44,7 @@ export default {
   props: {
     music: {
       type: String,
-      default: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/xingzhisuozai.mp3'
+      default: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/xingzhisuozai.mp3'
     },
     isLike: {
       type: Boolean,

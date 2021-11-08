@@ -24,6 +24,9 @@ exports.getArtList = async function (page = 1, limit = 10, isHome = false) {
     order: [
       ['createdAt', 'DESC']
     ],
+    attributes: {
+      exclude: ['content']
+    },
     include: [
       {
         model: ArticleWord

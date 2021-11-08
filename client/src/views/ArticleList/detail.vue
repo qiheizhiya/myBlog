@@ -47,7 +47,6 @@ export default {
         pageSize: 10,
         pageNum: 1,
       },
-      len: 0,
       rows: 6, // input的高
       isLoading: false,
       isNext: true
@@ -126,9 +125,7 @@ export default {
       const { len, total } = result.data.data
       setTimeout(() => {
         this.commentList = result.data.data
-        console.log(this.commentList)
-        this.len += len
-        this.isNext = this.len < total
+        this.isNext = len < total
         this.isLoading = false
       }, 1000)
     },

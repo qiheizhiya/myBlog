@@ -1,6 +1,9 @@
 const Koa = require('koa')
 const path = require("path")
-
+const http = require('http')
+const https = require('https')
+const fs = require('fs')
+const sslify = require('koa-sslify').default // https
 const staticMid = require('koa-static') // 静态资源中间件
 const staticPath = path.resolve(__dirname, '../public')  // 静态资源目录
 const cors = require('@koa/cors')
@@ -12,12 +15,18 @@ const router = require('./api/sync') // 引入总路由
 const app = new Koa() // 创建一个koa实例
 const port = 5008 // 端口
 
+const options = {
+  key: fs.readFileSync(path.resolve(__dirname, '../encrypt/server.key')),
+  cert: fs.readFileSync(path.resolve(__dirname, '../encrypt/server.pem'))
+}
+app.use(sslify())
 app.use(require('./errorMiddleware')) // 错误处理中间件
 
 app.use(require('./apiLoggerMiddleware')) // API请求日志
 
 app.use(cors({
-  credentials: true // 服务端下发到客户端的 response 中头部字段，意义是允许客户端携带验证信息
+  credentials: true, // 服务端下发到客户端的 response 中头部字段，意义是允许客户端携带验证信息
+  origin: 'https://localhost'
 }));
 
 // 引入session
@@ -33,6 +42,12 @@ app.use(bodyParserMid()) // 引入解析body的中间件
 // app.use(require("./captchaMiddleware").captchaHandler)
 app.use(router.routes()).use(router.allowedMethods())
 
-app.listen(port, () => {
-  console.log(`开始监听${port}端口`)
+// app.listen(port, () => {
+//   console.log(port + '成功');
+// })
+http.createServer(app.callback()).listen(5007, () => {
+  console.log('5007, http链接成功');
+})
+https.createServer(options, app.callback()).listen(port, () => {
+  console.log('5008, https链接成功');
 })

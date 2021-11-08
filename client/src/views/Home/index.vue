@@ -53,6 +53,7 @@ export default {
     font-weight: bold;
     letter-spacing: 2px;
     font-size: 16px;
+    white-space: nowrap;
   }
   @keyframes change {
     0% { background-position-x: 0%;}
@@ -62,7 +63,7 @@ export default {
 }
 @media screen and (max-width: 700px) {
   .beian {
-    font-size: 15px !important;
+    font-size: 14px !important;
   }
 }
 </style>

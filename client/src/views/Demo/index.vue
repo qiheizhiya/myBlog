@@ -25,10 +25,10 @@ export default {
   data () {
     return {
       demos: [
-        { id: 0, bgSrc: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/demoImg1.jpg', name: '钢琴', active: false, width: '25%' },
-        { id: 1, bgSrc: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/demoImg2.jpg', name: '贪吃蛇', active: false, width: '25%' },
-        { id: 2, bgSrc: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/demoImg3.jpg', name: '跳跳鸟', active: false, width: '25%' },
-        { id: 3, bgSrc: 'https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/demoImg4.jpg', name: '音乐播放器', active: false, width: '25%' },
+        { id: 0, bgSrc: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/demoImg1.jpg', name: '钢琴', active: false, width: '25%' },
+        { id: 1, bgSrc: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/demoImg2.jpg', name: '贪吃蛇', active: false, width: '25%' },
+        { id: 2, bgSrc: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/demoImg3.jpg', name: '跳跳鸟', active: false, width: '25%' },
+        { id: 3, bgSrc: 'https://efiles.oss-cn-shenzhen.aliyuncs.com/file/demoImg4.jpg', name: '音乐播放器', active: false, width: '25%' },
       ],
       showClose: false,
       loading: false,

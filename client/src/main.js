@@ -44,8 +44,7 @@ import 'github-markdown-css/github-markdown.css'
 Vue.config.productionTip = false;
 
 // 设置请求域名
-let mainUrl = ''
-process.env.NODE_ENV === 'production' ? mainUrl = 'http://www.llongjie.top:5008' : mainUrl = 'http://localhost:5008'
+let mainUrl = process.env.VUE_APP_URL
 Vue.prototype.mainUrl = mainUrl
 
 // 添加百度统计

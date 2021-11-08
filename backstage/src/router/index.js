@@ -21,7 +21,7 @@ const routes = [
       name: "登陆",
       icon: 'icon-dili'
     },
-    component: () => import("../views/Login/index.vue")
+    component: () => import(/* webpackChunkName: "login" */ "../views/Login/index.vue")
   },
   {
     path: "/home",
@@ -36,7 +36,7 @@ const routes = [
       {
         path: "/index",
         name: "index",
-        component: () => import("../views/Work")
+        component: () => import(/* webpackChunkName: "home" */ "../views/Work")
       }
     ]
   },
@@ -53,7 +53,7 @@ const routes = [
       {
         path: "/addArt",
         name: "AddArt",
-        component: () => import("../views/AddArt")
+        component: () => import( /* webpackChunkName: "article" */"../views/AddArt")
       }
     ]
   },
@@ -70,7 +70,7 @@ const routes = [
       {
         path: "/aboutMe",
         name: "aboutMe",
-        component: () => import("../views/AboutMe")
+        component: () => import(/* webpackChunkName: "about" */"../views/AboutMe")
       }
     ]
   },
@@ -87,7 +87,7 @@ const routes = [
       {
         path: "/commentList",
         name: "CommentList",
-        component: () => import("../views/Comment")
+        component: () => import(/* webpackChunkName: "comment" */ "../views/Comment")
       }
     ]
   },
@@ -104,7 +104,7 @@ const routes = [
       {
         path: "/setting",
         name: "Setting",
-        component: () => import("../views/Setting")
+        component: () => import(/* webpackChunkName: "set" */"../views/Setting")
       }
     ]
   },

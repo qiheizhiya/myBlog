@@ -15,7 +15,7 @@ exports.addUser = async function (adminObj) {
   })
   // 如果已经被创建了
   if (!created) return
-  const avatarSrc = `https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/avatar${getRandom(1, 9)}.jpg`
+  const avatarSrc = `https://efiles.oss-cn-shenzhen.aliyuncs.com/file/avatar${getRandom(1, 9)}.jpg`
   result.avatar = avatarSrc
   result.save()
   return result.toJSON()

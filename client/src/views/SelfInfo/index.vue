@@ -7,7 +7,7 @@
         <div class="block flex align-center ">
           <i class="iconfont icon-weixin1"></i>
           <div class="hide-block">
-            <img src="https://qiheizhiya.oss-cn-shenzhen.aliyuncs.com/image/wxImg.jpg" alt="">
+            <img src="https://efiles.oss-cn-shenzhen.aliyuncs.com/file/wxImg.jpg" alt="">
           </div>
         </div>
         <div class="block flex align-center ">
