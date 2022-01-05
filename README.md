@@ -528,7 +528,3 @@ vue.config.js
 
 微信号：qwer880620
 
-
-开源不易，需鼓励，可以的话请不要白嫖(手动狗头)
-
-![1](https://efiles.oss-cn-shenzhen.aliyuncs.com/file/zhifubaoerweima.jpg)
