@@ -12,7 +12,7 @@ import '@/assets/font/iconfont.css';
 
 // 引入markDown 编辑器
 import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/index.css'
+import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
 
 Vue.use(ElementUI)
