@@ -52,7 +52,6 @@ export async function valiFunc(arr) {
 }
 
 export function bottomHandle (isScroll, callback) {
-  // window.onscroll = throttle(scrollChange.bind(null, isScroll, callback), 200)
   window.addEventListener('scroll', throttleScroll(isScroll, callback), 200)
 }
 

@@ -12,13 +12,14 @@ const cdn = {
     "element-ui": "ELEMENT",
   },
   css: [
-    'https://lib.baomitu.com/element-ui/2.13.2/theme-chalk/index.css'
+    // 'https://cdn.jsdelivr.net/npm/element-ui@2.13.2/lib/theme-chalk/index.css'
+    'https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.3/theme-chalk/index.min.css'
   ],
   js: [
     'https://cdn.bootcss.com/vue/2.6.10/vue.min.js',
     'https://cdn.bootcss.com/vue-router/3.1.3/vue-router.min.js',
     'https://cdn.bootcss.com/vuex/3.1.2/vuex.min.js',
-    'https://lib.baomitu.com/element-ui/2.13.2/index.js',
+    'https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.3/index.min.js',
     'https://cdn.bootcss.com/axios/0.19.2/axios.min.js'
   ]
 }

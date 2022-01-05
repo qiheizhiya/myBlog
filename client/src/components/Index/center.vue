@@ -80,6 +80,10 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+#center {
+  // .text-overflow()
+  color: @color;
+}
 *,
 *:before,
 *:after {
