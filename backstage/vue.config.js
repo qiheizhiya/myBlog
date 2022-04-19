@@ -22,10 +22,10 @@ module.exports = {
         '@c': path.resolve(__dirname, './src/components'),
       }
     },
-    config.externals = { // 不打包elementUi和Vue 使用cdn的方式引入
-      "element-ui": "ELEMENT",
-      'vue': 'Vue'
-    },
+    // config.externals = { // 不打包elementUi和Vue 使用cdn的方式引入
+    //   "element-ui": "ELEMENT",
+    //   'vue': 'Vue'
+    // },
     process.env.NODE_ENV === 'production' ? config.mode = 'production' : config.mode = 'development'
     // config.optimization.minimizer[0].options.terserOptions.compress = { drop_console: process.env.NODE_ENV === 'production', drop_debugger: false, pure_funcs: ['console.log'] } // 移除console
     config.plugins.push(new CompressionPlugin({
